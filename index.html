@@ -4390,7 +4390,205 @@
       }
     }
 
-    @media (min-width: 720px) {
+    /* Responsive foundation: dynamic browser chrome, safe areas and compact screens. */
+    html,
+    body {
+      min-height: 100%;
+      min-height: 100dvh;
+      overflow-x: hidden;
+    }
+
+    .app {
+      min-height: 100svh;
+      min-height: 100dvh;
+    }
+
+    .app.home.has-tabbar {
+      height: 100svh;
+      height: 100dvh;
+    }
+
+    .app.home .home-screen {
+      min-height: calc(100svh - 70px - env(safe-area-inset-bottom));
+      min-height: calc(100dvh - 70px - env(safe-area-inset-bottom));
+    }
+
+    .app.vocabStudy {
+      height: 100svh;
+      height: 100dvh;
+      max-height: none;
+      aspect-ratio: auto;
+    }
+
+    .app.scene.phrase-page,
+    .app.scene.vocabulary-page,
+    .app.scene.learning-module-page {
+      min-height: 100svh;
+      min-height: 100dvh;
+    }
+
+    .bottom-nav {
+      width: min(100vw, 390px);
+    }
+
+    @media (max-width: 340px), (max-height: 620px) {
+      .app.home.has-tabbar {
+        scroll-snap-type: none;
+      }
+
+      .app.home .home-screen {
+        min-height: auto;
+        padding-top: 20px;
+        padding-bottom: calc(96px + env(safe-area-inset-bottom));
+      }
+
+      .app.home .home-primary {
+        align-content: start;
+        gap: 18px;
+      }
+
+      .home-header {
+        gap: 16px;
+      }
+
+      .home-brand h1 {
+        font-size: 30px;
+      }
+
+      .home-summary {
+        padding-block: 11px;
+      }
+
+      .app.home .today-panel {
+        gap: 10px;
+      }
+
+      .app.home .today-card {
+        gap: 12px;
+        padding: 16px;
+      }
+
+      .app.home .today-copy h2 {
+        font-size: 20px;
+      }
+
+      .today-meta span {
+        min-height: 26px;
+        padding: 4px 8px;
+      }
+
+      .today-card-footer {
+        min-height: 46px;
+      }
+
+      .app.home .scroll-hint {
+        display: none;
+      }
+
+      .app.home .home-secondary {
+        padding-top: 24px;
+      }
+
+      .immersion-progress {
+        padding-block: 11px 13px;
+      }
+
+      .immersion-main {
+        padding-top: 16px;
+      }
+
+      .immersion-learning-card {
+        height: auto;
+        min-height: 360px;
+        padding: 24px 16px;
+      }
+
+      .immersion-example {
+        min-height: 132px;
+        margin-top: 16px;
+        padding: 16px;
+      }
+
+      .immersion-favorite {
+        margin-top: 14px;
+      }
+    }
+
+    @media (orientation: landscape) and (max-height: 600px) {
+      body {
+        background: #ffffff;
+      }
+
+      .app {
+        min-height: 100dvh;
+        margin-block: 0;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+      }
+
+      .app.home.has-tabbar {
+        width: min(100%, 760px);
+        scroll-snap-type: none;
+      }
+
+      .app.home .home-primary {
+        min-height: calc(100dvh - 70px);
+        grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+        align-items: center;
+        align-content: center;
+        gap: 24px;
+        padding: 18px 24px 88px;
+      }
+
+      .app.home .home-header {
+        gap: 14px;
+      }
+
+      .app.home .home-brand h1 {
+        font-size: 30px;
+      }
+
+      .app.home .today-card {
+        gap: 10px;
+        padding: 15px;
+      }
+
+      .app.home .today-copy h2 {
+        font-size: 19px;
+      }
+
+      .app.home .today-card-footer {
+        min-height: 44px;
+      }
+
+      .app.home .scroll-hint {
+        display: none;
+      }
+
+      .app.home .home-secondary {
+        min-height: auto;
+        padding-inline: 24px;
+      }
+
+      .scene-browser {
+        min-height: 440px;
+      }
+
+      .scene-course-panel {
+        min-height: 440px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      input,
+      textarea,
+      select {
+        font-size: 16px;
+      }
+    }
+
+    @media (min-width: 720px) and (min-height: 700px) {
       body {
         background: #ecefea;
       }
