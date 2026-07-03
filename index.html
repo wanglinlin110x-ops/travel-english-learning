@@ -6216,11 +6216,84 @@
       return matched / expectedTokens.length;
     }
 
+    function textSimilarity(input, expected) {
+      const source = normalizeEnglish(input);
+      const target = normalizeEnglish(expected);
+      if (!source || !target) return 0;
+      const rows = target.length + 1;
+      const columns = source.length + 1;
+      const matrix = Array.from({ length: rows }, (_, row) => {
+        const values = Array(columns).fill(0);
+        values[0] = row;
+        return values;
+      });
+      for (let column = 0; column < columns; column += 1) matrix[0][column] = column;
+      for (let row = 1; row < rows; row += 1) {
+        for (let column = 1; column < columns; column += 1) {
+          const cost = target[row - 1] === source[column - 1] ? 0 : 1;
+          matrix[row][column] = Math.min(
+            matrix[row - 1][column] + 1,
+            matrix[row][column - 1] + 1,
+            matrix[row - 1][column - 1] + cost
+          );
+        }
+      }
+      return 1 - matrix[target.length][source.length] / Math.max(target.length, source.length);
+    }
+
+    function pronunciationAssessment(transcript, targetText, confidence) {
+      const targetTokens = meaningfulTokens(targetText);
+      const transcriptTokens = new Set(meaningfulTokens(transcript));
+      const matchedTokens = targetTokens.filter(token => transcriptTokens.has(token));
+      const missingTokens = targetTokens.filter(token => !transcriptTokens.has(token));
+      const coverage = targetTokens.length ? matchedTokens.length / targetTokens.length : 0;
+      const similarity = textSimilarity(transcript, targetText);
+      const usableConfidence = Number.isFinite(confidence) && confidence > 0 ? Math.min(confidence, 1) : null;
+      const score = usableConfidence === null
+        ? coverage * 0.65 + similarity * 0.35
+        : coverage * 0.55 + similarity * 0.30 + usableConfidence * 0.15;
+      return {
+        score: Math.round(score * 100),
+        missingTokens
+      };
+    }
+
     function canUseSpeechRecognition() {
       return window.SpeechRecognition || window.webkitSpeechRecognition;
     }
 
-    function startPronunciationCheck(targetText, feedbackId) {
+    function microphoneErrorMessage(error) {
+      if (location.protocol === "file:" || !window.isSecureContext || !navigator.mediaDevices?.getUserMedia) {
+        return "麦克风只能在受支持的 HTTPS 页面中使用。请通过本站公网链接打开，并使用系统浏览器重试。";
+      }
+      if (error?.name === "NotAllowedError" || error?.name === "SecurityError") {
+        return "麦克风权限未开启。请在浏览器地址栏的网站设置中允许麦克风，然后再次点击检测。";
+      }
+      if (error?.name === "NotFoundError" || error?.name === "DevicesNotFoundError") {
+        return "没有检测到可用麦克风。请连接或启用麦克风后重试。";
+      }
+      if (error?.name === "NotReadableError" || error?.name === "TrackStartError") {
+        return "麦克风可能正被其他应用占用。关闭其他录音或通话应用后再试。";
+      }
+      return "麦克风没有启动成功。请检查系统和浏览器权限后重试。";
+    }
+
+    async function requestMicrophoneAccess() {
+      if (location.protocol === "file:" || !window.isSecureContext || !navigator.mediaDevices?.getUserMedia) {
+        throw new DOMException("Microphone requires a secure context", "SecurityError");
+      }
+      const stream = await navigator.mediaDevices.getUserMedia({
+        audio: {
+          echoCancellation: { ideal: true },
+          noiseSuppression: { ideal: true },
+          autoGainControl: { ideal: true }
+        },
+        video: false
+      });
+      stream.getTracks().forEach(track => track.stop());
+    }
+
+    async function startPronunciationCheck(targetText, feedbackId) {
       if (state.activeRecognitionId) {
         state.speechFeedback[feedbackId] = {
           type: "warn",
@@ -6239,31 +6312,63 @@
         return;
       }
 
+      state.activeRecognitionId = feedbackId;
+      state.speechFeedback[feedbackId] = { type: "", text: "正在请求麦克风权限..." };
+      render();
+
+      try {
+        await requestMicrophoneAccess();
+      } catch (error) {
+        state.activeRecognitionId = "";
+        state.speechFeedback[feedbackId] = {
+          type: "warn",
+          text: microphoneErrorMessage(error)
+        };
+        render();
+        return;
+      }
+
       const recognition = new Recognition();
       recognition.lang = "en-US";
       recognition.interimResults = false;
-      recognition.maxAlternatives = 1;
-      state.activeRecognitionId = feedbackId;
+      recognition.maxAlternatives = 3;
       state.speechFeedback[feedbackId] = { type: "", text: "正在听你说，请读出上面的英文。" };
       render();
 
       recognition.onresult = event => {
         state.activeRecognitionId = "";
-        const transcript = event.results[0][0].transcript;
-        const score = answerScore(transcript, targetText);
-        const good = score >= 0.6;
+        const result = event.results[0][0];
+        const transcript = result.transcript;
+        const assessment = pronunciationAssessment(transcript, targetText, result.confidence);
+        const good = assessment.score >= 85;
+        const acceptable = assessment.score >= 70;
+        const missingHint = assessment.missingTokens.length
+          ? ` 重点再读：${assessment.missingTokens.join(", ")}。`
+          : "";
+        const levelText = good
+          ? "清晰可识别"
+          : acceptable
+            ? "基本可识别，可以再练得更清楚"
+            : "识别偏差较大，建议先听慢速发音再试";
         state.speechFeedback[feedbackId] = {
           type: good ? "good" : "warn",
-          text: `${good ? "发音识别通过。需要计入进度时，请手动点击标记按钮。" : "识别不够接近，可以再听一遍慢速发音。"} 识别结果：${transcript}`
+          text: `可识别度 ${assessment.score} 分：${levelText}。识别结果：${transcript}。${missingHint}本结果不代表口音或音素专业评分。`
         };
         render();
       };
 
-      recognition.onerror = () => {
+      recognition.onerror = event => {
         state.activeRecognitionId = "";
+        const errorText = event.error === "not-allowed" || event.error === "service-not-allowed"
+          ? "语音识别权限未开启，请检查浏览器的网站权限。"
+          : event.error === "no-speech"
+            ? "没有听到清晰语音。请靠近麦克风，在安静环境中再读一次。"
+            : event.error === "audio-capture"
+              ? "无法获取麦克风声音，请检查设备和系统权限。"
+              : "语音识别没有完成，请稍后重试。";
         state.speechFeedback[feedbackId] = {
           type: "warn",
-          text: "没有完成识别。请检查麦克风权限，或用手动按钮记录练习。"
+          text: errorText
         };
         render();
       };
@@ -6283,7 +6388,7 @@
     function speechFeedbackHtml(id) {
       const feedback = state.speechFeedback[id];
       if (!feedback) return "";
-      return `<div class="speech-result ${feedback.type}">${feedback.text}</div>`;
+      return `<div class="speech-result ${feedback.type}" role="status" aria-live="polite">${escapeHtml(feedback.text)}</div>`;
     }
 
     function toggleFavorite(id) {
