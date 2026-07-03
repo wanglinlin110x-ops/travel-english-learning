@@ -4126,33 +4126,99 @@
     .confirm-overlay {
       position: fixed;
       inset: 0;
-      z-index: 40;
+      z-index: 100;
       display: grid;
-      place-items: end center;
-      padding: 18px 18px calc(18px + env(safe-area-inset-bottom));
-      background: rgba(10, 14, 12, 0.36);
+      place-items: center;
+      padding: max(24px, env(safe-area-inset-top)) 24px max(24px, env(safe-area-inset-bottom));
+      background: rgba(21, 28, 39, 0.48);
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+      animation: modal-overlay-in 180ms ease-out both;
     }
 
     .confirm-dialog {
-      width: min(100%, 440px);
-      padding: 18px;
-      border-radius: 22px;
-      background: var(--panel);
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow-lift);
+      width: min(100%, 336px);
+      max-height: min(560px, calc(100dvh - 48px));
+      overflow: auto;
+      padding: 24px;
+      border: 1px solid rgba(21, 28, 39, 0.08);
+      border-radius: 20px;
+      background: #ffffff;
+      box-shadow: 0 24px 72px rgba(21, 28, 39, 0.22);
+      animation: modal-dialog-in 220ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+      overscroll-behavior: contain;
+      outline: none;
     }
 
     .confirm-dialog h3 {
       margin: 0;
-      font-size: 18px;
-      font-weight: 860;
+      color: #151c27;
+      font-size: 20px;
+      line-height: 1.4;
+      font-weight: 780;
+      text-align: center;
     }
 
     .confirm-dialog p {
-      margin: 8px 0 0;
-      color: var(--muted);
-      line-height: 1.55;
+      margin: 10px 0 0;
+      color: rgba(21, 28, 39, 0.58);
       font-size: 14px;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    .confirm-dialog .actions {
+      margin-top: 24px;
+    }
+
+    .confirm-dialog .actions.single-action {
+      grid-template-columns: 1fr;
+    }
+
+    .confirm-dialog .actions button {
+      min-width: 0;
+      min-height: 48px;
+      padding: 0 16px;
+      border-radius: 999px;
+      font-size: 15px;
+      font-weight: 720;
+    }
+
+    .confirm-dialog .actions .primary-btn {
+      border-color: #151c27;
+      color: #ffffff;
+      background: #151c27;
+    }
+
+    .confirm-dialog .actions .secondary-btn {
+      border-color: rgba(21, 28, 39, 0.10);
+      color: #151c27;
+      background: #f5f7f3;
+    }
+
+    .confirm-dialog .actions button:active {
+      transform: scale(0.98);
+    }
+
+    .app.dialog-open {
+      overflow: hidden;
+    }
+
+    @keyframes modal-overlay-in {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes modal-dialog-in {
+      from { opacity: 0; transform: translateY(10px) scale(0.97); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .confirm-overlay,
+      .confirm-dialog {
+        animation: none;
+      }
     }
 
     .chat {
@@ -5507,6 +5573,7 @@
       vocabStudyDone: false,
       vocabStudyEntry: "scene",
       showVocabExitConfirm: false,
+      noticeDialog: null,
       expandedVocabIds: [],
       detailReturnView: "scene",
       returnView: "learn",
@@ -5787,7 +5854,7 @@
     function speak(text, rate = SPEECH_RATE_NORMAL, options = {}) {
       if (!("speechSynthesis" in window)) {
         if (!options.silent) {
-          alert("当前浏览器不支持语音播放，可以直接阅读英文文本练习。");
+          showNoticeDialog("暂时无法播放语音", "当前浏览器不支持语音播放，可以先阅读英文文本进行练习。");
         }
         return false;
       }
@@ -6233,7 +6300,53 @@
       if (state.view === "vocabStudy") renderVocabStudy();
       if (state.view === "globalChat") renderGlobalChat();
       if (state.view === "favorites") renderFavorites();
+      renderDialogLayer();
       scheduleVocabStudyAutoPlay();
+    }
+
+    function renderDialogLayer() {
+      let dialog = "";
+      if (state.showVocabExitConfirm) {
+        dialog = `
+          <div class="confirm-overlay" role="presentation">
+            <section class="confirm-dialog" role="alertdialog" aria-modal="true" aria-labelledby="exitStudyTitle" aria-describedby="exitStudyDescription" tabindex="-1">
+              <h3 id="exitStudyTitle">确定退出今日学习吗？</h3>
+              <p id="exitStudyDescription">已掌握的词汇会保留，未完成的内容之后可以继续学习。</p>
+              <div class="actions">
+                <button class="secondary-btn" onclick="cancelVocabStudyExit()">继续学习</button>
+                <button class="primary-btn" onclick="confirmVocabStudyExit()">确定退出</button>
+              </div>
+            </section>
+          </div>
+        `;
+      } else if (state.noticeDialog) {
+        dialog = `
+          <div class="confirm-overlay" role="presentation" onclick="closeNoticeDialog()">
+            <section class="confirm-dialog" role="alertdialog" aria-modal="true" aria-labelledby="noticeDialogTitle" aria-describedby="noticeDialogDescription" tabindex="-1" onclick="event.stopPropagation()">
+              <h3 id="noticeDialogTitle">${escapeHtml(state.noticeDialog.title)}</h3>
+              <p id="noticeDialogDescription">${escapeHtml(state.noticeDialog.message)}</p>
+              <div class="actions single-action">
+                <button class="primary-btn" onclick="closeNoticeDialog()">我知道了</button>
+              </div>
+            </section>
+          </div>
+        `;
+      }
+      if (dialog) {
+        app.classList.add("dialog-open");
+        app.insertAdjacentHTML("beforeend", dialog);
+        window.setTimeout(() => app.querySelector(".confirm-dialog")?.focus(), 0);
+      }
+    }
+
+    function showNoticeDialog(title, message) {
+      state.noticeDialog = { title, message };
+      render();
+    }
+
+    function closeNoticeDialog() {
+      state.noticeDialog = null;
+      render();
     }
 
     function scheduleVocabStudyAutoPlay() {
@@ -6713,18 +6826,6 @@
             </div>
           </footer>
         `}
-        ${state.showVocabExitConfirm ? `
-          <div class="confirm-overlay" role="dialog" aria-modal="true" aria-labelledby="exitStudyTitle">
-            <div class="confirm-dialog">
-              <h3 id="exitStudyTitle">确定退出今日学习吗？</h3>
-              <p>本页已标记掌握的词汇会保留。退出后将回到首页，未完成的词汇之后还可以继续学。</p>
-              <div class="actions">
-                <button class="secondary-btn" onclick="cancelVocabStudyExit()">继续学习</button>
-                <button class="primary-btn" onclick="confirmVocabStudyExit()">确定退出</button>
-              </div>
-            </div>
-          </div>
-        ` : ""}
       `;
     }
 
@@ -7394,6 +7495,15 @@
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#039;");
     }
+
+    document.addEventListener("keydown", event => {
+      if (event.key !== "Escape") return;
+      if (state.noticeDialog) {
+        closeNoticeDialog();
+      } else if (state.showVocabExitConfirm) {
+        cancelVocabStudyExit();
+      }
+    });
 
     render();
   </script>
