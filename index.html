@@ -33,6 +33,10 @@
       --radius-lg: 22px;
       --radius-md: 16px;
       --radius-sm: 12px;
+      --app-shell-width: 390px;
+      --primary-titlebar-height: 58px;
+      --secondary-titlebar-height: 52px;
+      --tabbar-control-height: 52px;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
     }
 
@@ -4431,6 +4435,123 @@
       width: min(100vw, 390px);
     }
 
+    /* Shared app shell: page transitions must not shift width or navigation controls. */
+    .app,
+    .app.home,
+    .app.learn,
+    .app.favorites,
+    .app.vocabDetail,
+    .app.vocabStudy,
+    .app.globalChat,
+    .app.scene.phrase-page,
+    .app.scene.vocabulary-page,
+    .app.scene.learning-module-page {
+      width: min(100%, var(--app-shell-width));
+    }
+
+    .learn-titlebar,
+    .review-titlebar {
+      height: var(--primary-titlebar-height);
+      min-height: var(--primary-titlebar-height);
+      padding-inline: 20px;
+    }
+
+    .topbar,
+    .phrase-page .topbar,
+    .vocabulary-page .topbar,
+    .learning-module-page .topbar,
+    .detail-page .topbar,
+    .standalone-chat-page .topbar,
+    .immersion-titlebar {
+      height: var(--secondary-titlebar-height);
+      min-height: var(--secondary-titlebar-height);
+      grid-template-columns: 44px minmax(0, 1fr) 44px;
+      gap: 0;
+      padding: 0 12px;
+      background: #ffffff;
+      border-bottom: 1px solid rgba(21, 28, 39, 0.08);
+    }
+
+    .topbar {
+      display: grid;
+    }
+
+    .topbar::after {
+      content: "";
+    }
+
+    .topbar .topbar-mark {
+      display: none;
+    }
+
+    .topbar .back-btn,
+    .phrase-page .topbar .back-btn,
+    .vocabulary-page .topbar .back-btn,
+    .learning-module-page .topbar .back-btn,
+    .detail-page .topbar .back-btn,
+    .standalone-chat-page .topbar .back-btn,
+    .immersion-back-button {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      align-self: center;
+      border: 0;
+      border-radius: 50%;
+      padding: 0;
+      color: #151c27;
+      background: transparent;
+      box-shadow: none;
+      font-size: 0;
+    }
+
+    .topbar .back-btn svg,
+    .immersion-back-button svg {
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .topbar h2,
+    .phrase-page .topbar h2,
+    .vocabulary-page .topbar h2,
+    .learning-module-page .topbar h2,
+    .detail-page .topbar h2,
+    .standalone-chat-page .topbar h2,
+    .immersion-titlebar h1 {
+      align-self: center;
+      margin: 0;
+      color: #151c27;
+      font-size: 17px;
+      line-height: 1.25;
+      font-weight: 760;
+      text-align: center;
+    }
+
+    .app.has-tabbar .bottom-nav {
+      width: min(100vw, var(--app-shell-width));
+      min-height: calc(73px + env(safe-area-inset-bottom));
+      padding: 10px 18px calc(10px + env(safe-area-inset-bottom));
+      border-color: rgba(21, 28, 39, 0.08);
+      background: rgba(255, 255, 255, 0.98);
+    }
+
+    .app.has-tabbar .nav-btn,
+    .app.learn .nav-btn {
+      height: var(--tabbar-control-height);
+      min-height: var(--tabbar-control-height);
+      border-radius: 12px;
+    }
+
+    .app.home .home-screen {
+      min-height: calc(100svh - 73px - env(safe-area-inset-bottom));
+      min-height: calc(100dvh - 73px - env(safe-area-inset-bottom));
+    }
+
     @media (max-width: 340px), (max-height: 620px) {
       .app.home.has-tabbar {
         scroll-snap-type: none;
@@ -4528,17 +4649,17 @@
       }
 
       .app.home.has-tabbar {
-        width: min(100%, 760px);
+        width: min(100%, var(--app-shell-width));
         scroll-snap-type: none;
       }
 
       .app.home .home-primary {
-        min-height: calc(100dvh - 70px);
-        grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-        align-items: center;
-        align-content: center;
-        gap: 24px;
-        padding: 18px 24px 88px;
+        min-height: auto;
+        grid-template-columns: 1fr;
+        align-items: start;
+        align-content: start;
+        gap: 18px;
+        padding: 18px 20px 88px;
       }
 
       .app.home .home-header {
@@ -6782,7 +6903,7 @@
       ];
       app.innerHTML = `
         <div class="topbar">
-          <button class="back-btn" onclick="goBack()" aria-label="返回上一页">‹</button>
+          <button class="back-btn" onclick="goBack()" aria-label="返回上一页">${lineIcon(`<path d="m15 18-6-6 6-6"/>`)}</button>
           <span class="topbar-mark">${sceneMark(scene.id)}</span>
           <h2>${scene.title}</h2>
         </div>
@@ -7065,7 +7186,7 @@
 
       app.innerHTML = `
         <div class="topbar">
-          <button class="back-btn" onclick="goBack()" aria-label="返回上一页">‹</button>
+          <button class="back-btn" onclick="goBack()" aria-label="返回上一页">${lineIcon(`<path d="m15 18-6-6 6-6"/>`)}</button>
           <span class="topbar-mark">${sceneMark(scene.id)}</span>
           <h2>词汇详情</h2>
         </div>
@@ -7280,7 +7401,7 @@
       const currentZh = current ? chatPromptZh(current) : "";
       app.innerHTML = `
         <div class="topbar">
-          <button class="back-btn" onclick="goBack()" aria-label="返回上一页">‹</button>
+          <button class="back-btn" onclick="goBack()" aria-label="返回上一页">${lineIcon(`<path d="m15 18-6-6 6-6"/>`)}</button>
           <span class="topbar-mark">${lineIcon(`<path d="M21 12a8 8 0 0 1-8 8H7l-4 2 1.6-4.4A8 8 0 1 1 21 12Z"/><path d="M8 12h.01M12 12h.01M16 12h.01"/>`)}</span>
           <h2>模拟聊天</h2>
         </div>
