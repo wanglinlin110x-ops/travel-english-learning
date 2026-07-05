@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>旅行常用英语</title>
+  <script src="./cloud-config.js"></script>
   <style>
     :root {
       color-scheme: light;
@@ -4552,6 +4553,116 @@
       min-height: calc(100dvh - 73px - env(safe-area-inset-bottom));
     }
 
+    .home-brand-row,
+    .titlebar-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .titlebar-actions {
+      justify-content: flex-end;
+    }
+
+    .cloud-status-button {
+      min-height: 34px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      flex: 0 0 auto;
+      border: 1px solid rgba(21, 28, 39, 0.09);
+      border-radius: 999px;
+      padding: 6px 10px;
+      color: rgba(21, 28, 39, 0.58);
+      background: #f6f7f6;
+      font-size: 11px;
+      line-height: 1;
+      font-weight: 680;
+    }
+
+    .cloud-status-button svg {
+      width: 15px;
+      height: 15px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .cloud-status-button.synced {
+      color: #3f6f16;
+      background: #f5f9ef;
+    }
+
+    .cloud-status-button.syncing svg {
+      animation: cloud-spin 900ms linear infinite;
+    }
+
+    @keyframes cloud-spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .sync-dialog {
+      width: min(100%, 350px);
+      text-align: left;
+    }
+
+    .sync-dialog p {
+      text-align: left;
+    }
+
+    .sync-state {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 18px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      color: #3f6f16;
+      background: #f5f9ef;
+      font-size: 13px;
+      font-weight: 680;
+    }
+
+    .sync-form {
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .sync-email-input {
+      width: 100%;
+      min-height: 48px;
+      border: 1px solid rgba(21, 28, 39, 0.12);
+      border-radius: 12px;
+      padding: 0 14px;
+      color: #151c27;
+      background: #ffffff;
+      outline: none;
+    }
+
+    .sync-email-input:focus {
+      border-color: #70ad37;
+      box-shadow: 0 0 0 3px rgba(112, 173, 55, 0.14);
+    }
+
+    .sync-dialog .sync-actions {
+      grid-template-columns: 1fr;
+      margin-top: 12px;
+    }
+
+    .sync-secondary-action {
+      min-height: 44px;
+      border: 0;
+      padding: 0 12px;
+      color: #3f6f16;
+      background: transparent;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
     @media (max-width: 340px), (max-height: 620px) {
       .app.home.has-tabbar {
         scroll-snap-type: none;
@@ -5883,6 +5994,16 @@
       listening: 5
     };
     const CHAT_TURN_LIMIT = 5;
+    const CLOUD_CONFIG = window.TRAVEL_ENGLISH_CLOUD || {};
+    const CLOUD_ENABLED = Boolean(CLOUD_CONFIG.supabaseUrl && CLOUD_CONFIG.supabasePublishableKey);
+    const cloudRuntime = {
+      client: null,
+      user: null,
+      initialized: false,
+      syncTimer: 0,
+      remoteTimestamps: new Map(),
+      preferenceTimestamp: ""
+    };
 
     const state = {
       view: "home",
@@ -5911,6 +6032,10 @@
       homeScrollTop: 0,
       homeSceneId: "",
       history: [],
+      showCloudPanel: false,
+      cloudStatus: CLOUD_ENABLED ? "connecting" : "local",
+      cloudMessage: CLOUD_ENABLED ? "正在连接云端" : "当前进度仅保存在本机",
+      cloudEmailInput: "",
       progress: loadProgress()
     };
 
@@ -5928,20 +6053,32 @@
         favoriteIds: [],
         wrongQuestionIds: [],
         lastSceneId: "",
-        lastModule: "vocabulary"
+        lastModule: "vocabulary",
+        itemUpdatedAt: {},
+        preferencesUpdatedAt: ""
       };
       try {
         const stored = JSON.parse(localStorage.getItem("travelEnglishProgress") || "{}");
         if (stored.progressVersion !== PROGRESS_VERSION) {
-          return sanitizeProgress({
+          const migrated = sanitizeProgress({
             ...fallback,
+            learnedVocabIds: Array.isArray(stored.learnedVocabIds) ? stored.learnedVocabIds : [],
+            learnedPhraseIds: Array.isArray(stored.learnedPhraseIds) ? stored.learnedPhraseIds : [],
+            spokenPhraseIds: Array.isArray(stored.spokenPhraseIds) ? stored.spokenPhraseIds : [],
+            completedListeningIds: Array.isArray(stored.completedListeningIds) ? stored.completedListeningIds : [],
+            completedChatIds: Array.isArray(stored.completedChatIds) ? stored.completedChatIds : [],
             favoriteIds: Array.isArray(stored.favoriteIds) ? stored.favoriteIds : [],
             wrongQuestionIds: Array.isArray(stored.wrongQuestionIds) ? stored.wrongQuestionIds : [],
             lastSceneId: stored.lastSceneId || "",
             lastModule: stored.lastModule || "vocabulary"
           });
+          migrateProgressMetadata(migrated);
+          localStorage.setItem("travelEnglishProgress", JSON.stringify(migrated));
+          return migrated;
         }
-        return sanitizeProgress({ ...fallback, ...stored, progressVersion: PROGRESS_VERSION });
+        const progress = sanitizeProgress({ ...fallback, ...stored, progressVersion: PROGRESS_VERSION });
+        migrateProgressMetadata(progress);
+        return progress;
       } catch {
         return fallback;
       }
@@ -5986,11 +6123,330 @@
       if (!SCENES.some(scene => scene.id === progress.lastSceneId)) {
         progress.lastSceneId = "";
       }
+      progress.itemUpdatedAt = progress.itemUpdatedAt && typeof progress.itemUpdatedAt === "object"
+        ? progress.itemUpdatedAt
+        : {};
+      progress.preferencesUpdatedAt = typeof progress.preferencesUpdatedAt === "string"
+        ? progress.preferencesUpdatedAt
+        : "";
       return progress;
     }
 
-    function saveProgress() {
+    function activeProgressIds(progress) {
+      return [...new Set([
+        ...progress.learnedVocabIds,
+        ...progress.learnedPhraseIds,
+        ...progress.spokenPhraseIds,
+        ...progress.completedListeningIds,
+        ...progress.completedChatIds,
+        ...progress.favoriteIds,
+        ...progress.wrongQuestionIds
+      ])];
+    }
+
+    function migrateProgressMetadata(progress) {
+      const now = new Date().toISOString();
+      activeProgressIds(progress).forEach(id => {
+        if (!progress.itemUpdatedAt[id]) progress.itemUpdatedAt[id] = now;
+      });
+      if ((progress.lastSceneId || progress.lastModule) && !progress.preferencesUpdatedAt) {
+        progress.preferencesUpdatedAt = now;
+      }
+    }
+
+    function persistProgress() {
       localStorage.setItem("travelEnglishProgress", JSON.stringify(state.progress));
+    }
+
+    function saveProgress(options = {}) {
+      persistProgress();
+      if (options.sync !== false) scheduleCloudSync();
+    }
+
+    function touchProgressItem(id) {
+      if (!id) return;
+      state.progress.itemUpdatedAt[id] = new Date().toISOString();
+    }
+
+    function touchPreferences() {
+      state.progress.preferencesUpdatedAt = new Date().toISOString();
+    }
+
+    function progressItemType(id) {
+      if (id.includes("_vocab_")) return "vocabulary";
+      if (id.includes("_phrase_")) return "phrase";
+      if (id.includes("_listening_")) return "listening";
+      if (id.endsWith("_chat")) return "chat";
+      return "unknown";
+    }
+
+    function progressRowForId(id, userId) {
+      const itemType = progressItemType(id);
+      return {
+        user_id: userId,
+        item_id: id,
+        item_type: itemType,
+        is_mastered: itemType === "vocabulary"
+          ? state.progress.learnedVocabIds.includes(id)
+          : itemType === "phrase" && state.progress.learnedPhraseIds.includes(id),
+        is_completed: itemType === "phrase"
+          ? state.progress.spokenPhraseIds.includes(id)
+          : itemType === "listening"
+            ? state.progress.completedListeningIds.includes(id)
+            : itemType === "chat" && state.progress.completedChatIds.includes(id),
+        is_favorite: state.progress.favoriteIds.includes(id),
+        is_wrong: state.progress.wrongQuestionIds.includes(id),
+        updated_at: state.progress.itemUpdatedAt[id] || new Date().toISOString()
+      };
+    }
+
+    function setProgressMembership(key, id, enabled) {
+      const list = state.progress[key];
+      const exists = list.includes(id);
+      if (enabled && !exists) list.push(id);
+      if (!enabled && exists) state.progress[key] = list.filter(item => item !== id);
+    }
+
+    function applyCloudProgressRow(row) {
+      if (row.item_type === "vocabulary") {
+        setProgressMembership("learnedVocabIds", row.item_id, Boolean(row.is_mastered));
+      }
+      if (row.item_type === "phrase") {
+        setProgressMembership("learnedPhraseIds", row.item_id, Boolean(row.is_mastered));
+        setProgressMembership("spokenPhraseIds", row.item_id, Boolean(row.is_completed));
+      }
+      if (row.item_type === "listening") {
+        setProgressMembership("completedListeningIds", row.item_id, Boolean(row.is_completed));
+        setProgressMembership("wrongQuestionIds", row.item_id, Boolean(row.is_wrong));
+      }
+      if (row.item_type === "chat") {
+        setProgressMembership("completedChatIds", row.item_id, Boolean(row.is_completed));
+      }
+      setProgressMembership("favoriteIds", row.item_id, Boolean(row.is_favorite));
+      state.progress.itemUpdatedAt[row.item_id] = row.updated_at;
+    }
+
+    function cloudStatusLabel() {
+      return {
+        local: "本机保存",
+        connecting: "连接中",
+        syncing: "同步中",
+        synced: "已同步",
+        error: "同步异常"
+      }[state.cloudStatus] || "本机保存";
+    }
+
+    function cloudStatusButton() {
+      const icon = state.cloudStatus === "syncing" || state.cloudStatus === "connecting"
+        ? lineIcon(`<path d="M20 11a8 8 0 1 1-2.3-5.7"/><path d="M20 4v7h-7"/>`)
+        : lineIcon(`<path d="M7 18h10a4 4 0 0 0 .5-8A6 6 0 0 0 6 8.5 4.5 4.5 0 0 0 7 18Z"/><path d="m9.5 13 1.7 1.7 3.6-4"/>`);
+      return `<button class="cloud-status-button ${state.cloudStatus}" onclick="openCloudPanel()" aria-label="学习进度：${cloudStatusLabel()}">${icon}<span class="cloud-status-label">${cloudStatusLabel()}</span></button>`;
+    }
+
+    function updateCloudStatusUI() {
+      document.querySelectorAll(".cloud-status-button").forEach(button => {
+        button.className = `cloud-status-button ${state.cloudStatus}`;
+        button.setAttribute("aria-label", `学习进度：${cloudStatusLabel()}`);
+        const label = button.querySelector(".cloud-status-label");
+        if (label) label.textContent = cloudStatusLabel();
+      });
+    }
+
+    function setCloudStatus(status, message) {
+      state.cloudStatus = status;
+      state.cloudMessage = message;
+      updateCloudStatusUI();
+    }
+
+    function scheduleCloudSync() {
+      if (!CLOUD_ENABLED || !cloudRuntime.initialized || !cloudRuntime.user) return;
+      window.clearTimeout(cloudRuntime.syncTimer);
+      cloudRuntime.syncTimer = window.setTimeout(syncProgressToCloud, 700);
+    }
+
+    function loadSupabaseSdk() {
+      if (window.supabase?.createClient) return Promise.resolve();
+      return new Promise((resolve, reject) => {
+        const existing = document.querySelector("script[data-supabase-sdk]");
+        if (existing) {
+          existing.addEventListener("load", resolve, { once: true });
+          existing.addEventListener("error", reject, { once: true });
+          return;
+        }
+        const script = document.createElement("script");
+        script.src = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2";
+        script.dataset.supabaseSdk = "true";
+        script.onload = resolve;
+        script.onerror = reject;
+        document.head.appendChild(script);
+      });
+    }
+
+    async function mergeCloudProgress(rows, preference) {
+      rows.forEach(row => {
+        cloudRuntime.remoteTimestamps.set(row.item_id, row.updated_at);
+        const localTimestamp = state.progress.itemUpdatedAt[row.item_id] || "";
+        if (!localTimestamp || Date.parse(row.updated_at) >= Date.parse(localTimestamp)) {
+          applyCloudProgressRow(row);
+        }
+      });
+
+      if (preference) {
+        cloudRuntime.preferenceTimestamp = preference.updated_at || "";
+        const localPreferenceTime = state.progress.preferencesUpdatedAt || "";
+        if (!localPreferenceTime || Date.parse(preference.updated_at) >= Date.parse(localPreferenceTime)) {
+          state.progress.lastSceneId = preference.last_scene_id || "";
+          state.progress.lastModule = preference.last_module || "vocabulary";
+          state.progress.preferencesUpdatedAt = preference.updated_at || "";
+        }
+      }
+
+      state.progress = sanitizeProgress(state.progress);
+      persistProgress();
+      render();
+      await syncProgressToCloud();
+    }
+
+    async function connectCloudSession(session) {
+      if (!session?.user || !cloudRuntime.client) return;
+      if (cloudRuntime.user?.id === session.user.id && cloudRuntime.initialized) return;
+      cloudRuntime.user = session.user;
+      setCloudStatus("connecting", "正在读取云端进度");
+      const [itemsResult, preferenceResult] = await Promise.all([
+        cloudRuntime.client
+          .from("learning_progress")
+          .select("item_id,item_type,is_mastered,is_completed,is_favorite,is_wrong,updated_at")
+          .eq("user_id", session.user.id),
+        cloudRuntime.client
+          .from("learning_preferences")
+          .select("last_scene_id,last_module,updated_at")
+          .eq("user_id", session.user.id)
+          .maybeSingle()
+      ]);
+      if (itemsResult.error || preferenceResult.error) {
+        throw itemsResult.error || preferenceResult.error;
+      }
+      cloudRuntime.initialized = true;
+      await mergeCloudProgress(itemsResult.data || [], preferenceResult.data || null);
+      setCloudStatus("synced", session.user.is_anonymous ? "匿名进度已同步" : "账户进度已同步");
+    }
+
+    async function syncProgressToCloud() {
+      if (!CLOUD_ENABLED || !cloudRuntime.initialized || !cloudRuntime.client || !cloudRuntime.user) return;
+      setCloudStatus("syncing", "正在同步学习进度");
+      try {
+        const rows = Object.keys(state.progress.itemUpdatedAt)
+          .filter(id => {
+            const remoteTimestamp = cloudRuntime.remoteTimestamps.get(id) || "";
+            return !remoteTimestamp || Date.parse(state.progress.itemUpdatedAt[id]) > Date.parse(remoteTimestamp);
+          })
+          .map(id => progressRowForId(id, cloudRuntime.user.id))
+          .filter(row => row.item_type !== "unknown");
+        if (rows.length) {
+          const { error } = await cloudRuntime.client
+            .from("learning_progress")
+            .upsert(rows, { onConflict: "user_id,item_id" });
+          if (error) throw error;
+          rows.forEach(row => cloudRuntime.remoteTimestamps.set(row.item_id, row.updated_at));
+        }
+
+        const localPreferenceTime = state.progress.preferencesUpdatedAt || "";
+        if (localPreferenceTime && (!cloudRuntime.preferenceTimestamp || Date.parse(localPreferenceTime) > Date.parse(cloudRuntime.preferenceTimestamp))) {
+          const preference = {
+            user_id: cloudRuntime.user.id,
+            last_scene_id: state.progress.lastSceneId || null,
+            last_module: state.progress.lastModule || "vocabulary",
+            updated_at: localPreferenceTime
+          };
+          const { error } = await cloudRuntime.client
+            .from("learning_preferences")
+            .upsert(preference, { onConflict: "user_id" });
+          if (error) throw error;
+          cloudRuntime.preferenceTimestamp = localPreferenceTime;
+        }
+        setCloudStatus("synced", cloudRuntime.user.is_anonymous ? "匿名进度已同步" : "账户进度已同步");
+      } catch (error) {
+        console.warn("Progress sync failed", error);
+        setCloudStatus("error", "云端同步失败，本机进度仍已保存");
+      }
+    }
+
+    async function initCloudProgress() {
+      if (!CLOUD_ENABLED) return;
+      try {
+        setCloudStatus("connecting", "正在连接云端");
+        await loadSupabaseSdk();
+        cloudRuntime.client = window.supabase.createClient(
+          CLOUD_CONFIG.supabaseUrl,
+          CLOUD_CONFIG.supabasePublishableKey,
+          { auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true } }
+        );
+        const { data: sessionData, error: sessionError } = await cloudRuntime.client.auth.getSession();
+        if (sessionError) throw sessionError;
+        let session = sessionData.session;
+        if (!session) {
+          const { data, error } = await cloudRuntime.client.auth.signInAnonymously();
+          if (error) throw error;
+          session = data.session;
+        }
+        cloudRuntime.client.auth.onAuthStateChange((_event, nextSession) => {
+          if (nextSession) window.setTimeout(() => connectCloudSession(nextSession).catch(handleCloudError), 0);
+        });
+        await connectCloudSession(session);
+      } catch (error) {
+        handleCloudError(error);
+      }
+    }
+
+    function handleCloudError(error) {
+      console.warn("Cloud progress unavailable", error);
+      setCloudStatus("error", "云端尚未完成配置，本机进度仍会保留");
+    }
+
+    function openCloudPanel() {
+      state.showCloudPanel = true;
+      render();
+    }
+
+    function closeCloudPanel() {
+      state.showCloudPanel = false;
+      render();
+    }
+
+    async function submitCloudEmail(mode) {
+      const email = state.cloudEmailInput.trim();
+      if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
+        state.cloudMessage = "请输入有效邮箱地址。";
+        render();
+        return;
+      }
+      if (!CLOUD_ENABLED || !cloudRuntime.client) {
+        state.cloudMessage = "云端同步尚未配置，请先填写 cloud-config.js。";
+        render();
+        return;
+      }
+      setCloudStatus("connecting", "正在发送验证邮件");
+      try {
+        if (mode === "link") {
+          const { error } = await cloudRuntime.client.auth.updateUser({ email });
+          if (error) throw error;
+          state.cloudMessage = "验证邮件已发送。完成验证后，当前匿名进度会绑定到该邮箱。";
+        } else {
+          const redirectTo = `${location.origin}${location.pathname}`;
+          const { error } = await cloudRuntime.client.auth.signInWithOtp({
+            email,
+            options: { emailRedirectTo: redirectTo, shouldCreateUser: false }
+          });
+          if (error) throw error;
+          state.cloudMessage = "登录链接已发送。打开邮件中的链接后会自动合并本机进度。";
+        }
+        state.cloudEmailInput = "";
+        render();
+      } catch (error) {
+        state.cloudMessage = error?.message || "邮件发送失败，请稍后重试。";
+        setCloudStatus("error", state.cloudMessage);
+        render();
+      }
     }
 
     function sceneById(id) {
@@ -6119,6 +6575,7 @@
       if (options.sceneId) {
         state.progress.lastSceneId = options.sceneId;
         state.progress.lastModule = options.module || state.progress.lastModule || "vocabulary";
+        touchPreferences();
         saveProgress();
       }
       render();
@@ -6398,6 +6855,7 @@
       } else {
         state.progress.favoriteIds = [...list, id];
       }
+      touchProgressItem(id);
       saveProgress();
       render();
     }
@@ -6405,6 +6863,7 @@
     function addUnique(key, id) {
       if (!state.progress[key].includes(id)) {
         state.progress[key].push(id);
+        touchProgressItem(id);
         saveProgress();
       }
     }
@@ -6415,11 +6874,13 @@
       } else {
         state.progress[key].push(id);
       }
+      touchProgressItem(id);
       saveProgress();
     }
 
     function removeItem(key, id) {
       state.progress[key] = state.progress[key].filter(item => item !== id);
+      touchProgressItem(id);
       saveProgress();
     }
 
@@ -6743,6 +7204,32 @@
             </section>
           </div>
         `;
+      } else if (state.showCloudPanel) {
+        const cloudUser = cloudRuntime.user;
+        const isPermanentUser = Boolean(cloudUser && !cloudUser.is_anonymous);
+        dialog = `
+          <div class="confirm-overlay" role="presentation" onclick="closeCloudPanel()">
+            <section class="confirm-dialog sync-dialog" role="dialog" aria-modal="true" aria-labelledby="syncDialogTitle" tabindex="-1" onclick="event.stopPropagation()">
+              <h3 id="syncDialogTitle">学习进度</h3>
+              <p>${CLOUD_ENABLED ? "学习记录会先保存在本机，联网后再同步到你的云端身份。" : "当前学习记录只保存在这个浏览器中。配置云端后，可以跨设备继续学习。"}</p>
+              <div class="sync-state">${cloudStatusLabel()} · ${escapeHtml(state.cloudMessage)}</div>
+              ${CLOUD_ENABLED && !isPermanentUser ? `
+                <div class="sync-form">
+                  <input class="sync-email-input" type="email" inputmode="email" autocomplete="email" placeholder="输入邮箱地址" value="${escapeHtml(state.cloudEmailInput)}" oninput="state.cloudEmailInput=this.value">
+                  <div class="actions sync-actions">
+                    <button class="primary-btn" onclick="submitCloudEmail('link')">绑定邮箱并保留当前进度</button>
+                  </div>
+                  <button class="sync-secondary-action" onclick="submitCloudEmail('login')">已有账号，发送登录链接</button>
+                </div>
+              ` : ""}
+              ${isPermanentUser ? `
+                <p>当前账户：${escapeHtml(cloudUser.email || "已绑定账户")}</p>
+                <div class="actions sync-actions"><button class="primary-btn" onclick="syncProgressToCloud()">立即同步</button></div>
+              ` : ""}
+              <div class="actions single-action"><button class="secondary-btn" onclick="closeCloudPanel()">关闭</button></div>
+            </section>
+          </div>
+        `;
       } else if (state.noticeDialog) {
         dialog = `
           <div class="confirm-overlay" role="presentation" onclick="closeNoticeDialog()">
@@ -6849,7 +7336,7 @@
         <section class="home-screen home-primary">
           <header class="home-header">
             <div class="home-brand">
-              <span class="home-kicker">TRAVEL ENGLISH</span>
+              <div class="home-brand-row"><span class="home-kicker">TRAVEL ENGLISH</span>${cloudStatusButton()}</div>
               <h1>旅行常用英语</h1>
               <p class="eyebrow">出发前练几句，旅行更从容</p>
             </div>
@@ -6923,7 +7410,7 @@
       app.innerHTML = `
         <header class="learn-titlebar">
           <h1>学习</h1>
-          <span>总进度 ${overallProgress}%</span>
+          <div class="titlebar-actions"><span>总进度 ${overallProgress}%</span>${cloudStatusButton()}</div>
         </header>
         <div class="learn-content">
         <section class="section">
@@ -7811,7 +8298,7 @@
       const favoriteItems = state.progress.favoriteIds.map(id => findFavorite(id)).filter(Boolean);
       const wrongItems = state.progress.wrongQuestionIds.map(id => findWrongQuestion(id)).filter(Boolean);
       app.innerHTML = `
-        <header class="review-titlebar"><h1>复习</h1><span>${favoriteItems.length + wrongItems.length} 条待复习</span></header>
+        <header class="review-titlebar"><h1>复习</h1><div class="titlebar-actions"><span>${favoriteItems.length + wrongItems.length} 条待复习</span>${cloudStatusButton()}</div></header>
         <section class="section">
           <div class="section-title">
             <h2>收藏内容</h2>
@@ -7922,7 +8409,9 @@
 
     document.addEventListener("keydown", event => {
       if (event.key !== "Escape") return;
-      if (state.noticeDialog) {
+      if (state.showCloudPanel) {
+        closeCloudPanel();
+      } else if (state.noticeDialog) {
         closeNoticeDialog();
       } else if (state.showVocabExitConfirm) {
         cancelVocabStudyExit();
@@ -7930,6 +8419,7 @@
     });
 
     render();
+    initCloudProgress();
   </script>
 </body>
 </html>
