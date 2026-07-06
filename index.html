@@ -43,7 +43,8 @@
       --radius-lg: 22px;
       --radius-md: 16px;
       --radius-sm: 12px;
-      --app-shell-width: 390px;
+      --app-shell-width: 100vw;
+      --touch-target: 44px;
       --primary-titlebar-height: 58px;
       --secondary-titlebar-height: 52px;
       --tabbar-control-height: 52px;
@@ -4830,6 +4831,10 @@
     }
 
     @media (min-width: 720px) and (min-height: 700px) {
+      :root {
+        --app-shell-width: 390px;
+      }
+
       body {
         background: #ecefea;
       }
@@ -4847,6 +4852,94 @@
       .bottom-nav {
         border-radius: 0 0 24px 24px;
       }
+    }
+
+    /* Mobile interaction baseline: full-width shell and comfortable touch targets. */
+    @media (max-width: 719px) {
+      body,
+      .app,
+      .app.home,
+      .app.learn,
+      .app.favorites,
+      .app.vocabDetail,
+      .app.vocabStudy,
+      .app.globalChat,
+      .app.scene.phrase-page,
+      .app.scene.vocabulary-page,
+      .app.scene.learning-module-page {
+        width: 100%;
+        max-width: none;
+        margin-inline: 0;
+      }
+
+      .app.has-tabbar .bottom-nav,
+      .bottom-nav {
+        width: 100%;
+        max-width: none;
+      }
+    }
+
+    button {
+      touch-action: manipulation;
+    }
+
+    .back-btn,
+    .icon-btn,
+    .immersion-back-button,
+    .immersion-tool-button,
+    .immersion-example-button,
+    .module-audio-button,
+    .chat-icon-button,
+    .vocab-collapse-btn {
+      width: var(--touch-target);
+      min-width: var(--touch-target);
+      height: var(--touch-target);
+      min-height: var(--touch-target);
+    }
+
+    .cloud-status-button,
+    .scene-tab,
+    .bubble-play,
+    .tab-btn {
+      min-height: var(--touch-target);
+    }
+
+    .nav-btn {
+      min-height: 56px;
+    }
+
+    .nav-btn b {
+      width: 26px;
+      height: 26px;
+      display: grid;
+      place-items: center;
+      font-size: 26px;
+    }
+
+    .nav-btn b svg {
+      width: 26px;
+      height: 26px;
+    }
+
+    .back-btn svg,
+    .icon-btn svg,
+    .immersion-back-button svg,
+    .immersion-tool-button svg,
+    .immersion-example-button svg,
+    .module-audio-button svg,
+    .chat-icon-button svg,
+    .vocab-audio-button svg,
+    .vocab-pronunciation-button svg,
+    .vocab-master-button svg,
+    .vocab-favorite-button svg,
+    .vocab-collapse-btn svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    .cloud-status-button svg {
+      width: 18px;
+      height: 18px;
     }
   </style>
 </head>
