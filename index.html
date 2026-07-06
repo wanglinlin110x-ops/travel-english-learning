@@ -6833,15 +6833,57 @@
 
     const SPEECH_RATE_NORMAL = 0.95;
     const SPEECH_RATE_SLOW = 0.55;
+    const speechRuntime = {
+      audioContext: null,
+      startTimer: 0,
+      token: 0,
+      utterance: null
+    };
+
+    function englishVoiceScore(voice) {
+      const name = String(voice.name || "").toLowerCase();
+      const lang = String(voice.lang || "").replace("_", "-").toLowerCase();
+      let score = lang === "en-us" ? 40 : lang.startsWith("en-") ? 18 : 0;
+      if (/premium|enhanced|natural|neural|siri/.test(name)) score += 36;
+      if (/samantha|ava|allison|susan|alex|google us english|microsoft aria/.test(name)) score += 24;
+      if (voice.localService) score += 10;
+      if (voice.default) score += 4;
+      if (/compact|novelty|whisper|bells|boing/.test(name)) score -= 60;
+      return score;
+    }
 
     function preferredEnglishVoice() {
       if (!window.speechSynthesis?.getVoices) return null;
       const voices = window.speechSynthesis.getVoices();
-      const englishVoices = voices.filter(voice => /^en[-_]/i.test(voice.lang));
-      return englishVoices.find(voice => /samantha|alex|google us english|microsoft aria|natural/i.test(voice.name)) ||
-        englishVoices.find(voice => /^en[-_]US/i.test(voice.lang)) ||
-        englishVoices[0] ||
-        null;
+      return voices
+        .filter(voice => /^en[-_]/i.test(voice.lang))
+        .sort((a, b) => englishVoiceScore(b) - englishVoiceScore(a))[0] || null;
+    }
+
+    function primeAudioOutput() {
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContextClass) return;
+      try {
+        const context = speechRuntime.audioContext || new AudioContextClass();
+        speechRuntime.audioContext = context;
+        if (context.state === "suspended") context.resume().catch(() => {});
+        const oscillator = context.createOscillator();
+        const gain = context.createGain();
+        oscillator.frequency.value = 80;
+        gain.gain.value = 0.00001;
+        oscillator.connect(gain);
+        gain.connect(context.destination);
+        oscillator.start();
+        oscillator.stop(context.currentTime + 0.08);
+      } catch {
+        // Speech synthesis still works when Web Audio is unavailable.
+      }
+    }
+
+    function speechText(text) {
+      const normalized = String(text || "").replace(/\s+/g, " ").trim();
+      if (!normalized) return "";
+      return /[.!?]$/.test(normalized) ? normalized : `${normalized}.`;
     }
 
     function speak(text, rate = SPEECH_RATE_NORMAL, options = {}) {
@@ -6851,15 +6893,34 @@
         }
         return false;
       }
-      window.speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = "en-US";
-      utterance.rate = rate <= 0.8 ? SPEECH_RATE_SLOW : SPEECH_RATE_NORMAL;
-      utterance.pitch = 1;
-      utterance.volume = 1;
-      const voice = preferredEnglishVoice();
-      if (voice) utterance.voice = voice;
-      window.speechSynthesis.speak(utterance);
+      const spokenText = speechText(text);
+      if (!spokenText) return false;
+
+      const synthesis = window.speechSynthesis;
+      const wasActive = synthesis.speaking || synthesis.pending;
+      window.clearTimeout(speechRuntime.startTimer);
+      speechRuntime.token += 1;
+      const token = speechRuntime.token;
+      if (wasActive) synthesis.cancel();
+      primeAudioOutput();
+
+      const start = () => {
+        if (token !== speechRuntime.token) return;
+        const utterance = new SpeechSynthesisUtterance(spokenText);
+        utterance.lang = "en-US";
+        utterance.rate = rate <= 0.8 ? SPEECH_RATE_SLOW : SPEECH_RATE_NORMAL;
+        utterance.pitch = 1;
+        utterance.volume = 1;
+        const voice = preferredEnglishVoice();
+        if (voice) utterance.voice = voice;
+        utterance.onend = utterance.onerror = () => {
+          if (speechRuntime.utterance === utterance) speechRuntime.utterance = null;
+        };
+        speechRuntime.utterance = utterance;
+        synthesis.speak(utterance);
+      };
+
+      speechRuntime.startTimer = window.setTimeout(start, wasActive ? 90 : 55);
       return true;
     }
 
