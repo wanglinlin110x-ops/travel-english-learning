@@ -836,10 +836,10 @@
 
     .app.learn .course-row {
       --course-accent: #70ad37;
-      grid-template-columns: 42px minmax(0, 1fr) 34px;
+      grid-template-columns: 42px minmax(0, 1fr);
       gap: 12px;
-      min-height: 94px;
-      padding: 14px;
+      min-height: 72px;
+      padding: 12px 14px;
       border: 1px solid #e5ecdf;
       border-radius: 12px;
       background: #f5f9ef;
@@ -857,7 +857,7 @@
       height: 42px;
       display: grid;
       place-items: center;
-      align-self: start;
+      align-self: center;
       border-radius: 50%;
       color: #195200;
       background: rgba(255, 255, 255, 0.82);
@@ -886,6 +886,11 @@
       font-weight: 780;
     }
 
+    .app.learn .course-row-main {
+      display: grid;
+      gap: 8px;
+    }
+
     .course-row-percent {
       color: var(--course-accent);
       font-size: 13px;
@@ -902,7 +907,7 @@
 
     .app.learn .course-progress {
       height: 4px;
-      margin-top: 10px;
+      margin-top: 0;
       background: rgba(255, 255, 255, 0.92);
     }
 
@@ -7995,17 +8000,15 @@
               const progress = moduleProgress(scene);
               const nextModule = nextCourseModule(scene);
               return `
-                <button class="course-row ${sceneIndex % 2 ? "tone-blue" : "tone-green"}" onclick="setView('scene', { sceneId: '${scene.id}', module: '${nextModule.id}' })">
+                <button class="course-row ${sceneIndex % 2 ? "tone-blue" : "tone-green"}" onclick="setView('scene', { sceneId: '${scene.id}', module: '${nextModule.id}' })" aria-label="${scene.title}，进度 ${progress}%，继续${nextModule.label}">
                   <span class="course-row-mark">${sceneMark(scene.id)}</span>
                   <div class="course-row-main">
                     <div class="course-row-top">
                       <h3>${scene.title}</h3>
                       <strong class="course-row-percent">${progress}%</strong>
                     </div>
-                    <p>下一步 · ${nextModule.label}</p>
                     <div class="course-progress" aria-label="${scene.title}进度 ${progress}%" style="--progress:${progress}%"><span></span></div>
                   </div>
-                  <span class="course-row-action" aria-hidden="true">${lineIcon(`<path d="m9 18 6-6-6-6"/>`)}</span>
                 </button>
               `;
             }).join("")}
