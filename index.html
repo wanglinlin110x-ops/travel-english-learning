@@ -4952,6 +4952,292 @@
     .app.back-gesture-settling {
       transition: transform 180ms cubic-bezier(0.22, 0.72, 0.24, 1), box-shadow 180ms ease;
     }
+
+    /* Single-scroll home: overview, daily task, scene switcher and review. */
+    .app.home.has-tabbar {
+      height: 100svh;
+      height: 100dvh;
+      overflow-x: hidden;
+      overflow-y: auto;
+      scroll-snap-type: none;
+      scroll-behavior: auto;
+      padding-bottom: calc(88px + env(safe-area-inset-bottom));
+      background: #ffffff;
+    }
+
+    .home-page {
+      display: grid;
+      gap: 28px;
+      padding: 24px 20px 28px;
+      background: #ffffff;
+    }
+
+    .home-page .home-header {
+      gap: 18px;
+    }
+
+    .home-page .home-brand {
+      gap: 5px;
+    }
+
+    .home-page .home-brand h1 {
+      font-size: 30px;
+      line-height: 1.12;
+    }
+
+    .home-page .home-brand .eyebrow {
+      font-size: 14px;
+    }
+
+    .home-page .home-summary {
+      padding-block: 12px;
+    }
+
+    .home-page .today-panel,
+    .home-course-section,
+    .home-review-section {
+      display: grid;
+      gap: 14px;
+    }
+
+    .home-page .today-card {
+      gap: 14px;
+      padding: 18px;
+    }
+
+    .home-page .today-copy h2 {
+      max-width: none;
+      font-size: 22px;
+    }
+
+    .home-scene-tabs {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 6px;
+    }
+
+    .home-scene-tab {
+      min-width: 0;
+      min-height: 44px;
+      border: 1px solid rgba(21, 28, 39, 0.08);
+      border-radius: 999px;
+      padding: 0 6px;
+      color: rgba(21, 28, 39, 0.56);
+      background: #ffffff;
+      font-size: 12px;
+      line-height: 1;
+      font-weight: 680;
+      white-space: nowrap;
+    }
+
+    .home-scene-tab.active {
+      border-color: #dbeaca;
+      color: #195200;
+      background: #edf6e4;
+      font-weight: 760;
+    }
+
+    .home-scene-card {
+      display: grid;
+      gap: 14px;
+      padding: 18px;
+      border: 1px solid #e3ebdc;
+      border-radius: 15px;
+      color: #151c27;
+      background: #f5f9ef;
+    }
+
+    .home-scene-card-head {
+      display: grid;
+      grid-template-columns: 44px minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .home-scene-card-head .scene-mark {
+      width: 44px;
+      height: 44px;
+      border: 0;
+      border-radius: 50%;
+      color: #3f6f16;
+      background: #ffffff;
+    }
+
+    .home-scene-card-head div {
+      min-width: 0;
+      display: grid;
+      gap: 2px;
+    }
+
+    .home-scene-card-head h3 {
+      margin: 0;
+      font-size: 19px;
+      line-height: 1.2;
+      font-weight: 800;
+    }
+
+    .home-scene-card-head p {
+      margin: 0;
+      overflow: hidden;
+      color: rgba(21, 28, 39, 0.56);
+      font-size: 12px;
+      line-height: 1.35;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .home-scene-card-percent {
+      color: #3f6f16;
+      font-size: 16px;
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .home-scene-card .scene-course-progressbar {
+      height: 6px;
+    }
+
+    .home-scene-stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      padding-block: 13px;
+      border-top: 1px solid rgba(21, 28, 39, 0.08);
+      border-bottom: 1px solid rgba(21, 28, 39, 0.08);
+    }
+
+    .home-scene-stats div {
+      display: grid;
+      gap: 2px;
+      text-align: center;
+    }
+
+    .home-scene-stats div + div {
+      border-left: 1px solid rgba(21, 28, 39, 0.08);
+    }
+
+    .home-scene-stats strong {
+      font-size: 16px;
+      line-height: 1.2;
+      font-weight: 800;
+    }
+
+    .home-scene-stats span {
+      color: rgba(21, 28, 39, 0.5);
+      font-size: 10px;
+      font-weight: 620;
+    }
+
+    .home-scene-cta {
+      min-height: 50px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 0;
+      border-radius: 999px;
+      color: #ffffff;
+      background: #151c27;
+      font-size: 15px;
+      font-weight: 750;
+    }
+
+    .home-scene-cta svg,
+    .home-review-arrow svg {
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .home-review-card {
+      width: 100%;
+      min-height: 76px;
+      display: grid;
+      grid-template-columns: 44px minmax(0, 1fr) 32px;
+      gap: 12px;
+      align-items: center;
+      border: 1px solid rgba(21, 28, 39, 0.08);
+      border-radius: 15px;
+      padding: 14px 16px;
+      color: #151c27;
+      background: #f7f8f6;
+      text-align: left;
+    }
+
+    .home-review-icon {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: #3f6f16;
+      background: #ffffff;
+    }
+
+    .home-review-icon svg {
+      width: 22px;
+      height: 22px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .home-review-copy {
+      min-width: 0;
+      display: grid;
+      gap: 4px;
+    }
+
+    .home-review-copy strong {
+      font-size: 15px;
+      font-weight: 780;
+    }
+
+    .home-review-copy span {
+      overflow: hidden;
+      color: rgba(21, 28, 39, 0.52);
+      font-size: 12px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .home-review-arrow {
+      display: grid;
+      place-items: center;
+      color: rgba(21, 28, 39, 0.48);
+    }
+
+    .home-scene-tab:active,
+    .home-scene-cta:active,
+    .home-review-card:active {
+      transform: scale(0.98);
+    }
+
+    @media (max-width: 350px) {
+      .home-page {
+        gap: 24px;
+        padding-inline: 16px;
+      }
+
+      .home-scene-tabs {
+        gap: 4px;
+      }
+
+      .home-scene-tab {
+        padding-inline: 3px;
+        font-size: 11px;
+      }
+
+      .home-scene-card,
+      .home-page .today-card {
+        padding: 16px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -7603,6 +7889,7 @@
     function renderHome() {
       const learned = coreProgressCount("learnedPhraseIds", "phrases");
       const favorites = state.progress.favoriteIds.length;
+      const wrongQuestions = state.progress.wrongQuestionIds.length;
       const completed = completedSceneCount();
       const scenes = coreScenes();
       const lastScene = lastCoreScene();
@@ -7611,7 +7898,7 @@
         : lastScene;
       const lastProgress = moduleProgress(lastScene);
       app.innerHTML = `
-        <section class="home-screen home-primary">
+        <div class="home-page">
           <header class="home-header">
             <div class="home-brand">
               <div class="home-brand-row"><span class="home-kicker">TRAVEL ENGLISH</span>${cloudStatusButton()}</div>
@@ -7649,34 +7936,41 @@
               </div>
             </button>
           </section>
-          <div class="scroll-hint">上滑选择场景</div>
-        </section>
 
-        <section class="home-screen home-secondary">
-          <header class="scene-browser-header"><span>场景课程</span><h2>选择下一站</h2></header>
-          <div class="scene-browser">
-            <div class="scene-tabs-vertical" aria-label="场景课程">
-              ${scenes.map(scene => `
-                <button class="scene-tab ${scene.id === selectedScene.id ? "active" : ""}" onclick="selectHomeScene('${scene.id}')"><span>${sceneMark(scene.id)}</span>${scene.title}</button>
-              `).join("")}
+          <section class="home-course-section" aria-label="场景课程">
+            <div class="section-title">
+              <h2>场景课程</h2>
+              <span>${scenes.length} 个场景</span>
             </div>
-            <article class="scene-course-panel ${selectedScene.id}">
-              <div class="scene-course-heading">
-                <span class="scene-course-mark">${sceneMark(selectedScene.id)}</span>
-                <span class="scene-course-progress">${moduleProgress(selectedScene)}%</span>
+            <div class="home-scene-tabs" role="tablist" aria-label="选择旅行场景">
+              ${scenes.map(scene => `<button class="home-scene-tab ${scene.id === selectedScene.id ? "active" : ""}" role="tab" aria-selected="${scene.id === selectedScene.id}" onclick="selectHomeScene('${scene.id}')">${scene.title}</button>`).join("")}
+            </div>
+            <article class="home-scene-card">
+              <div class="home-scene-card-head">
+                <span class="scene-mark">${sceneMark(selectedScene.id)}</span>
+                <div><h3>${selectedScene.title}</h3><p>${sceneSubtitle(selectedScene.id)}</p></div>
+                <span class="home-scene-card-percent">${moduleProgress(selectedScene)}%</span>
               </div>
-              <div class="scene-course-copy"><h2>${selectedScene.title}</h2><p>${sceneSubtitle(selectedScene.id)}</p></div>
               <div class="scene-course-progressbar" aria-label="${selectedScene.title}进度 ${moduleProgress(selectedScene)}%"><span style="width:${moduleProgress(selectedScene)}%"></span></div>
-              <div class="scene-course-modules">
+              <div class="home-scene-stats">
                 <div><strong>${contentCount(selectedScene, "vocabulary")}</strong><span>词汇</span></div>
                 <div><strong>${contentCount(selectedScene, "phrases")}</strong><span>短句</span></div>
                 <div><strong>${contentCount(selectedScene, "listening")}</strong><span>听力</span></div>
                 <div><strong>${coreChatTurns(selectedScene).length}</strong><span>对话</span></div>
               </div>
-              <button class="scene-course-cta" onclick="setView('scene', { sceneId: '${selectedScene.id}', module: 'vocabulary' })">进入课程 ${lineIcon(`<path d="m9 18 6-6-6-6"/>`)}</button>
+              <button class="home-scene-cta" onclick="setView('scene', { sceneId: '${selectedScene.id}', module: 'vocabulary' })">进入课程 ${lineIcon(`<path d="m9 18 6-6-6-6"/>`)}</button>
             </article>
-          </div>
-        </section>
+          </section>
+
+          <section class="home-review-section" aria-label="最近复习">
+            <div class="section-title"><h2>最近复习</h2><span>${favorites + wrongQuestions} 条待复习</span></div>
+            <button class="home-review-card" onclick="setView('favorites')">
+              <span class="home-review-icon">${lineIcon(`<path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.3l-5.6 2.9 1.1-6.2L3 9.6l6.2-.9L12 3Z"/>`)}</span>
+              <span class="home-review-copy"><strong>复习收藏与错题</strong><span>${favorites} 条收藏 · ${wrongQuestions} 道听力错题</span></span>
+              <span class="home-review-arrow">${lineIcon(`<path d="m9 18 6-6-6-6"/>`)}</span>
+            </button>
+          </section>
+        </div>
         ${bottomNav("home")}
       `;
     }
