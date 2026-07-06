@@ -4411,6 +4411,7 @@
       min-height: 100%;
       min-height: 100dvh;
       overflow-x: hidden;
+      overscroll-behavior-x: none;
     }
 
     .app {
@@ -4940,6 +4941,16 @@
     .cloud-status-button svg {
       width: 18px;
       height: 18px;
+    }
+
+    .app.back-gesture-active {
+      transform: translate3d(var(--back-gesture-x, 0), 0, 0);
+      box-shadow: -16px 0 32px rgba(21, 28, 39, 0.12);
+      will-change: transform;
+    }
+
+    .app.back-gesture-settling {
+      transition: transform 180ms cubic-bezier(0.22, 0.72, 0.24, 1), box-shadow 180ms ease;
     }
   </style>
 </head>
@@ -6715,6 +6726,110 @@
       }
       setView("home", {}, { replace: true });
     }
+
+    const backGesture = {
+      tracking: false,
+      active: false,
+      startX: 0,
+      startY: 0,
+      lastX: 0,
+      lastTime: 0,
+      velocity: 0
+    };
+
+    function backGestureAvailable() {
+      return !["home", "learn", "favorites"].includes(state.view) &&
+        !state.showCloudPanel &&
+        !state.noticeDialog &&
+        !state.showVocabExitConfirm;
+    }
+
+    function resetBackGesture(animate = false) {
+      if (animate) {
+        app.classList.add("back-gesture-settling");
+        app.style.setProperty("--back-gesture-x", "0px");
+        window.setTimeout(() => {
+          app.classList.remove("back-gesture-active", "back-gesture-settling");
+          app.style.removeProperty("--back-gesture-x");
+        }, 190);
+      } else {
+        app.classList.remove("back-gesture-active", "back-gesture-settling");
+        app.style.removeProperty("--back-gesture-x");
+      }
+      backGesture.tracking = false;
+      backGesture.active = false;
+      backGesture.velocity = 0;
+    }
+
+    function beginBackGesture(event) {
+      if (!backGestureAvailable() || event.touches.length !== 1) return;
+      const touch = event.touches[0];
+      if (touch.clientX > 28) return;
+      if (event.target?.closest?.("input, textarea, select, [contenteditable='true']")) return;
+      backGesture.tracking = true;
+      backGesture.active = false;
+      backGesture.startX = touch.clientX;
+      backGesture.startY = touch.clientY;
+      backGesture.lastX = touch.clientX;
+      backGesture.lastTime = performance.now();
+      backGesture.velocity = 0;
+    }
+
+    function moveBackGesture(event) {
+      if (!backGesture.tracking || event.touches.length !== 1) return;
+      const touch = event.touches[0];
+      const distanceX = Math.max(0, touch.clientX - backGesture.startX);
+      const distanceY = Math.abs(touch.clientY - backGesture.startY);
+
+      if (!backGesture.active) {
+        if (distanceY > 12 && distanceY > distanceX) {
+          resetBackGesture();
+          return;
+        }
+        if (distanceX < 10 || distanceX < distanceY * 1.2) return;
+        backGesture.active = true;
+        app.classList.add("back-gesture-active");
+      }
+
+      if (event.cancelable) event.preventDefault();
+      const now = performance.now();
+      const elapsed = Math.max(now - backGesture.lastTime, 1);
+      const instantVelocity = (touch.clientX - backGesture.lastX) / elapsed;
+      backGesture.velocity = backGesture.velocity * 0.65 + instantVelocity * 0.35;
+      backGesture.lastX = touch.clientX;
+      backGesture.lastTime = now;
+
+      const maxDistance = window.innerWidth * 0.94;
+      const translated = Math.min(distanceX * 0.92, maxDistance);
+      app.style.setProperty("--back-gesture-x", `${translated}px`);
+    }
+
+    function finishBackGesture() {
+      if (!backGesture.tracking) return;
+      const distance = Math.max(0, backGesture.lastX - backGesture.startX);
+      const threshold = Math.min(108, window.innerWidth * 0.28);
+      const shouldReturn = backGesture.active &&
+        (distance >= threshold || (distance >= 48 && backGesture.velocity >= 0.45));
+
+      if (!shouldReturn) {
+        resetBackGesture(true);
+        return;
+      }
+
+      backGesture.tracking = false;
+      backGesture.active = false;
+      app.classList.add("back-gesture-settling");
+      app.style.setProperty("--back-gesture-x", `${window.innerWidth}px`);
+      window.setTimeout(() => {
+        resetBackGesture();
+        goBack();
+      }, 180);
+    }
+
+    app.addEventListener("touchstart", beginBackGesture, { passive: true });
+    app.addEventListener("touchmove", moveBackGesture, { passive: false });
+    app.addEventListener("touchend", finishBackGesture, { passive: true });
+    app.addEventListener("touchcancel", () => resetBackGesture(true), { passive: true });
 
     const SPEECH_RATE_NORMAL = 0.95;
     const SPEECH_RATE_SLOW = 0.55;
