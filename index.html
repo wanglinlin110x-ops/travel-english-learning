@@ -5533,6 +5533,446 @@
         animation: none !important;
       }
     }
+
+    /* Homepage journey: the illustration, route and learning focus share one canvas. */
+    .app.home.has-tabbar {
+      color: #173149;
+      background: #c7dfe5;
+    }
+
+    .home-page.home-journey {
+      min-height: calc(100dvh - 72px - env(safe-area-inset-bottom));
+      position: relative;
+      isolation: isolate;
+      display: block;
+      padding: 0 20px calc(34px + env(safe-area-inset-bottom));
+      overflow: hidden;
+      color: #173149;
+      background-color: #c7dfe5;
+      background-image: url("assets/home-journey-bg.jpg");
+      background-position: center top;
+      background-size: cover;
+    }
+
+    .home-page.home-journey::after {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      inset: 40% 0 0;
+      background: linear-gradient(180deg, rgba(241, 248, 247, 0), rgba(241, 248, 247, 0.6) 34%, rgba(246, 250, 249, 0.94) 76%, #f7faf9 100%);
+      pointer-events: none;
+    }
+
+    .journey-header {
+      min-height: 82px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding-top: env(safe-area-inset-top);
+    }
+
+    .journey-brand {
+      display: grid;
+      gap: 2px;
+    }
+
+    .journey-brand small {
+      color: rgba(23, 49, 73, 0.58);
+      font-size: 10px;
+      font-weight: 740;
+      letter-spacing: 0.12em;
+    }
+
+    .journey-brand h1 {
+      margin: 0;
+      font-size: 24px;
+      line-height: 1.1;
+      font-weight: 790;
+      letter-spacing: 0;
+    }
+
+    .home-journey .cloud-status-button {
+      width: 44px;
+      min-width: 44px;
+      height: 44px;
+      padding: 0;
+      justify-content: center;
+      border-color: rgba(23, 49, 73, 0.14);
+      color: #173149;
+      background: rgba(247, 250, 249, 0.46);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .home-journey .cloud-status-label {
+      display: none;
+    }
+
+    .journey-map {
+      height: clamp(400px, 50svh, 520px);
+      min-height: 400px;
+      position: relative;
+    }
+
+    .journey-map-heading {
+      position: absolute;
+      top: 4px;
+      left: 0;
+      display: grid;
+      gap: 2px;
+      color: rgba(23, 49, 73, 0.7);
+    }
+
+    .journey-map-heading strong {
+      color: #173149;
+      font-size: 14px;
+      font-weight: 760;
+    }
+
+    .journey-map-heading span {
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .journey-route-nodes {
+      position: absolute;
+      inset: 0;
+    }
+
+    .journey-node {
+      --node-color: #ffffff;
+      min-width: 86px;
+      min-height: 48px;
+      position: absolute;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 0;
+      padding: 5px 8px;
+      color: #173149;
+      background: transparent;
+      text-align: left;
+      transform: translate(-50%, -50%);
+      transform-origin: center;
+      -webkit-tap-highlight-color: transparent;
+      transition: transform 150ms cubic-bezier(0.2, 0.75, 0.2, 1), color 150ms ease;
+    }
+
+    .journey-node:nth-child(1) { left: 21%; top: 78%; }
+    .journey-node:nth-child(2) { left: 54%; top: 62%; }
+    .journey-node:nth-child(3) { left: 74%; top: 46%; }
+    .journey-node:nth-child(4) { left: 56%; top: 30%; }
+    .journey-node:nth-child(5) { left: 78%; top: 14%; }
+
+    .journey-node-dot {
+      width: 22px;
+      height: 22px;
+      position: relative;
+      flex: 0 0 auto;
+      display: grid;
+      place-items: center;
+      border: 3px solid rgba(255, 255, 255, 0.94);
+      border-radius: 50%;
+      background: var(--node-color);
+      box-shadow: 0 3px 12px rgba(36, 72, 89, 0.16);
+    }
+
+    .journey-node-dot::after {
+      content: "";
+      position: absolute;
+      inset: -8px;
+      border: 1px solid var(--node-color);
+      border-radius: 50%;
+      opacity: 0;
+      transform: scale(0.7);
+    }
+
+    .journey-node.active {
+      --node-color: #4b79e8;
+      color: #245bc9;
+    }
+
+    .journey-node.destination {
+      --node-color: #f5bf4d;
+    }
+
+    .journey-node.completed .journey-node-dot::before {
+      content: "";
+      width: 7px;
+      height: 4px;
+      border-left: 2px solid #173149;
+      border-bottom: 2px solid #173149;
+      transform: translateY(-1px) rotate(-45deg);
+    }
+
+    .journey-node-copy {
+      display: grid;
+      gap: 1px;
+      text-shadow: 0 1px 8px rgba(247, 250, 249, 0.92);
+    }
+
+    .journey-node-copy strong {
+      font-size: 14px;
+      line-height: 1.1;
+      font-weight: 780;
+    }
+
+    .journey-node-copy small {
+      color: rgba(23, 49, 73, 0.58);
+      font-size: 10px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .journey-node:active,
+    .journey-node.is-launching {
+      transform: translate(-50%, -50%) scale(0.92);
+    }
+
+    .journey-node.is-launching .journey-node-dot::after {
+      animation: journey-node-ripple 420ms ease-out both;
+    }
+
+    @keyframes journey-node-ripple {
+      0% { opacity: 0.72; transform: scale(0.66); }
+      100% { opacity: 0; transform: scale(1.85); }
+    }
+
+    .journey-progress {
+      position: absolute;
+      left: 0;
+      bottom: 2px;
+      display: grid;
+      grid-template-columns: auto 46px;
+      gap: 14px;
+      align-items: end;
+    }
+
+    .journey-progress-copy {
+      display: grid;
+      gap: 1px;
+    }
+
+    .journey-progress-copy span {
+      font-size: 12px;
+      font-weight: 680;
+    }
+
+    .journey-progress-copy strong {
+      font-size: 48px;
+      line-height: 0.98;
+      font-weight: 760;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -0.02em;
+    }
+
+    .journey-progress-copy strong small {
+      margin-left: 2px;
+      font-size: 20px;
+      letter-spacing: 0;
+    }
+
+    .journey-progress-action {
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      border: 1.5px solid #173149;
+      border-radius: 50%;
+      color: #173149;
+      background: rgba(247, 250, 249, 0.28);
+      backdrop-filter: blur(7px);
+      -webkit-backdrop-filter: blur(7px);
+      transition: transform 150ms ease, background 150ms ease;
+    }
+
+    .journey-progress-action svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+      stroke: none;
+    }
+
+    .journey-progress-action:active {
+      background: rgba(247, 250, 249, 0.68);
+      transform: scale(0.92);
+    }
+
+    .journey-focus {
+      position: relative;
+      display: grid;
+      gap: 12px;
+      padding: 22px 0 16px;
+    }
+
+    .journey-focus-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .journey-focus-heading span {
+      color: rgba(23, 49, 73, 0.58);
+      font-size: 12px;
+      font-weight: 650;
+    }
+
+    .journey-focus h2 {
+      margin: 0;
+      font-size: 26px;
+      line-height: 1.14;
+      font-weight: 790;
+    }
+
+    .journey-focus p {
+      margin: -4px 0 2px;
+      color: rgba(23, 49, 73, 0.62);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .journey-primary-action {
+      min-height: 54px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      border: 0;
+      border-radius: 14px;
+      color: #ffffff;
+      background: #173149;
+      box-shadow: 0 9px 24px rgba(23, 49, 73, 0.14);
+      font-size: 16px;
+      font-weight: 760;
+      transition: transform 150ms ease, background 150ms ease;
+    }
+
+    .journey-primary-action svg {
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .journey-primary-action:active {
+      background: #23445e;
+      transform: scale(0.985);
+    }
+
+    .journey-summary {
+      min-height: 54px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      align-items: center;
+      border-top: 1px solid rgba(23, 49, 73, 0.1);
+      border-bottom: 1px solid rgba(23, 49, 73, 0.1);
+    }
+
+    .journey-summary div {
+      display: grid;
+      gap: 1px;
+      text-align: center;
+    }
+
+    .journey-summary div + div {
+      border-left: 1px solid rgba(23, 49, 73, 0.1);
+    }
+
+    .journey-summary strong {
+      font-size: 15px;
+      font-weight: 760;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .journey-summary span {
+      color: rgba(23, 49, 73, 0.52);
+      font-size: 10px;
+      font-weight: 620;
+    }
+
+    .app.home .bottom-nav {
+      border-top-color: rgba(23, 49, 73, 0.08);
+      background: rgba(247, 250, 249, 0.88);
+      box-shadow: none;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .app.home .bottom-nav .nav-btn {
+      color: rgba(23, 49, 73, 0.48);
+    }
+
+    .app.home .bottom-nav .nav-btn.active {
+      color: #173149;
+      background: transparent;
+    }
+
+    .app.home .bottom-nav .nav-btn.active b::after {
+      content: "";
+      width: 5px;
+      height: 5px;
+      position: absolute;
+      left: 50%;
+      bottom: -5px;
+      border-radius: 50%;
+      background: #4b79e8;
+      transform: translateX(-50%);
+    }
+
+    .app.home .bottom-nav .nav-btn b {
+      position: relative;
+    }
+
+    @media (max-width: 350px) {
+      .home-page.home-journey {
+        padding-inline: 16px;
+      }
+
+      .journey-map {
+        height: 380px;
+        min-height: 380px;
+      }
+
+      .journey-node:nth-child(1) { left: 22%; }
+      .journey-node:nth-child(3) { left: 70%; }
+      .journey-node:nth-child(5) { left: 75%; }
+
+      .journey-node-copy strong {
+        font-size: 13px;
+      }
+    }
+
+    @media (max-height: 720px) {
+      .journey-map {
+        height: 350px;
+        min-height: 350px;
+      }
+
+      .journey-focus {
+        gap: 9px;
+        padding-top: 14px;
+      }
+
+      .journey-summary {
+        display: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .journey-node,
+      .journey-primary-action,
+      .journey-progress-action {
+        transition: none;
+      }
+
+      .journey-node.is-launching .journey-node-dot::after {
+        animation: none;
+      }
+    }
   </style>
 </head>
 <body>
@@ -8306,96 +8746,73 @@
       setView("globalChat");
     }
 
-    function selectHomeScene(sceneId) {
-      const scrollTop = app?.scrollTop || 0;
-      state.homeSceneId = sceneId;
-      renderHome();
-      if (app) app.scrollTop = scrollTop;
+    function enterHomeScene(sceneId, button) {
+      const scene = sceneById(sceneId);
+      if (!scene || button?.classList.contains("is-launching")) return;
+      button?.classList.add("is-launching");
+      button?.setAttribute("aria-busy", "true");
+      if (typeof navigator.vibrate === "function" && state.feedbackSettings.haptics) navigator.vibrate(10);
+      window.setTimeout(() => {
+        const nextModule = nextCourseModule(scene).id;
+        setView("scene", { sceneId, module: nextModule });
+      }, state.feedbackSettings.motion ? 180 : 0);
     }
 
     function renderHome() {
       const learned = coreProgressCount("learnedPhraseIds", "phrases");
       const favorites = state.progress.favoriteIds.length;
-      const wrongQuestions = state.progress.wrongQuestionIds.length;
       const completed = completedSceneCount();
-      const scenes = coreScenes();
       const lastScene = lastCoreScene();
-      const selectedScene = state.homeSceneId && isCoreScene(state.homeSceneId)
-        ? sceneById(state.homeSceneId)
-        : lastScene;
+      const routeScenes = ["airport", "transport", "hotel", "restaurant", "shopping"].map(sceneById);
       const lastProgress = moduleProgress(lastScene);
       app.innerHTML = `
-        <div class="home-page">
-          <header class="home-header">
-            <div class="home-brand">
-              <div class="home-brand-row"><span class="home-kicker">TRAVEL ENGLISH</span>${cloudStatusButton()}</div>
-              <h1>旅行常用英语</h1>
-              <p class="eyebrow">出发前练几句，旅行更从容</p>
+        <div class="home-page home-journey">
+          <header class="journey-header">
+            <div class="journey-brand">
+              <small>TRAVEL ENGLISH</small>
+              <h1>旅行英语</h1>
             </div>
-            <div class="home-summary" aria-label="学习概览">
+            ${cloudStatusButton()}
+          </header>
+
+          <section class="journey-map" aria-label="旅行场景路线">
+            <div class="journey-map-heading">
+              <strong>场景路线</strong>
+              <span>选择场景开始学习</span>
+            </div>
+            <div class="journey-route-nodes">
+              ${routeScenes.map((scene, index) => {
+                const progress = moduleProgress(scene);
+                const stateClass = scene.id === lastScene.id ? "active" : index === routeScenes.length - 1 ? "destination" : "";
+                return `
+                  <button class="journey-node ${stateClass} ${progress === 100 ? "completed" : ""}" onclick="enterHomeScene('${scene.id}', this)" aria-label="进入${scene.title}场景，当前进度 ${progress}%">
+                    <span class="journey-node-dot" aria-hidden="true"></span>
+                    <span class="journey-node-copy"><strong>${scene.title}</strong><small>${progress}%</small></span>
+                  </button>
+                `;
+              }).join("")}
+            </div>
+            <div class="journey-progress">
+              <div class="journey-progress-copy"><span>${lastScene.title}场景</span><strong>${lastProgress}<small>%</small></strong></div>
+              <button class="journey-progress-action" onclick="startDailyTask('${lastScene.id}')" aria-label="继续${lastScene.title}今日学习">${lineIcon(`<path d="m9 6 8 6-8 6V6Z"/>`)}</button>
+            </div>
+          </section>
+
+          <section class="journey-focus" aria-label="今日学习">
+            <div class="journey-focus-heading">
+              <span>今日学习</span>
+              <span>约 5 分钟</span>
+            </div>
+            <h2>继续学习 · ${lastScene.title}</h2>
+            <p>${contentCount(lastScene, "vocabulary")} 个词汇 · ${contentCount(lastScene, "phrases")} 条短句 · ${contentCount(lastScene, "listening")} 道听力</p>
+            <button class="journey-primary-action" onclick="startDailyTask('${lastScene.id}')">
+              <span>开始学习</span>${lineIcon(`<path d="m9 18 6-6-6-6"/>`)}
+            </button>
+            <div class="journey-summary" aria-label="学习概览">
               <div><strong>${learned}</strong><span>已学短句</span></div>
               <div><strong>${favorites}</strong><span>收藏</span></div>
               <div><strong>${completed}</strong><span>完成场景</span></div>
             </div>
-          </header>
-
-          <section class="today-panel" aria-label="今日学习">
-            <div class="section-title">
-              <h2>今日学习</h2>
-              <span>约 5 分钟</span>
-            </div>
-            <button class="today-card ${lastScene.id}" onclick="startDailyTask('${lastScene.id}')">
-              <div class="today-card-top">
-                <span class="scene-mark">${sceneMark(lastScene.id)}</span>
-                <div><small>继续学习</small><strong>${lastScene.title}</strong></div>
-                <span class="today-percent">${lastProgress}%</span>
-              </div>
-              <div class="today-copy"><h2>${sceneSubtitle(lastScene.id)}</h2></div>
-              <div class="today-progress" aria-label="${lastScene.title}学习进度 ${lastProgress}%" style="--progress:${lastProgress}%"><span></span></div>
-              <div class="today-meta">
-                <span>${contentCount(lastScene, "vocabulary")} 词</span>
-                <span>${contentCount(lastScene, "phrases")} 句</span>
-                <span>${contentCount(lastScene, "listening")} 听力</span>
-                <span>${coreChatTurns(lastScene).length} 对话</span>
-              </div>
-              <div class="today-card-footer">
-                <span>开始今日学习</span>${lineIcon(`<path d="m9 18 6-6-6-6"/>`)}
-              </div>
-            </button>
-          </section>
-
-          <section class="home-course-section" aria-label="场景课程">
-            <div class="section-title">
-              <h2>场景课程</h2>
-              <span>${scenes.length} 个场景</span>
-            </div>
-            <div class="home-scene-tabs" role="tablist" aria-label="选择旅行场景">
-              ${scenes.map(scene => `<button class="home-scene-tab ${scene.id === selectedScene.id ? "active" : ""}" role="tab" aria-selected="${scene.id === selectedScene.id}" onclick="selectHomeScene('${scene.id}')">${scene.title}</button>`).join("")}
-            </div>
-            <article class="home-scene-card ${selectedScene.id}">
-              <div class="home-scene-card-head">
-                <span class="scene-mark">${sceneMark(selectedScene.id)}</span>
-                <div><h3>${selectedScene.title}</h3><p>${sceneSubtitle(selectedScene.id)}</p></div>
-                <span class="home-scene-card-percent">${moduleProgress(selectedScene)}%</span>
-              </div>
-              <div class="scene-course-progressbar" aria-label="${selectedScene.title}进度 ${moduleProgress(selectedScene)}%"><span style="width:${moduleProgress(selectedScene)}%"></span></div>
-              <div class="home-scene-stats">
-                <div><strong>${contentCount(selectedScene, "vocabulary")}</strong><span>词汇</span></div>
-                <div><strong>${contentCount(selectedScene, "phrases")}</strong><span>短句</span></div>
-                <div><strong>${contentCount(selectedScene, "listening")}</strong><span>听力</span></div>
-                <div><strong>${coreChatTurns(selectedScene).length}</strong><span>对话</span></div>
-              </div>
-              <button class="home-scene-cta" onclick="setView('scene', { sceneId: '${selectedScene.id}', module: 'vocabulary' })">进入课程 ${lineIcon(`<path d="m9 18 6-6-6-6"/>`)}</button>
-            </article>
-          </section>
-
-          <section class="home-review-section" aria-label="最近复习">
-            <div class="section-title"><h2>最近复习</h2><span>${favorites + wrongQuestions} 条待复习</span></div>
-            <button class="home-review-card" onclick="setView('favorites')">
-              <span class="home-review-icon">${lineIcon(`<path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.3l-5.6 2.9 1.1-6.2L3 9.6l6.2-.9L12 3Z"/>`)}</span>
-              <span class="home-review-copy"><strong>复习收藏与错题</strong><span>${favorites} 条收藏 · ${wrongQuestions} 道听力错题</span></span>
-              <span class="home-review-arrow">${lineIcon(`<path d="m9 18 6-6-6-6"/>`)}</span>
-            </button>
           </section>
         </div>
         ${bottomNav("home")}
