@@ -5243,6 +5243,296 @@
         padding: 16px;
       }
     }
+
+    /* Travel route identity: each scene has its own youthful accent. */
+    .airport,
+    .scene-airport {
+      --scene-accent: #2f7de1;
+      --scene-deep: #1e5fab;
+      --scene-soft: #edf5ff;
+      --scene-line: #cfe1f8;
+    }
+
+    .hotel,
+    .scene-hotel {
+      --scene-accent: #6d5bd0;
+      --scene-deep: #5040a8;
+      --scene-soft: #f2f0ff;
+      --scene-line: #ddd7fa;
+    }
+
+    .restaurant,
+    .scene-restaurant {
+      --scene-accent: #e76a4c;
+      --scene-deep: #b84b35;
+      --scene-soft: #fff1ed;
+      --scene-line: #f5d4cb;
+    }
+
+    .transport,
+    .scene-transport {
+      --scene-accent: #168f86;
+      --scene-deep: #0d6b65;
+      --scene-soft: #eaf8f6;
+      --scene-line: #c9e9e5;
+    }
+
+    .shopping,
+    .scene-shopping {
+      --scene-accent: #c68a13;
+      --scene-deep: #936408;
+      --scene-soft: #fff7df;
+      --scene-line: #f0dfaa;
+    }
+
+    .app.home .today-card,
+    .home-scene-card,
+    .app.learn .course-row {
+      border: 1px solid var(--scene-line, #e3ebdc);
+      background: var(--scene-soft, #f5f9ef);
+    }
+
+    .app.learn .course-row {
+      box-shadow: inset 4px 0 0 var(--scene-accent, #70ad37), 0 5px 16px rgba(21, 28, 39, 0.045);
+    }
+
+    .app.learn .course-row.airport,
+    .app.learn .course-row.hotel,
+    .app.learn .course-row.restaurant,
+    .app.learn .course-row.transport,
+    .app.learn .course-row.shopping {
+      border-color: var(--scene-line);
+      background: var(--scene-soft);
+    }
+
+    .app.home .today-card .scene-mark,
+    .home-scene-card .scene-mark,
+    .app.learn .course-row-mark,
+    .app.home .today-percent,
+    .home-scene-card-percent,
+    .app.learn .course-row-percent {
+      color: var(--scene-deep, #3f6f16);
+    }
+
+    .app.home .today-progress span,
+    .home-scene-card .scene-course-progressbar span,
+    .app.learn .course-progress span {
+      background: var(--scene-accent, #70ad37);
+    }
+
+    .app.learning-module-page .module-tabs {
+      position: sticky;
+      top: var(--secondary-titlebar-height);
+      z-index: 4;
+      min-height: 58px;
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 5px;
+      padding: 8px 12px;
+      background: rgba(255, 255, 255, 0.96);
+      border-bottom: 1px solid rgba(21, 28, 39, 0.07);
+    }
+
+    .app.learning-module-page .module-tabs .tab-btn {
+      min-width: 0;
+      min-height: 44px;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      padding: 0 4px;
+      color: rgba(21, 28, 39, 0.52);
+      background: transparent;
+      box-shadow: none;
+      font-size: 12px;
+      font-weight: 680;
+    }
+
+    .app.learning-module-page .module-tabs .tab-btn.active {
+      border-color: var(--scene-line, #dbeaca);
+      color: var(--scene-deep, #195200);
+      background: var(--scene-soft, #edf6e4);
+      box-shadow: none;
+    }
+
+    .app.learning-module-page .module-tabs .tab-btn.completed:not(.active)::after {
+      content: "";
+      width: 5px;
+      height: 5px;
+      position: absolute;
+      right: 6px;
+      top: 6px;
+      border-radius: 50%;
+      background: var(--scene-accent, #70ad37);
+    }
+
+    .app.learning-module-page .module-tabs .tab-btn {
+      position: relative;
+    }
+
+    .content-card,
+    .listening-card,
+    .phrase-study-card,
+    .speaking-card,
+    .review-card,
+    .review-question-card {
+      box-shadow: 0 8px 24px rgba(21, 28, 39, 0.055);
+    }
+
+    /* Multisensory feedback layer. */
+    .feedback-event {
+      position: fixed;
+      left: 50%;
+      top: 46%;
+      z-index: 40;
+      min-width: 132px;
+      min-height: 54px;
+      display: grid;
+      grid-template-columns: 28px auto;
+      gap: 9px;
+      align-items: center;
+      border: 1px solid rgba(255, 255, 255, 0.72);
+      border-radius: 999px;
+      padding: 11px 18px 11px 14px;
+      color: #ffffff;
+      background: #151c27;
+      box-shadow: 0 16px 42px rgba(21, 28, 39, 0.22);
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      animation: feedback-pop 680ms cubic-bezier(0.2, 0.8, 0.22, 1) both;
+    }
+
+    .feedback-event.correct,
+    .feedback-event.mastered,
+    .feedback-event.complete {
+      background: var(--scene-deep, #195200);
+    }
+
+    .feedback-event.wrong {
+      background: #8f4c30;
+      animation-name: feedback-wrong;
+    }
+
+    .feedback-event svg {
+      width: 28px;
+      height: 28px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.9;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .feedback-event.mastered,
+    .feedback-event.complete {
+      border-radius: 12px;
+      text-transform: none;
+    }
+
+    .feedback-event.mastered::after,
+    .feedback-event.complete::after {
+      content: "";
+      position: absolute;
+      inset: -9px;
+      border: 2px solid var(--scene-accent, #70ad37);
+      border-radius: 16px;
+      opacity: 0;
+      animation: feedback-ring 620ms ease-out both;
+    }
+
+    @keyframes feedback-pop {
+      0% { opacity: 0; transform: translate(-50%, -42%) scale(0.78); }
+      28% { opacity: 1; transform: translate(-50%, -50%) scale(1.05); }
+      72% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+      100% { opacity: 0; transform: translate(-50%, -58%) scale(0.96); }
+    }
+
+    @keyframes feedback-wrong {
+      0% { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
+      20% { opacity: 1; transform: translate(calc(-50% - 6px), -50%); }
+      35% { transform: translate(calc(-50% + 6px), -50%); }
+      50% { transform: translate(calc(-50% - 3px), -50%); }
+      70% { opacity: 1; transform: translate(-50%, -50%); }
+      100% { opacity: 0; transform: translate(-50%, -54%); }
+    }
+
+    @keyframes feedback-ring {
+      18% { opacity: 0.7; transform: scale(0.9); }
+      100% { opacity: 0; transform: scale(1.14); }
+    }
+
+    .feedback-settings {
+      display: grid;
+      gap: 8px;
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(21, 28, 39, 0.08);
+    }
+
+    .feedback-settings h4 {
+      margin: 0 0 2px;
+      color: #151c27;
+      font-size: 14px;
+      font-weight: 780;
+    }
+
+    .feedback-setting-row {
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      color: rgba(21, 28, 39, 0.72);
+      font-size: 13px;
+    }
+
+    .feedback-switch {
+      width: 48px;
+      height: 28px;
+      position: relative;
+      flex: 0 0 auto;
+    }
+
+    .feedback-switch input {
+      width: 1px;
+      height: 1px;
+      position: absolute;
+      opacity: 0;
+    }
+
+    .feedback-switch span {
+      position: absolute;
+      inset: 0;
+      border-radius: 999px;
+      background: #dfe3dd;
+      transition: background 160ms ease;
+    }
+
+    .feedback-switch span::after {
+      content: "";
+      width: 22px;
+      height: 22px;
+      position: absolute;
+      left: 3px;
+      top: 3px;
+      border-radius: 50%;
+      background: #ffffff;
+      box-shadow: 0 2px 5px rgba(21, 28, 39, 0.18);
+      transition: transform 180ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .feedback-switch input:checked + span {
+      background: #70ad37;
+    }
+
+    .feedback-switch input:checked + span::after {
+      transform: translateX(20px);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .feedback-event,
+      .feedback-event::after {
+        animation: none !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -6440,10 +6730,113 @@
       cloudStatus: CLOUD_ENABLED ? "connecting" : "local",
       cloudMessage: CLOUD_ENABLED ? "正在连接云端" : "当前进度仅保存在本机",
       cloudEmailInput: "",
+      feedbackSettings: loadFeedbackSettings(),
       progress: loadProgress()
     };
 
     const app = document.getElementById("app");
+
+    function loadFeedbackSettings() {
+      const fallback = {
+        sound: true,
+        haptics: true,
+        motion: !window.matchMedia?.("(prefers-reduced-motion: reduce)").matches
+      };
+      try {
+        return { ...fallback, ...JSON.parse(localStorage.getItem("travelEnglishFeedback") || "{}") };
+      } catch {
+        return fallback;
+      }
+    }
+
+    function setFeedbackSetting(key, enabled) {
+      if (!["sound", "haptics", "motion"].includes(key)) return;
+      state.feedbackSettings[key] = Boolean(enabled);
+      localStorage.setItem("travelEnglishFeedback", JSON.stringify(state.feedbackSettings));
+      if (key === "haptics" && enabled && typeof navigator.vibrate === "function") {
+        navigator.vibrate(14);
+      }
+    }
+
+    const feedbackRuntime = {
+      audioContext: null,
+      removeTimer: 0
+    };
+
+    function feedbackHaptic(type) {
+      if (!state.feedbackSettings.haptics || typeof navigator.vibrate !== "function") return;
+      const patterns = {
+        correct: 18,
+        wrong: [28, 38, 22],
+        mastered: [16, 34, 30],
+        complete: [22, 42, 32, 46, 48],
+        sent: 10
+      };
+      const pattern = patterns[type];
+      if (pattern) navigator.vibrate(pattern);
+    }
+
+    function playFeedbackSound(type) {
+      if (!state.feedbackSettings.sound || window.speechSynthesis?.speaking) return;
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContextClass) return;
+      const melodies = {
+        correct: [[660, 0, 0.07], [880, 0.075, 0.11]],
+        wrong: [[190, 0, 0.12]],
+        mastered: [[420, 0, 0.07], [560, 0.07, 0.13]],
+        complete: [[523, 0, 0.09], [659, 0.09, 0.11], [784, 0.2, 0.18]],
+        sent: [[520, 0, 0.045]]
+      };
+      const notes = melodies[type];
+      if (!notes) return;
+      try {
+        const context = feedbackRuntime.audioContext || new AudioContextClass();
+        feedbackRuntime.audioContext = context;
+        if (context.state === "suspended") context.resume().catch(() => {});
+        const start = context.currentTime + 0.01;
+        notes.forEach(([frequency, offset, duration]) => {
+          const oscillator = context.createOscillator();
+          const gain = context.createGain();
+          oscillator.type = type === "wrong" ? "triangle" : "sine";
+          oscillator.frequency.setValueAtTime(frequency, start + offset);
+          gain.gain.setValueAtTime(0.0001, start + offset);
+          gain.gain.exponentialRampToValueAtTime(type === "complete" ? 0.075 : 0.055, start + offset + 0.015);
+          gain.gain.exponentialRampToValueAtTime(0.0001, start + offset + duration);
+          oscillator.connect(gain);
+          gain.connect(context.destination);
+          oscillator.start(start + offset);
+          oscillator.stop(start + offset + duration + 0.02);
+        });
+      } catch {
+        // Visual feedback remains available when audio cannot start.
+      }
+    }
+
+    function feedbackIcon(type) {
+      if (type === "wrong") return lineIcon(`<circle cx="12" cy="12" r="8"/><path d="m9 9 6 6M15 9l-6 6"/>`);
+      if (type === "mastered") return lineIcon(`<path d="M5 4h14v16H5z"/><path d="m8 12 2.5 2.5L16 9"/>`);
+      if (type === "complete") return lineIcon(`<path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.3l-5.6 2.9 1.1-6.2L3 9.6l6.2-.9L12 3Z"/>`);
+      return lineIcon(`<circle cx="12" cy="12" r="8"/><path d="m8.5 12 2.2 2.2 4.8-5"/>`);
+    }
+
+    function triggerFeedback(type, label) {
+      feedbackHaptic(type);
+      playFeedbackSound(type);
+      document.querySelectorAll(".feedback-event").forEach(element => element.remove());
+      window.clearTimeout(feedbackRuntime.removeTimer);
+      const element = document.createElement("div");
+      element.className = `feedback-event ${type}`;
+      element.setAttribute("role", "status");
+      element.setAttribute("aria-live", "polite");
+      element.innerHTML = `${feedbackIcon(type)}<strong>${escapeHtml(label || "完成")}</strong>`;
+      if (!state.feedbackSettings.motion) element.style.animation = "none";
+      const accent = getComputedStyle(app).getPropertyValue("--scene-accent");
+      const deep = getComputedStyle(app).getPropertyValue("--scene-deep");
+      if (accent) element.style.setProperty("--scene-accent", accent);
+      if (deep) element.style.setProperty("--scene-deep", deep);
+      document.body.appendChild(element);
+      feedbackRuntime.removeTimer = window.setTimeout(() => element.remove(), type === "complete" ? 1100 : 720);
+    }
 
     function loadProgress() {
       const fallback = {
@@ -7381,6 +7774,7 @@
           text: `可识别度 ${assessment.score} 分：${levelText}。识别结果：${transcript}。${missingHint}本结果不代表口音或音素专业评分。`
         };
         render();
+        triggerFeedback(good ? "correct" : "wrong", good ? "发音清晰" : "再慢一点");
       };
 
       recognition.onerror = event => {
@@ -7505,8 +7899,14 @@
     }
 
     function markVocabLearned(sceneId, index) {
-      toggleProgressItem("learnedVocabIds", vocabId(sceneById(sceneId), index));
+      const scene = sceneById(sceneId);
+      const id = vocabId(scene, index);
+      const wasLearned = state.progress.learnedVocabIds.includes(id);
+      toggleProgressItem("learnedVocabIds", id);
       render();
+      if (!wasLearned) {
+        triggerFeedback(moduleCompleted(scene, "vocabulary") ? "complete" : "mastered", moduleProgress(scene) === 100 ? `${scene.title}已准备` : moduleCompleted(scene, "vocabulary") ? "词汇模块完成" : "已掌握");
+      }
     }
 
     function orderedVocabIndexes(scene) {
@@ -7599,6 +7999,7 @@
 
       addUnique("learnedVocabIds", id);
       render();
+      triggerFeedback(moduleCompleted(scene, "vocabulary") ? "complete" : "mastered", moduleProgress(scene) === 100 ? `${scene.title}已准备` : moduleCompleted(scene, "vocabulary") ? "词汇模块完成" : "已掌握");
     }
 
     function toggleVocabExpanded(id) {
@@ -7611,13 +8012,25 @@
     }
 
     function markPhraseLearned(sceneId, index) {
-      toggleProgressItem("learnedPhraseIds", phraseId(sceneById(sceneId), index));
+      const scene = sceneById(sceneId);
+      const id = phraseId(scene, index);
+      const wasLearned = state.progress.learnedPhraseIds.includes(id);
+      toggleProgressItem("learnedPhraseIds", id);
       render();
+      if (!wasLearned) {
+        triggerFeedback(moduleCompleted(scene, "phrases") ? "complete" : "mastered", moduleProgress(scene) === 100 ? `${scene.title}已准备` : moduleCompleted(scene, "phrases") ? "短句模块完成" : "已掌握");
+      }
     }
 
     function markPhraseSpoken(sceneId, index) {
-      toggleProgressItem("spokenPhraseIds", phraseId(sceneById(sceneId), index));
+      const scene = sceneById(sceneId);
+      const id = phraseId(scene, index);
+      const wasSpoken = state.progress.spokenPhraseIds.includes(id);
+      toggleProgressItem("spokenPhraseIds", id);
       render();
+      if (!wasSpoken) {
+        triggerFeedback(moduleCompleted(scene, "speaking") ? "complete" : "correct", moduleProgress(scene) === 100 ? `${scene.title}已准备` : moduleCompleted(scene, "speaking") ? "跟读模块完成" : "跟读完成");
+      }
     }
 
     function lineIcon(path, viewBox = "0 0 24 24") {
@@ -7747,6 +8160,9 @@
       if (state.view === "globalChat") {
         app.classList.add("learning-module-page", "chat-page", "standalone-chat-page");
       }
+      if (["scene", "vocabDetail", "vocabStudy"].includes(state.view)) {
+        app.classList.add(`scene-${state.sceneId}`);
+      }
       if (state.view === "home") renderHome();
       if (state.view === "learn") renderLearn();
       if (state.view === "scene") renderScene();
@@ -7795,6 +8211,12 @@
                 <p>当前账户：${escapeHtml(cloudUser.email || "已绑定账户")}</p>
                 <div class="actions sync-actions"><button class="primary-btn" onclick="syncProgressToCloud()">立即同步</button></div>
               ` : ""}
+              <div class="feedback-settings">
+                <h4>反馈设置</h4>
+                <label class="feedback-setting-row"><span>声音效果</span><span class="feedback-switch"><input type="checkbox" ${state.feedbackSettings.sound ? "checked" : ""} onchange="setFeedbackSetting('sound', this.checked)"><span></span></span></label>
+                <label class="feedback-setting-row"><span>触觉反馈（设备支持时）</span><span class="feedback-switch"><input type="checkbox" ${state.feedbackSettings.haptics ? "checked" : ""} onchange="setFeedbackSetting('haptics', this.checked)"><span></span></span></label>
+                <label class="feedback-setting-row"><span>动画效果</span><span class="feedback-switch"><input type="checkbox" ${state.feedbackSettings.motion ? "checked" : ""} onchange="setFeedbackSetting('motion', this.checked)"><span></span></span></label>
+              </div>
               <div class="actions single-action"><button class="secondary-btn" onclick="closeCloudPanel()">关闭</button></div>
             </section>
           </div>
@@ -7950,7 +8372,7 @@
             <div class="home-scene-tabs" role="tablist" aria-label="选择旅行场景">
               ${scenes.map(scene => `<button class="home-scene-tab ${scene.id === selectedScene.id ? "active" : ""}" role="tab" aria-selected="${scene.id === selectedScene.id}" onclick="selectHomeScene('${scene.id}')">${scene.title}</button>`).join("")}
             </div>
-            <article class="home-scene-card">
+            <article class="home-scene-card ${selectedScene.id}">
               <div class="home-scene-card-head">
                 <span class="scene-mark">${sceneMark(selectedScene.id)}</span>
                 <div><h3>${selectedScene.title}</h3><p>${sceneSubtitle(selectedScene.id)}</p></div>
@@ -8000,7 +8422,7 @@
               const progress = moduleProgress(scene);
               const nextModule = nextCourseModule(scene);
               return `
-                <button class="course-row ${sceneIndex % 2 ? "tone-blue" : "tone-green"}" onclick="setView('scene', { sceneId: '${scene.id}', module: '${nextModule.id}' })" aria-label="${scene.title}，进度 ${progress}%，继续${nextModule.label}">
+                <button class="course-row ${scene.id} ${sceneIndex % 2 ? "tone-blue" : "tone-green"}" onclick="setView('scene', { sceneId: '${scene.id}', module: '${nextModule.id}' })" aria-label="${scene.title}，进度 ${progress}%，继续${nextModule.label}">
                   <span class="course-row-mark">${sceneMark(scene.id)}</span>
                   <div class="course-row-main">
                     <div class="course-row-top">
@@ -8075,7 +8497,7 @@
           <h2>${scene.title}</h2>
         </div>
         <div class="module-tabs">
-          ${moduleNames.map(([id, label]) => `<button class="tab-btn ${module === id ? "active" : ""}" onclick="setView('scene', { sceneId: '${scene.id}', module: '${id}' })">${label}</button>`).join("")}
+          ${moduleNames.map(([id, label]) => `<button class="tab-btn ${module === id ? "active" : ""} ${moduleCompleted(scene, id) ? "completed" : ""}" onclick="setView('scene', { sceneId: '${scene.id}', module: '${id}' })">${label}</button>`).join("")}
         </div>
         <section class="section">
           ${renderSceneModule(scene, module)}
@@ -8540,8 +8962,10 @@
       const scene = sceneById(sceneId);
       const id = listeningId(scene, questionIndex);
       const selectedKey = source === "review" ? `review_${id}` : id;
+      const wasModuleComplete = moduleCompleted(scene, "listening");
       state.selectedListening[selectedKey] = optionIndex;
-      if (optionIndex === scene.listening[questionIndex][3]) {
+      const isCorrect = optionIndex === scene.listening[questionIndex][3];
+      if (isCorrect) {
         addUnique("completedListeningIds", id);
         if (source === "review") {
           removeItem("wrongQuestionIds", id);
@@ -8551,6 +8975,12 @@
       }
       saveProgress();
       render();
+      if (isCorrect) {
+        const justCompleted = !wasModuleComplete && moduleCompleted(scene, "listening");
+        triggerFeedback(justCompleted ? "complete" : "correct", moduleProgress(scene) === 100 ? `${scene.title}已准备` : justCompleted ? "听力模块完成" : "回答正确");
+      } else {
+        triggerFeedback("wrong", "再听一次");
+      }
     }
 
     function renderGlobalChat() {
@@ -8745,6 +9175,7 @@
         };
       }
       render();
+      triggerFeedback(choiceIndex === current[2] ? (state.chatIndex >= globalChatTurns().length ? "complete" : "correct") : "wrong", choiceIndex === current[2] ? (state.chatIndex >= globalChatTurns().length ? "综合练习完成" : "表达正确") : "换一种表达");
     }
 
     function submitFreeGlobalChat() {
@@ -8773,6 +9204,7 @@
         };
       }
       render();
+      triggerFeedback(score >= 0.6 ? (state.chatIndex >= globalChatTurns().length ? "complete" : "correct") : "wrong", score >= 0.6 ? (state.chatIndex >= globalChatTurns().length ? "综合练习完成" : "表达不错") : "看看标准回答");
     }
 
     function useGlobalStandardAnswer() {
@@ -8804,6 +9236,8 @@
         };
       }
       render();
+      const isCorrect = choiceIndex === current[2];
+      triggerFeedback(isCorrect ? (state.chatIndex >= chat.length ? "complete" : "correct") : "wrong", isCorrect ? (state.chatIndex >= chat.length ? (moduleProgress(scene) === 100 ? `${scene.title}已准备` : `${scene.title}对话完成`) : "表达正确") : "换一种表达");
     }
 
     function submitFreeChat(sceneId) {
@@ -8836,6 +9270,7 @@
         };
       }
       render();
+      triggerFeedback(score >= 0.6 ? (state.chatIndex >= chat.length ? "complete" : "correct") : "wrong", score >= 0.6 ? (state.chatIndex >= chat.length ? (moduleProgress(scene) === 100 ? `${scene.title}已准备` : `${scene.title}对话完成`) : "表达不错") : "看看标准回答");
     }
 
     function useStandardAnswer(sceneId) {
