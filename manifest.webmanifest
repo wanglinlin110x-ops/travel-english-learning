@@ -8,8 +8,8 @@
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#94c8d4",
-  "theme_color": "#94c8d4",
+  "background_color": "#72b7db",
+  "theme_color": "#72b7db",
   "categories": ["education", "travel"],
   "icons": [
     {
