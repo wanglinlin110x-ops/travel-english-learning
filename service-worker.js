@@ -1,10 +1,10 @@
-const CACHE_VERSION = "travel-english-v13";
+const CACHE_VERSION = "travel-english-v14";
 const APP_SHELL = [
   "./",
   "./index.html",
   "./cloud-config.js",
   "./manifest.webmanifest",
-  "./assets/home-figma-bg.png",
+  "./assets/home-figma-bg.webp",
   "./assets/home-figma-route.svg",
   "./assets/home-figma-star.png",
   "./assets/nav-home-figma.png",

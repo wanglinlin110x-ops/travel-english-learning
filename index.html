@@ -10,6 +10,7 @@
   <meta name="application-name" content="旅行英语">
   <meta name="description" content="旅行前练习常用英语的轻量学习工具">
   <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="preload" href="./assets/home-figma-bg.webp" as="image" type="image/webp" fetchpriority="high">
   <link rel="icon" type="image/png" sizes="192x192" href="./assets/icons/icon-192.png">
   <link rel="apple-touch-icon" sizes="180x180" href="./assets/icons/apple-touch-icon.png">
   <title>旅行常用英语</title>
@@ -5561,7 +5562,7 @@
       overflow: hidden;
       container-type: inline-size;
       color: #192e41;
-      background: #cde5e8 url("assets/home-figma-bg.png") center / 100% 100% no-repeat;
+      background: #cde5e8 url("assets/home-figma-bg.webp") center / 100% 100% no-repeat;
     }
 
     .home-figma-route-stage {
@@ -5632,12 +5633,12 @@
     }
 
     .home-route-star img {
-      width: 121.96%;
-      height: 121.96%;
+      width: 100%;
+      height: 100%;
       position: absolute;
       z-index: 1;
-      top: -12.12%;
-      left: -10.59%;
+      top: 0;
+      left: 0;
       display: block;
       max-width: none;
       object-fit: fill;
@@ -5915,31 +5916,14 @@
     }
 
     .figma-bottom-nav .nav-btn img {
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
       position: absolute;
       display: block;
       max-width: none;
       object-fit: fill;
-    }
-
-    .figma-bottom-nav .nav-home img {
-      width: 122.29%;
-      height: 122.66%;
-      top: -20%;
-      left: -9.57%;
-    }
-
-    .figma-bottom-nav .nav-learn img {
-      width: 118.61%;
-      height: 118.6%;
-      top: -6.45%;
-      left: -6.11%;
-    }
-
-    .figma-bottom-nav .nav-favorites img {
-      width: 116.89%;
-      height: 116.89%;
-      top: -8.33%;
-      left: -5.71%;
     }
 
     @media (prefers-reduced-motion: reduce) {
