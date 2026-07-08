@@ -5967,6 +5967,255 @@
       object-fit: fill;
     }
 
+    /* Figma 93:71 / 94:225 learning tabs. */
+    .app.learn {
+      width: min(100%, var(--app-shell-width));
+      min-height: 100dvh;
+      overflow-x: hidden;
+      color: #192e41;
+      background-color: #f2f3f5;
+      background-image: linear-gradient(180deg, rgba(242, 243, 245, 0.12), rgba(242, 243, 245, 0.82) 78%, #f2f3f5 100%), url("assets/home-figma-bg.webp");
+      background-position: center top;
+      background-size: 100% auto;
+      background-repeat: no-repeat;
+    }
+
+    .app.learn::after {
+      background: #f2f3f5;
+    }
+
+    .app.learn .learn-titlebar {
+      height: 44px;
+      min-height: 44px;
+      padding: 0 20px;
+      border: 0;
+      background: transparent;
+    }
+
+    .app.learn .learn-titlebar h1 {
+      margin: 0;
+      color: #192e41;
+      font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 20px;
+      line-height: 1.24;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    .learn-overall-progress {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      white-space: nowrap;
+    }
+
+    .app.learn .learn-overall-progress span {
+      color: rgba(25, 46, 65, 0.6);
+      font-size: 14px;
+      font-weight: 400;
+    }
+
+    .learn-overall-progress strong {
+      color: #192e41;
+      font-size: 16px;
+      font-weight: 500;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .learn-tab-page {
+      min-height: calc(100dvh - 44px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+      padding: 24px 10px calc(106px + env(safe-area-inset-bottom));
+      touch-action: pan-y;
+    }
+
+    .learn-tab-list {
+      width: 100%;
+      min-height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .learn-tab-button {
+      width: 128px;
+      height: 40px;
+      border: 0;
+      padding: 0;
+      color: #fff;
+      background: transparent;
+      font-size: 24px;
+      line-height: 40px;
+      font-weight: 600;
+      text-align: center;
+      white-space: nowrap;
+      text-underline-offset: 4px;
+      text-decoration-thickness: 1px;
+    }
+
+    .learn-tab-button.active {
+      color: #467ffb;
+      text-decoration: underline;
+    }
+
+    .learn-tab-panel {
+      width: 100%;
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      animation: learn-tab-enter 180ms ease-out both;
+    }
+
+    @keyframes learn-tab-enter {
+      from { opacity: 0; transform: translateX(var(--learn-tab-enter-x, 10px)); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .learn-scene-pill {
+      min-height: 64px;
+      max-width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px dashed rgba(21, 28, 39, 0.4);
+      border-radius: 50px;
+      padding: 10px 20px 10px 10px;
+      color: #151c27;
+      background: rgba(255, 255, 255, 0.1);
+      text-align: left;
+    }
+
+    .learn-scene-pill.current {
+      border-color: transparent;
+      background: rgba(255, 255, 255, 0.82);
+    }
+
+    .learn-icon-placeholder {
+      width: 44px;
+      height: 44px;
+      position: relative;
+      flex: 0 0 auto;
+      border: 1px dashed rgba(25, 46, 65, 0.35);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.28);
+    }
+
+    .learn-icon-placeholder::after {
+      content: "";
+      width: 10px;
+      height: 10px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      border: 1px solid rgba(25, 46, 65, 0.32);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .learn-scene-name {
+      min-width: 0;
+      color: #151c27;
+      font-size: clamp(20px, 6.4vw, 24px);
+      line-height: 1.2;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .learn-scene-percent {
+      color: rgba(25, 46, 65, 0.6);
+      font-size: 18px;
+      line-height: 1.2;
+      font-weight: 500;
+      white-space: nowrap;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .learn-entry-arrow {
+      width: 20px;
+      flex: 0 0 auto;
+      color: #151c27;
+      font-size: 27px;
+      line-height: 1;
+      font-weight: 400;
+      text-align: center;
+    }
+
+    .learn-practice-grid {
+      width: min(100%, 315px);
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px 10px;
+    }
+
+    .learn-practice-card {
+      height: 164.5px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 8px;
+      border: 1px dashed rgba(21, 28, 39, 0.4);
+      border-radius: 12px;
+      padding: 16px;
+      color: #151c27;
+      background: rgba(255, 255, 255, 0.1);
+      text-align: left;
+    }
+
+    .learn-practice-card.wide {
+      height: 145px;
+      grid-column: 1 / -1;
+    }
+
+    .learn-practice-card-top {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .learn-practice-card h2 {
+      margin: 0;
+      color: #151c27;
+      font-size: 24px;
+      line-height: 1.3;
+      font-weight: 500;
+    }
+
+    .learn-practice-card p {
+      margin: 0;
+      color: rgba(25, 46, 65, 0.6);
+      font-size: 14px;
+      line-height: 1.45;
+      font-weight: 500;
+    }
+
+    .learn-swipe-hint {
+      margin-top: auto;
+      color: rgba(21, 28, 39, 0.4);
+      font-size: 14px;
+      line-height: 20px;
+      text-align: center;
+    }
+
+    @media (max-width: 350px) {
+      .learn-tab-list { gap: 8px; padding-inline: 8px; }
+      .learn-tab-button { width: 120px; font-size: 22px; }
+      .learn-scene-name { font-size: 20px; }
+      .learn-practice-card h2 { font-size: 21px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .learn-tab-panel { animation: none; }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       .home-route-node,
       .home-figma-action { transition: none; }
@@ -7164,6 +7413,8 @@
       vocabStudyAutoPlayKey: "",
       homeScrollTop: 0,
       homeSceneId: "",
+      learnTab: "scenes",
+      learnTabDirection: 1,
       history: [],
       showCloudPanel: false,
       cloudStatus: CLOUD_ENABLED ? "connecting" : "local",
@@ -8757,6 +9008,64 @@
       setView("globalChat");
     }
 
+    const learnTabSwipe = {
+      tracking: false,
+      startX: 0,
+      startY: 0,
+      lastX: 0,
+      lastY: 0
+    };
+
+    function sceneEnglishTitle(sceneId) {
+      return {
+        airport: "Airport",
+        transport: "Transportation",
+        hotel: "Hotel",
+        restaurant: "Restaurant",
+        shopping: "Shopping"
+      }[sceneId] || sceneById(sceneId)?.title || "Scene";
+    }
+
+    function setLearnTab(tab, direction = 0) {
+      if (!['scenes', 'practice'].includes(tab) || state.learnTab === tab) return;
+      state.learnTabDirection = direction || (tab === 'practice' ? 1 : -1);
+      state.learnTab = tab;
+      if (typeof navigator.vibrate === "function" && state.feedbackSettings.haptics) navigator.vibrate(8);
+      renderLearn();
+    }
+
+    function beginLearnTabSwipe(event) {
+      if (state.view !== "learn" || event.touches.length !== 1) return;
+      const touch = event.touches[0];
+      if (touch.clientX <= 28) return;
+      learnTabSwipe.tracking = true;
+      learnTabSwipe.startX = touch.clientX;
+      learnTabSwipe.startY = touch.clientY;
+      learnTabSwipe.lastX = touch.clientX;
+      learnTabSwipe.lastY = touch.clientY;
+    }
+
+    function moveLearnTabSwipe(event) {
+      if (!learnTabSwipe.tracking || event.touches.length !== 1) return;
+      learnTabSwipe.lastX = event.touches[0].clientX;
+      learnTabSwipe.lastY = event.touches[0].clientY;
+    }
+
+    function finishLearnTabSwipe(event) {
+      if (!learnTabSwipe.tracking) return;
+      const touch = event.changedTouches?.[0];
+      if (touch) {
+        learnTabSwipe.lastX = touch.clientX;
+        learnTabSwipe.lastY = touch.clientY;
+      }
+      learnTabSwipe.tracking = false;
+      const distanceX = learnTabSwipe.lastX - learnTabSwipe.startX;
+      const distanceY = learnTabSwipe.lastY - learnTabSwipe.startY;
+      if (Math.abs(distanceX) < 52 || Math.abs(distanceX) < Math.abs(distanceY) * 1.25) return;
+      if (distanceX < 0) setLearnTab("practice", 1);
+      if (distanceX > 0) setLearnTab("scenes", -1);
+    }
+
     function enterHomeScene(sceneId, button) {
       const scene = sceneById(sceneId);
       if (!scene || button?.classList.contains("is-launching")) return;
@@ -8821,79 +9130,60 @@
     }
 
     function renderLearn() {
-      const scenes = coreScenes();
+      const scenes = ["airport", "transport", "hotel", "restaurant", "shopping"].map(sceneById);
       const lastScene = lastCoreScene();
       const overallProgress = Math.round(scenes.reduce((total, scene) => total + moduleProgress(scene), 0) / scenes.length);
+      const isScenesTab = state.learnTab !== "practice";
       app.innerHTML = `
         <header class="learn-titlebar">
           <h1>学习</h1>
-          <div class="titlebar-actions"><span>总进度 ${overallProgress}%</span>${cloudStatusButton()}</div>
+          <div class="learn-overall-progress"><span>总进度</span><strong>${overallProgress}%</strong></div>
         </header>
-        <div class="learn-content">
-        <section class="section">
-          <div class="section-title">
-            <h2>场景课程</h2>
-            <span>${scenes.length} 个场景</span>
+        <main class="learn-tab-page" ontouchstart="beginLearnTabSwipe(event)" ontouchmove="moveLearnTabSwipe(event)" ontouchend="finishLearnTabSwipe(event)" ontouchcancel="learnTabSwipe.tracking = false">
+          <div class="learn-tab-list" role="tablist" aria-label="学习内容">
+            <button class="learn-tab-button ${isScenesTab ? "active" : ""}" role="tab" aria-selected="${isScenesTab}" onclick="setLearnTab('scenes', -1)">学习场景</button>
+            <button class="learn-tab-button ${!isScenesTab ? "active" : ""}" role="tab" aria-selected="${!isScenesTab}" onclick="setLearnTab('practice', 1)">练习模式</button>
           </div>
-          <div class="course-directory">
-            ${scenes.map((scene, sceneIndex) => {
-              const progress = moduleProgress(scene);
-              const nextModule = nextCourseModule(scene);
-              return `
-                <button class="course-row ${scene.id} ${sceneIndex % 2 ? "tone-blue" : "tone-green"}" onclick="setView('scene', { sceneId: '${scene.id}', module: '${nextModule.id}' })" aria-label="${scene.title}，进度 ${progress}%，继续${nextModule.label}">
-                  <span class="course-row-mark">${sceneMark(scene.id)}</span>
-                  <div class="course-row-main">
-                    <div class="course-row-top">
-                      <h3>${scene.title}</h3>
-                      <strong class="course-row-percent">${progress}%</strong>
-                    </div>
-                    <div class="course-progress" aria-label="${scene.title}进度 ${progress}%" style="--progress:${progress}%"><span></span></div>
-                  </div>
+
+          ${isScenesTab ? `
+            <section class="learn-tab-panel" role="tabpanel" aria-label="学习场景" style="--learn-tab-enter-x:${state.learnTabDirection < 0 ? "-10px" : "10px"}">
+              ${scenes.map(scene => {
+                const progress = moduleProgress(scene);
+                const nextModule = nextCourseModule(scene);
+                return `
+                  <button class="learn-scene-pill ${scene.id === lastScene.id ? "current" : ""}" onclick="setView('scene', { sceneId: '${scene.id}', module: '${nextModule.id}' })" aria-label="${scene.title}，进度 ${progress}%">
+                    <span class="learn-icon-placeholder" aria-hidden="true"></span>
+                    <span class="learn-scene-name">${sceneEnglishTitle(scene.id)}</span>
+                    <span class="learn-scene-percent">(${progress}%)</span>
+                    <span class="learn-entry-arrow" aria-hidden="true">→</span>
+                  </button>
+                `;
+              }).join("")}
+            </section>
+          ` : `
+            <section class="learn-tab-panel" role="tabpanel" aria-label="练习模式" style="--learn-tab-enter-x:${state.learnTabDirection < 0 ? "-10px" : "10px"}">
+              <div class="learn-practice-grid">
+                <button class="learn-practice-card" onclick="setView('scene', { sceneId: '${lastScene.id}', module: 'listening' })">
+                  <span class="learn-practice-card-top"><span class="learn-icon-placeholder" aria-hidden="true"></span><span class="learn-entry-arrow" aria-hidden="true">→</span></span>
+                  <h2>听说练习</h2>
+                  <p>听问题<br>快速选出含义</p>
                 </button>
-              `;
-            }).join("")}
-          </div>
-        </section>
-        <section class="section learn-block">
-          <div class="section-title">
-            <h2>听说练习</h2>
-            <span>${lastScene.title}</span>
-          </div>
-          <div class="practice-grid">
-            <button class="practice-entry listening-entry" onclick="setView('scene', { sceneId: '${lastScene.id}', module: 'listening' })">
-              <span class="module-mark">${lineIcon(`<path d="M5 13a7 7 0 0 1 14 0"/><path d="M5 13v4a2 2 0 0 0 2 2h1v-7H7a2 2 0 0 0-2 2ZM19 13v4a2 2 0 0 1-2 2h-1v-7h1a2 2 0 0 1 2 2Z"/>`)}</span>
-              <span class="pill">${contentCount(lastScene, "listening")} 练</span>
-              <div class="practice-entry-content">
-                <h3>听力练习</h3>
-                <p>听问题，快速选出含义</p>
+                <button class="learn-practice-card" onclick="setView('scene', { sceneId: '${lastScene.id}', module: 'speaking' })">
+                  <span class="learn-practice-card-top"><span class="learn-icon-placeholder" aria-hidden="true"></span><span class="learn-entry-arrow" aria-hidden="true">→</span></span>
+                  <h2>跟读练习</h2>
+                  <p>听标准发音<br>练习开口</p>
+                </button>
+                <button class="learn-practice-card wide" onclick="startGlobalChat()">
+                  <span class="learn-practice-card-top"><span class="learn-icon-placeholder" aria-hidden="true"></span><span class="learn-entry-arrow" aria-hidden="true">→</span></span>
+                  <h2>全场景模拟聊天</h2>
+                  <p>机场、交通、酒店、餐厅与购物混合问题</p>
+                </button>
               </div>
-            </button>
-            <button class="practice-entry speaking-entry" onclick="setView('scene', { sceneId: '${lastScene.id}', module: 'speaking' })">
-              <span class="module-mark">${lineIcon(`<path d="M12 3a3 3 0 0 0-3 3v5a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3Z"/><path d="M19 10v1a7 7 0 0 1-14 0v-1"/><path d="M12 18v4"/><path d="M8 22h8"/>`)}</span>
-              <span class="pill">${contentCount(lastScene, "phrases")} 句</span>
-              <div class="practice-entry-content">
-                <h3>跟读练习</h3>
-                <p>听标准发音，练习开口</p>
-              </div>
-            </button>
-          </div>
-        </section>
-        <section class="section learn-block">
-          <div class="section-title">
-            <h2>模拟聊天</h2>
-            <span>综合练习</span>
-          </div>
-          <button class="learn-chat-card" onclick="startGlobalChat()">
-            <span class="learn-chat-card-icon">${lineIcon(`<path d="M21 12a8 8 0 0 1-8 8H7l-4 2 1.6-4.4A8 8 0 1 1 21 12Z"/><path d="M8 12h.01M12 12h.01M16 12h.01"/>`)}</span>
-            <span class="learn-chat-card-count">${globalChatTurns().length} 轮</span>
-            <div class="learn-chat-card-copy">
-              <h3>全场景综合聊天</h3>
-              <p>机场、酒店、餐厅、交通与购物混合问答</p>
-              <span class="learn-chat-card-cta">开始练习 ${lineIcon(`<path d="m9 18 6-6-6-6"/>`)}</span>
-            </div>
-          </button>
-        </section>
-        </div>
+            </section>
+          `}
+
+          <p class="learn-swipe-hint">左右滑动可切换tab</p>
+        </main>
         ${bottomNav("learn")}
       `;
     }
