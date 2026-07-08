@@ -5985,13 +5985,26 @@
       width: min(100%, var(--app-shell-width));
       height: 100dvh;
       min-height: 0;
+      position: relative;
       overflow: hidden;
+      container-type: inline-size;
       color: #192e41;
       background-color: #f2f3f5;
-      background-image: linear-gradient(180deg, rgba(242, 243, 245, 0.12), rgba(242, 243, 245, 0.82) 78%, #f2f3f5 100%), url("assets/home-figma-bg.webp");
+      background-image: url("assets/home-figma-bg.webp");
       background-position: center top;
       background-size: 100% 100%;
       background-repeat: no-repeat;
+    }
+
+    .app.learn::before {
+      content: "";
+      position: absolute;
+      z-index: 0;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.04), rgba(0, 0, 0, 0));
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
     }
 
     .app.learn::after {
@@ -6001,7 +6014,9 @@
     .app.learn .learn-titlebar {
       height: 44px;
       min-height: 44px;
-      padding: 0 20px;
+      position: relative;
+      z-index: 1;
+      padding: 0 5.333cqw;
       border: 0;
       background: transparent;
     }
@@ -6039,11 +6054,13 @@
     .learn-tab-page {
       height: calc(100dvh - env(safe-area-inset-top) - 44px);
       min-height: 0;
+      position: relative;
+      z-index: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 24px;
-      padding: 24px 10px calc(106px + env(safe-area-inset-bottom));
+      gap: clamp(20px, 6.4cqw, 26px);
+      padding: clamp(20px, 6.4cqw, 26px) 2.667cqw calc(106px + env(safe-area-inset-bottom));
       overflow: hidden;
       touch-action: pan-y;
     }
@@ -6058,12 +6075,12 @@
 
     .learn-tab-list {
       width: 100%;
-      min-height: 80px;
+      min-height: clamp(72px, 21.333cqw, 86px);
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 20px;
-      padding: 20px;
+      gap: clamp(16px, 5.333cqw, 22px);
+      padding: clamp(16px, 5.333cqw, 22px);
     }
 
     .learn-tab-button {
@@ -6175,14 +6192,17 @@
     }
 
     .learn-practice-grid {
-      width: min(100%, 315px);
+      width: min(84cqw, 380px);
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 20px 10px;
+      gap: clamp(16px, 5.333cqw, 22px) clamp(8px, 2.667cqw, 12px);
     }
 
     .learn-practice-card {
-      height: 164.5px;
+      width: 100%;
+      height: auto;
+      min-width: 0;
+      aspect-ratio: 305 / 329;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
@@ -6197,7 +6217,8 @@
     }
 
     .learn-practice-card.wide {
-      height: 145px;
+      height: auto;
+      aspect-ratio: 630 / 290;
       grid-column: 1 / -1;
     }
 
