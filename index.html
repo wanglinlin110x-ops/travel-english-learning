@@ -84,6 +84,19 @@
       min-height: 0;
     }
 
+    html.learn-active,
+    body.learn-active {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: #f2f3f5;
+      background-image: linear-gradient(180deg, rgba(242, 243, 245, 0.12), rgba(242, 243, 245, 0.82) 78%, #f2f3f5 100%), url("assets/home-figma-bg.webp");
+      background-position: center top;
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+      overscroll-behavior: none;
+    }
+
     body:not(.home-active) .app {
       padding-top: env(safe-area-inset-top);
     }
@@ -5970,13 +5983,14 @@
     /* Figma 93:71 / 94:225 learning tabs. */
     .app.learn {
       width: min(100%, var(--app-shell-width));
-      min-height: 100dvh;
-      overflow-x: hidden;
+      height: 100dvh;
+      min-height: 0;
+      overflow: hidden;
       color: #192e41;
       background-color: #f2f3f5;
       background-image: linear-gradient(180deg, rgba(242, 243, 245, 0.12), rgba(242, 243, 245, 0.82) 78%, #f2f3f5 100%), url("assets/home-figma-bg.webp");
       background-position: center top;
-      background-size: 100% auto;
+      background-size: 100% 100%;
       background-repeat: no-repeat;
     }
 
@@ -6023,13 +6037,24 @@
     }
 
     .learn-tab-page {
-      min-height: calc(100dvh - 44px);
+      height: calc(100dvh - env(safe-area-inset-top) - 44px);
+      min-height: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 24px;
       padding: 24px 10px calc(106px + env(safe-area-inset-bottom));
+      overflow: hidden;
       touch-action: pan-y;
+    }
+
+    .learn-tab-top {
+      width: 100%;
+      flex: 0 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
     }
 
     .learn-tab-list {
@@ -6067,9 +6092,11 @@
       width: 100%;
       display: flex;
       flex: 1;
+      min-height: 0;
       flex-direction: column;
       align-items: center;
       gap: 20px;
+      overflow: hidden;
       animation: learn-tab-enter 180ms ease-out both;
     }
 
@@ -6198,11 +6225,47 @@
     }
 
     .learn-swipe-hint {
-      margin-top: auto;
+      margin: 0;
       color: rgba(21, 28, 39, 0.4);
       font-size: 14px;
       line-height: 20px;
       text-align: center;
+    }
+
+    @media (max-height: 720px) {
+      .learn-tab-page {
+        gap: 12px;
+        padding-top: 12px;
+        padding-bottom: calc(88px + env(safe-area-inset-bottom));
+      }
+
+      .learn-tab-list {
+        min-height: 60px;
+        padding-block: 10px;
+      }
+
+      .learn-tab-panel {
+        gap: 10px;
+      }
+
+      .learn-scene-pill {
+        min-height: 54px;
+        padding-block: 5px;
+      }
+
+      .learn-scene-pill .learn-icon-placeholder {
+        width: 34px;
+        height: 34px;
+      }
+
+      .learn-practice-card {
+        height: 140px;
+        padding: 12px;
+      }
+
+      .learn-practice-card.wide {
+        height: 110px;
+      }
     }
 
     @media (max-width: 350px) {
@@ -8835,10 +8898,13 @@
 
     function render() {
       const isHome = state.view === "home";
+      const isLearn = state.view === "learn";
       document.documentElement.classList.toggle("home-active", isHome);
+      document.documentElement.classList.toggle("learn-active", isLearn);
       document.body.classList.toggle("home-active", isHome);
+      document.body.classList.toggle("learn-active", isLearn);
       const themeMeta = document.querySelector('meta[name="theme-color"]');
-      if (themeMeta) themeMeta.content = isHome ? "#72b7db" : "#f6f7f4";
+      if (themeMeta) themeMeta.content = isHome || isLearn ? "#72b7db" : "#f6f7f4";
       app.className = ["home", "learn", "favorites"].includes(state.view) ? `app ${state.view} has-tabbar` : `app ${state.view}`;
       if (state.view === "scene") {
         app.classList.add("learning-module-page", `${state.module || "vocabulary"}-page`);
@@ -9140,9 +9206,12 @@
           <div class="learn-overall-progress"><span>总进度</span><strong>${overallProgress}%</strong></div>
         </header>
         <main class="learn-tab-page" ontouchstart="beginLearnTabSwipe(event)" ontouchmove="moveLearnTabSwipe(event)" ontouchend="finishLearnTabSwipe(event)" ontouchcancel="learnTabSwipe.tracking = false">
-          <div class="learn-tab-list" role="tablist" aria-label="学习内容">
-            <button class="learn-tab-button ${isScenesTab ? "active" : ""}" role="tab" aria-selected="${isScenesTab}" onclick="setLearnTab('scenes', -1)">学习场景</button>
-            <button class="learn-tab-button ${!isScenesTab ? "active" : ""}" role="tab" aria-selected="${!isScenesTab}" onclick="setLearnTab('practice', 1)">练习模式</button>
+          <div class="learn-tab-top">
+            <div class="learn-tab-list" role="tablist" aria-label="学习内容">
+              <button class="learn-tab-button ${isScenesTab ? "active" : ""}" role="tab" aria-selected="${isScenesTab}" onclick="setLearnTab('scenes', -1)">学习场景</button>
+              <button class="learn-tab-button ${!isScenesTab ? "active" : ""}" role="tab" aria-selected="${!isScenesTab}" onclick="setLearnTab('practice', 1)">练习模式</button>
+            </div>
+            <p class="learn-swipe-hint">左右滑动可切换tab</p>
           </div>
 
           ${isScenesTab ? `
@@ -9181,8 +9250,6 @@
               </div>
             </section>
           `}
-
-          <p class="learn-swipe-hint">左右滑动可切换tab</p>
         </main>
         ${bottomNav("learn")}
       `;
