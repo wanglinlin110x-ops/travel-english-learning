@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#f6f7f4">
+  <meta name="theme-color" content="#94c8d4">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="旅行英语">
   <meta name="application-name" content="旅行英语">
   <meta name="description" content="旅行前练习常用英语的轻量学习工具">
@@ -62,6 +62,17 @@
       color: var(--text);
       -webkit-font-smoothing: antialiased;
       text-rendering: geometricPrecision;
+    }
+
+    body.home-active {
+      height: 100dvh;
+      overflow: hidden;
+      background: #94c8d4;
+      overscroll-behavior: none;
+    }
+
+    body:not(.home-active) .app {
+      padding-top: env(safe-area-inset-top);
     }
 
     ::selection {
@@ -5534,444 +5545,407 @@
       }
     }
 
-    /* Homepage journey: the illustration, route and learning focus share one canvas. */
+    /* Figma 57:1294 homepage and primary navigation. */
     .app.home.has-tabbar {
-      color: #173149;
-      background: #c7dfe5;
+      height: 100dvh;
+      overflow: hidden;
+      color: #192e41;
+      background: #cde5e8;
     }
 
-    .home-page.home-journey {
-      min-height: calc(100dvh - 72px - env(safe-area-inset-bottom));
+    .home-page.home-figma {
+      width: 100%;
+      min-height: 100dvh;
       position: relative;
       isolation: isolate;
-      display: block;
-      padding: 0 20px calc(34px + env(safe-area-inset-bottom));
       overflow: hidden;
-      color: #173149;
-      background-color: #c7dfe5;
-      background-image: url("assets/home-journey-bg.jpg");
-      background-position: center top;
-      background-size: cover;
+      container-type: inline-size;
+      color: #192e41;
+      background: #cde5e8 url("assets/home-figma-bg.png") center / 100% 100% no-repeat;
     }
 
-    .home-page.home-journey::after {
-      content: "";
+    .home-figma-route-stage {
+      width: 100%;
+      height: 100%;
       position: absolute;
-      z-index: -1;
-      inset: 40% 0 0;
-      background: linear-gradient(180deg, rgba(241, 248, 247, 0), rgba(241, 248, 247, 0.6) 34%, rgba(246, 250, 249, 0.94) 76%, #f7faf9 100%);
+      z-index: 1;
+      top: 0;
+      left: 0;
       pointer-events: none;
     }
 
-    .journey-header {
-      min-height: 82px;
+    .home-figma-title {
+      position: absolute;
+      z-index: 3;
+      top: max(5.419%, calc(env(safe-area-inset-top) + 8px));
+      left: 5.333%;
+      margin: 0;
+      color: #192e41;
+      font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: clamp(20px, 5.333cqw, 23px);
+      line-height: 1.1;
+      font-weight: 700;
+      letter-spacing: -0.046em;
+    }
+
+    .home-route-art {
+      width: 46.66%;
+      height: 30.111%;
+      position: absolute;
+      z-index: 1;
+      top: 17.874%;
+      left: 27.067%;
+      opacity: 0.58;
+      mix-blend-mode: soft-light;
+      transform: scaleX(-1);
+      pointer-events: none;
+    }
+
+    .home-route-star.scene-shopping { top: 11.562%; left: 18.267%; }
+    .home-route-star.scene-restaurant { top: 19.875%; left: 32.667%; }
+    .home-route-star.scene-hotel { top: 28.62%; left: 24.133%; }
+    .home-route-star.scene-transport { top: 34.469%; left: 53.467%; }
+    .home-route-star.scene-airport { top: 40.442%; left: 9.733%; }
+
+    .home-route-star {
+      width: clamp(64px, 18.667cqw, 80px);
+      aspect-ratio: 1;
+      position: absolute;
+      z-index: 2;
+      top: 28.62%;
+      left: 24.133%;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .home-route-star::after {
+      content: "";
+      width: 71.429%;
+      height: 9.286%;
+      position: absolute;
+      z-index: 0;
+      left: 14.286%;
+      bottom: 3.571%;
+      border-radius: 50%;
+      background: radial-gradient(ellipse at center, rgba(25, 46, 65, 0.24) 0%, rgba(25, 46, 65, 0.1) 45%, rgba(25, 46, 65, 0) 76%);
+      filter: blur(2px);
+    }
+
+    .home-route-star img {
+      width: 121.96%;
+      height: 121.96%;
+      position: absolute;
+      z-index: 1;
+      top: -12.12%;
+      left: -10.59%;
+      display: block;
+      max-width: none;
+      object-fit: fill;
+    }
+
+    .home-route-node {
+      --node-color: #4d83e8;
+      min-width: 74px;
+      min-height: 44px;
+      position: absolute;
+      z-index: 3;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding-top: env(safe-area-inset-top);
-    }
-
-    .journey-brand {
-      display: grid;
-      gap: 2px;
-    }
-
-    .journey-brand small {
-      color: rgba(23, 49, 73, 0.58);
-      font-size: 10px;
-      font-weight: 740;
-      letter-spacing: 0.12em;
-    }
-
-    .journey-brand h1 {
-      margin: 0;
-      font-size: 24px;
-      line-height: 1.1;
-      font-weight: 790;
-      letter-spacing: 0;
-    }
-
-    .home-journey .cloud-status-button {
-      width: 44px;
-      min-width: 44px;
-      height: 44px;
-      padding: 0;
-      justify-content: center;
-      border-color: rgba(23, 49, 73, 0.14);
-      color: #173149;
-      background: rgba(247, 250, 249, 0.46);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-    }
-
-    .home-journey .cloud-status-label {
-      display: none;
-    }
-
-    .journey-map {
-      height: clamp(400px, 50svh, 520px);
-      min-height: 400px;
-      position: relative;
-    }
-
-    .journey-map-heading {
-      position: absolute;
-      top: 4px;
-      left: 0;
-      display: grid;
-      gap: 2px;
-      color: rgba(23, 49, 73, 0.7);
-    }
-
-    .journey-map-heading strong {
-      color: #173149;
-      font-size: 14px;
-      font-weight: 760;
-    }
-
-    .journey-map-heading span {
-      font-size: 11px;
-      font-weight: 600;
-    }
-
-    .journey-route-nodes {
-      position: absolute;
-      inset: 0;
-    }
-
-    .journey-node {
-      --node-color: #ffffff;
-      min-width: 86px;
-      min-height: 48px;
-      position: absolute;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
+      gap: clamp(8px, 2.667cqw, 12px);
       border: 0;
-      padding: 5px 8px;
-      color: #173149;
+      padding: 5px;
+      color: #192e41;
       background: transparent;
-      text-align: left;
-      transform: translate(-50%, -50%);
-      transform-origin: center;
+      transform: translate(-5px, -25%);
+      transform-origin: 10px center;
+      transition: transform 160ms cubic-bezier(0.2, 0.75, 0.2, 1);
+      pointer-events: auto;
       -webkit-tap-highlight-color: transparent;
-      transition: transform 150ms cubic-bezier(0.2, 0.75, 0.2, 1), color 150ms ease;
     }
 
-    .journey-node:nth-child(1) { left: 21%; top: 78%; }
-    .journey-node:nth-child(2) { left: 54%; top: 62%; }
-    .journey-node:nth-child(3) { left: 74%; top: 46%; }
-    .journey-node:nth-child(4) { left: 56%; top: 30%; }
-    .journey-node:nth-child(5) { left: 78%; top: 14%; }
+    .home-route-node:nth-of-type(1) { top: 17.105%; left: 35.733%; }
+    .home-route-node:nth-of-type(2) { top: 25.418%; left: 50.133%; }
+    .home-route-node:nth-of-type(3) { top: 34.161%; left: 41.6%; }
+    .home-route-node:nth-of-type(4) { top: 40.011%; left: 70.933%; }
+    .home-route-node:nth-of-type(5) { top: 45.985%; left: 27.2%; }
 
-    .journey-node-dot {
-      width: 22px;
-      height: 22px;
+    .home-route-node-dot {
+      width: clamp(10px, 2.667cqw, 12px);
+      height: clamp(10px, 2.667cqw, 12px);
       position: relative;
       flex: 0 0 auto;
-      display: grid;
-      place-items: center;
-      border: 3px solid rgba(255, 255, 255, 0.94);
+      border: 0;
       border-radius: 50%;
       background: var(--node-color);
-      box-shadow: 0 3px 12px rgba(36, 72, 89, 0.16);
+      box-shadow: 0 0 0 3px #fff, 0 1px 3px 3px rgba(25, 46, 65, 0.12);
     }
 
-    .journey-node-dot::after {
+    .home-route-node-dot::after {
       content: "";
       position: absolute;
-      inset: -8px;
+      inset: -6px;
       border: 1px solid var(--node-color);
       border-radius: 50%;
       opacity: 0;
-      transform: scale(0.7);
+      transform: scale(0.6);
     }
 
-    .journey-node.active {
-      --node-color: #4b79e8;
-      color: #245bc9;
+    .home-route-node.current {
+      --node-color: #f3b43f;
     }
 
-    .journey-node.destination {
-      --node-color: #f5bf4d;
+    .home-route-node.current .home-route-node-dot {
+      width: clamp(12px, 3.2cqw, 14px);
+      height: clamp(12px, 3.2cqw, 14px);
     }
 
-    .journey-node.completed .journey-node-dot::before {
-      content: "";
-      width: 7px;
-      height: 4px;
-      border-left: 2px solid #173149;
-      border-bottom: 2px solid #173149;
-      transform: translateY(-1px) rotate(-45deg);
+    .home-route-node-label {
+      font-size: clamp(14px, 4.267cqw, 18px);
+      line-height: 1.375;
+      font-weight: 600;
+      white-space: nowrap;
+      text-shadow: 0 1px 8px rgba(228, 242, 242, 0.88);
     }
 
-    .journey-node-copy {
-      display: grid;
-      gap: 1px;
-      text-shadow: 0 1px 8px rgba(247, 250, 249, 0.92);
+    .home-route-node:active,
+    .home-route-node.is-launching {
+      transform: translate(-5px, -25%) scale(0.92);
     }
 
-    .journey-node-copy strong {
-      font-size: 14px;
-      line-height: 1.1;
-      font-weight: 780;
+    .home-route-node.is-launching .home-route-node-dot::after {
+      animation: home-route-ripple 420ms ease-out both;
     }
 
-    .journey-node-copy small {
-      color: rgba(23, 49, 73, 0.58);
-      font-size: 10px;
-      font-variant-numeric: tabular-nums;
+    @keyframes home-route-ripple {
+      from { opacity: 0.72; transform: scale(0.6); }
+      to { opacity: 0; transform: scale(2); }
     }
 
-    .journey-node:active,
-    .journey-node.is-launching {
-      transform: translate(-50%, -50%) scale(0.92);
-    }
-
-    .journey-node.is-launching .journey-node-dot::after {
-      animation: journey-node-ripple 420ms ease-out both;
-    }
-
-    @keyframes journey-node-ripple {
-      0% { opacity: 0.72; transform: scale(0.66); }
-      100% { opacity: 0; transform: scale(1.85); }
-    }
-
-    .journey-progress {
+    .home-figma-content {
+      width: 94.667%;
       position: absolute;
-      left: 0;
-      bottom: 2px;
+      z-index: 4;
+      left: 2.667%;
+      bottom: 78px;
       display: grid;
-      grid-template-columns: auto 46px;
-      gap: 14px;
-      align-items: end;
+      gap: clamp(10px, 2.667cqw, 12px);
     }
 
-    .journey-progress-copy {
-      display: grid;
-      gap: 1px;
-    }
-
-    .journey-progress-copy span {
-      font-size: 12px;
-      font-weight: 680;
-    }
-
-    .journey-progress-copy strong {
-      font-size: 48px;
-      line-height: 0.98;
-      font-weight: 760;
-      font-variant-numeric: tabular-nums;
-      letter-spacing: -0.02em;
-    }
-
-    .journey-progress-copy strong small {
-      margin-left: 2px;
-      font-size: 20px;
-      letter-spacing: 0;
-    }
-
-    .journey-progress-action {
-      width: 46px;
-      height: 46px;
-      display: grid;
-      place-items: center;
-      border: 1.5px solid #173149;
-      border-radius: 50%;
-      color: #173149;
-      background: rgba(247, 250, 249, 0.28);
-      backdrop-filter: blur(7px);
-      -webkit-backdrop-filter: blur(7px);
-      transition: transform 150ms ease, background 150ms ease;
-    }
-
-    .journey-progress-action svg {
-      width: 20px;
-      height: 20px;
-      fill: currentColor;
-      stroke: none;
-    }
-
-    .journey-progress-action:active {
-      background: rgba(247, 250, 249, 0.68);
-      transform: scale(0.92);
-    }
-
-    .journey-focus {
-      position: relative;
-      display: grid;
-      gap: 12px;
-      padding: 22px 0 16px;
-    }
-
-    .journey-focus-heading {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-    }
-
-    .journey-focus-heading span {
-      color: rgba(23, 49, 73, 0.58);
-      font-size: 12px;
-      font-weight: 650;
-    }
-
-    .journey-focus h2 {
-      margin: 0;
-      font-size: 26px;
-      line-height: 1.14;
-      font-weight: 790;
-    }
-
-    .journey-focus p {
-      margin: -4px 0 2px;
-      color: rgba(23, 49, 73, 0.62);
-      font-size: 13px;
-      line-height: 1.45;
-    }
-
-    .journey-primary-action {
-      min-height: 54px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 9px;
-      border: 0;
-      border-radius: 14px;
-      color: #ffffff;
-      background: #173149;
-      box-shadow: 0 9px 24px rgba(23, 49, 73, 0.14);
-      font-size: 16px;
-      font-weight: 760;
-      transition: transform 150ms ease, background 150ms ease;
-    }
-
-    .journey-primary-action svg {
-      width: 18px;
-      height: 18px;
-      fill: none;
-      stroke: currentColor;
-      stroke-width: 1.8;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    .journey-primary-action:active {
-      background: #23445e;
-      transform: scale(0.985);
-    }
-
-    .journey-summary {
-      min-height: 54px;
+    .home-figma-summary {
+      height: clamp(52px, 14.533cqw, 62px);
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       align-items: center;
-      border-top: 1px solid rgba(23, 49, 73, 0.1);
-      border-bottom: 1px solid rgba(23, 49, 73, 0.1);
+      border-radius: clamp(10px, 2.667cqw, 12px);
+      background: #fff;
     }
 
-    .journey-summary div {
-      display: grid;
-      gap: 1px;
-      text-align: center;
+    .home-figma-summary div {
+      min-width: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(8px, 2.667cqw, 12px);
     }
 
-    .journey-summary div + div {
-      border-left: 1px solid rgba(23, 49, 73, 0.1);
+    .home-figma-summary div + div {
+      border-left: 1px solid rgba(25, 46, 65, 0.16);
     }
 
-    .journey-summary strong {
-      font-size: 15px;
-      font-weight: 760;
+    .home-figma-summary span {
+      color: rgba(25, 46, 65, 0.6);
+      font-size: clamp(12px, 3.733cqw, 16px);
+      white-space: nowrap;
+    }
+
+    .home-figma-summary strong {
+      color: #192e41;
+      font-size: clamp(14px, 4.267cqw, 18px);
+      line-height: 1;
+      font-weight: 500;
       font-variant-numeric: tabular-nums;
     }
 
-    .journey-summary span {
-      color: rgba(23, 49, 73, 0.52);
-      font-size: 10px;
-      font-weight: 620;
+    .home-figma-course {
+      height: clamp(208px, 59.2cqw, 255px);
+      display: flex;
+      flex-direction: column;
+      gap: clamp(20px, 6.4cqw, 28px);
+      border-radius: clamp(12px, 3.2cqw, 14px);
+      padding: clamp(18px, 5.333cqw, 23px) clamp(18px, 5.333cqw, 23px) clamp(22px, 6.4cqw, 26px);
+      background: #fff;
     }
 
-    .app.home .bottom-nav {
-      border-top-color: rgba(23, 49, 73, 0.08);
-      background: rgba(247, 250, 249, 0.88);
-      box-shadow: none;
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
+    .home-figma-course-top {
+      height: clamp(100px, 28.267cqw, 122px);
+      display: flex;
+      flex-direction: column;
+      gap: clamp(14px, 4.267cqw, 18px);
     }
 
-    .app.home .bottom-nav .nav-btn {
-      color: rgba(23, 49, 73, 0.48);
+    .home-figma-course-row {
+      min-height: 0;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: clamp(8px, 2.667cqw, 12px);
+      flex: 1;
     }
 
-    .app.home .bottom-nav .nav-btn.active {
-      color: #173149;
+    .home-figma-course-copy {
+      width: 63.375%;
+      display: grid;
+      align-content: end;
+      gap: clamp(5px, 1.6cqw, 7px);
+    }
+
+    .home-figma-course-copy small,
+    .home-figma-course-copy p {
+      margin: 0;
+      color: rgba(25, 46, 65, 0.6);
+      font-size: clamp(12px, 3.733cqw, 16px);
+      line-height: 1.4286;
+    }
+
+    .home-figma-course-copy small {
+      color: #192e41;
+      letter-spacing: 0.577px;
+    }
+
+    .home-figma-course-copy h2 {
+      margin: 0;
+      color: #192e41;
+      font-size: clamp(22px, 6.4cqw, 28px);
+      line-height: 1.4167;
+      font-weight: 500;
+      letter-spacing: -0.308px;
+    }
+
+    .home-figma-progress-value {
+      flex: 0 0 auto;
+      color: #192e41;
+      font-size: clamp(44px, 13.333cqw, 58px);
+      line-height: 1.04;
+      font-weight: 500;
+      letter-spacing: 0;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .home-figma-progress-track {
+      height: clamp(4px, 1.067cqw, 5px);
+      overflow: hidden;
+      border-radius: 99px;
+      background: #f1f3f4;
+    }
+
+    .home-figma-progress-track span {
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+      background: #192e41;
+    }
+
+    .home-figma-action {
+      height: clamp(48px, 12.8cqw, 55px);
+      border: 0;
+      border-radius: clamp(10px, 3.2cqw, 14px);
+      color: #fff;
+      background: #192e41;
+      font-size: clamp(14px, 4.267cqw, 18px);
+      line-height: 1.4375;
+      font-weight: 500;
+      letter-spacing: -0.308px;
+      transition: transform 150ms ease, background 150ms ease;
+    }
+
+    .home-figma-action:active {
+      background: #243e55;
+      transform: scale(0.985);
+    }
+
+    .app.has-tabbar .bottom-nav.figma-bottom-nav {
+      width: min(calc(100vw - 20px), calc(var(--app-shell-width) - 20px));
+      height: 48px;
+      min-height: 48px;
+      bottom: 20px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border: 0;
+      border-radius: 0;
+      padding: 0;
       background: transparent;
+      box-shadow: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
     }
 
-    .app.home .bottom-nav .nav-btn.active b::after {
-      content: "";
-      width: 5px;
-      height: 5px;
-      position: absolute;
-      left: 50%;
-      bottom: -5px;
-      border-radius: 50%;
-      background: #4b79e8;
-      transform: translateX(-50%);
+    .figma-bottom-nav .nav-btn {
+      height: 48px !important;
+      min-height: 48px !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      border: 0;
+      border-radius: 40px !important;
+      padding: 0 8px;
+      color: #192e41 !important;
+      background: transparent !important;
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: -0.923px;
     }
 
-    .app.home .bottom-nav .nav-btn b {
+    .figma-bottom-nav .nav-btn.active {
+      background: #fff !important;
+      font-weight: 500;
+    }
+
+    .figma-bottom-nav .nav-btn b {
+      width: 30px;
+      height: 30px;
+      display: block;
+      flex: 0 0 auto;
       position: relative;
+      overflow: hidden;
     }
 
-    @media (max-width: 350px) {
-      .home-page.home-journey {
-        padding-inline: 16px;
-      }
-
-      .journey-map {
-        height: 380px;
-        min-height: 380px;
-      }
-
-      .journey-node:nth-child(1) { left: 22%; }
-      .journey-node:nth-child(3) { left: 70%; }
-      .journey-node:nth-child(5) { left: 75%; }
-
-      .journey-node-copy strong {
-        font-size: 13px;
-      }
+    .figma-bottom-nav .nav-btn b::after {
+      display: none !important;
     }
 
-    @media (max-height: 720px) {
-      .journey-map {
-        height: 350px;
-        min-height: 350px;
-      }
+    .figma-bottom-nav .nav-btn img {
+      position: absolute;
+      display: block;
+      max-width: none;
+      object-fit: fill;
+    }
 
-      .journey-focus {
-        gap: 9px;
-        padding-top: 14px;
-      }
+    .figma-bottom-nav .nav-home img {
+      width: 122.29%;
+      height: 122.66%;
+      top: -20%;
+      left: -9.57%;
+    }
 
-      .journey-summary {
-        display: none;
-      }
+    .figma-bottom-nav .nav-learn img {
+      width: 118.61%;
+      height: 118.6%;
+      top: -6.45%;
+      left: -6.11%;
+    }
+
+    .figma-bottom-nav .nav-favorites img {
+      width: 116.89%;
+      height: 116.89%;
+      top: -8.33%;
+      left: -5.71%;
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .journey-node,
-      .journey-primary-action,
-      .journey-progress-action {
-        transition: none;
-      }
-
-      .journey-node.is-launching .journey-node-dot::after {
-        animation: none;
-      }
+      .home-route-node,
+      .home-figma-action { transition: none; }
+      .home-route-node.is-launching .home-route-node-dot::after { animation: none; }
     }
   </style>
 </head>
@@ -8584,6 +8558,10 @@
     }
 
     function render() {
+      const isHome = state.view === "home";
+      document.body.classList.toggle("home-active", isHome);
+      const themeMeta = document.querySelector('meta[name="theme-color"]');
+      if (themeMeta) themeMeta.content = isHome ? "#94c8d4" : "#f6f7f4";
       app.className = ["home", "learn", "favorites"].includes(state.view) ? `app ${state.view} has-tabbar` : `app ${state.view}`;
       if (state.view === "scene") {
         app.classList.add("learning-module-page", `${state.module || "vocabulary"}-page`);
@@ -8717,11 +8695,18 @@
     }
 
     function bottomNav(active) {
+      const navItems = [
+        ["home", "首页", "assets/nav-home-figma.png"],
+        ["learn", "学习", "assets/nav-learn-figma.png"],
+        ["favorites", "复习", "assets/nav-review-figma.png"]
+      ];
       return `
-        <nav class="bottom-nav" aria-label="主导航">
-          <button class="nav-btn ${active === "home" ? "active" : ""}" onclick="setView('home')"><b>${navIcon("home")}</b><span>首页</span></button>
-          <button class="nav-btn ${active === "learn" ? "active" : ""}" onclick="setView('learn')"><b>${navIcon("learn")}</b><span>学习</span></button>
-          <button class="nav-btn ${active === "favorites" ? "active" : ""}" onclick="setView('favorites')"><b>${navIcon("review")}</b><span>复习</span></button>
+        <nav class="bottom-nav figma-bottom-nav" aria-label="主导航">
+          ${navItems.map(([view, label, image]) => `
+            <button class="nav-btn nav-${view} ${active === view ? "active" : ""}" onclick="setView('${view}')" aria-current="${active === view ? "page" : "false"}">
+              <b><img src="${image}" alt="" aria-hidden="true"></b><span>${label}</span>
+            </button>
+          `).join("")}
         </nav>
       `;
     }
@@ -8763,57 +8748,47 @@
       const favorites = state.progress.favoriteIds.length;
       const completed = completedSceneCount();
       const lastScene = lastCoreScene();
-      const routeScenes = ["airport", "transport", "hotel", "restaurant", "shopping"].map(sceneById);
+      const routeScenes = ["shopping", "restaurant", "hotel", "transport", "airport"].map(sceneById);
       const lastProgress = moduleProgress(lastScene);
       app.innerHTML = `
-        <div class="home-page home-journey">
-          <header class="journey-header">
-            <div class="journey-brand">
-              <small>TRAVEL ENGLISH</small>
-              <h1>旅行英语</h1>
-            </div>
-            ${cloudStatusButton()}
-          </header>
+        <div class="home-page home-figma">
+          <div class="home-figma-route-stage">
+            <h1 class="home-figma-title">Travel&nbsp;&nbsp;English</h1>
+            <img class="home-route-art" src="assets/home-figma-route.svg" alt="" aria-hidden="true">
+            <div class="home-route-star scene-${lastScene.id}" aria-hidden="true"><img src="assets/home-figma-star.png" alt=""></div>
 
-          <section class="journey-map" aria-label="旅行场景路线">
-            <div class="journey-map-heading">
-              <strong>场景路线</strong>
-              <span>选择场景开始学习</span>
-            </div>
-            <div class="journey-route-nodes">
-              ${routeScenes.map((scene, index) => {
-                const progress = moduleProgress(scene);
-                const stateClass = scene.id === lastScene.id ? "active" : index === routeScenes.length - 1 ? "destination" : "";
-                return `
-                  <button class="journey-node ${stateClass} ${progress === 100 ? "completed" : ""}" onclick="enterHomeScene('${scene.id}', this)" aria-label="进入${scene.title}场景，当前进度 ${progress}%">
-                    <span class="journey-node-dot" aria-hidden="true"></span>
-                    <span class="journey-node-copy"><strong>${scene.title}</strong><small>${progress}%</small></span>
-                  </button>
-                `;
-              }).join("")}
-            </div>
-            <div class="journey-progress">
-              <div class="journey-progress-copy"><span>${lastScene.title}场景</span><strong>${lastProgress}<small>%</small></strong></div>
-              <button class="journey-progress-action" onclick="startDailyTask('${lastScene.id}')" aria-label="继续${lastScene.title}今日学习">${lineIcon(`<path d="m9 6 8 6-8 6V6Z"/>`)}</button>
-            </div>
-          </section>
+            <section aria-label="旅行场景路线">
+              ${routeScenes.map(scene => `
+                <button class="home-route-node ${scene.id === lastScene.id ? "current" : ""}" onclick="enterHomeScene('${scene.id}', this)" aria-label="进入${scene.title}场景，当前进度 ${moduleProgress(scene)}%">
+                  <span class="home-route-node-dot" aria-hidden="true"></span>
+                  <span class="home-route-node-label">${scene.title}</span>
+                </button>
+              `).join("")}
+            </section>
+          </div>
 
-          <section class="journey-focus" aria-label="今日学习">
-            <div class="journey-focus-heading">
-              <span>今日学习</span>
-              <span>约 5 分钟</span>
-            </div>
-            <h2>继续学习 · ${lastScene.title}</h2>
-            <p>${contentCount(lastScene, "vocabulary")} 个词汇 · ${contentCount(lastScene, "phrases")} 条短句 · ${contentCount(lastScene, "listening")} 道听力</p>
-            <button class="journey-primary-action" onclick="startDailyTask('${lastScene.id}')">
-              <span>开始学习</span>${lineIcon(`<path d="m9 18 6-6-6-6"/>`)}
-            </button>
-            <div class="journey-summary" aria-label="学习概览">
-              <div><strong>${learned}</strong><span>已学短句</span></div>
-              <div><strong>${favorites}</strong><span>收藏</span></div>
-              <div><strong>${completed}</strong><span>完成场景</span></div>
-            </div>
-          </section>
+          <div class="home-figma-content">
+            <section class="home-figma-summary" aria-label="学习概览">
+              <div><span>已学短句</span><strong>${learned}</strong></div>
+              <div><span>收藏</span><strong>${favorites}</strong></div>
+              <div><span>完成场景</span><strong>${completed}</strong></div>
+            </section>
+
+            <section class="home-figma-course" aria-label="今日学习">
+              <div class="home-figma-course-top">
+                <div class="home-figma-course-row">
+                  <div class="home-figma-course-copy">
+                    <small>${lastScene.minutes}分钟·${contentCount(lastScene, "vocabulary")}个词汇</small>
+                    <h2>场景·${lastScene.title}</h2>
+                    <p>${sceneSubtitle(lastScene.id)}</p>
+                  </div>
+                  <strong class="home-figma-progress-value">${lastProgress}%</strong>
+                </div>
+                <div class="home-figma-progress-track" aria-label="学习进度 ${lastProgress}%"><span style="width:${lastProgress}%"></span></div>
+              </div>
+              <button class="home-figma-action" onclick="startDailyTask('${lastScene.id}')">继续学习</button>
+            </section>
+          </div>
         </div>
         ${bottomNav("home")}
       `;
