@@ -49,6 +49,19 @@
       --primary-titlebar-height: 58px;
       --secondary-titlebar-height: 52px;
       --tabbar-control-height: 52px;
+      --figma-ink: #192e41;
+      --figma-page: #f2f3f5;
+      --figma-blue: #467ffb;
+      --figma-x: clamp(20px, 5.333cqw, 40px);
+      --figma-side: clamp(10px, 2.667cqw, 20px);
+      --figma-title: clamp(20px, 5.333cqw, 40px);
+      --figma-tab: clamp(21px, 5.6cqw, 42px);
+      --figma-body: clamp(14px, 3.733cqw, 28px);
+      --figma-value: clamp(16px, 4.267cqw, 32px);
+      --figma-display: clamp(24px, 6.4cqw, 48px);
+      --figma-percent: clamp(48px, 12.8cqw, 96px);
+      --figma-header-h: clamp(44px, 11.733cqw, 88px);
+      --figma-tabbar-h: calc(clamp(68px, 18.133cqw, 136px) + env(safe-area-inset-bottom));
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
     }
 
@@ -5585,6 +5598,12 @@
     }
 
     .home-page.home-figma {
+      --home-ink: #192e41;
+      --home-blue: #467ffb;
+      --home-dot: #4d83e8;
+      --home-active-dot: #f3b43f;
+      --home-stack-gap: clamp(10px, 2.667cqw, 20px);
+      --home-nav-h: clamp(68px, 18.133cqw, 136px);
       width: 100%;
       height: 100%;
       min-height: 0;
@@ -5593,8 +5612,20 @@
       isolation: isolate;
       overflow: hidden;
       container-type: inline-size;
-      color: #192e41;
-      background: #cde5e8 url("assets/home-figma-bg.webp") center / 100% 100% no-repeat;
+      color: var(--home-ink);
+      background: #cde5e8;
+    }
+
+    .home-page.home-figma::before {
+      content: "";
+      position: absolute;
+      z-index: 0;
+      left: 0;
+      top: -7.57%;
+      width: 100%;
+      height: 109.73%;
+      background: url("assets/home-figma-bg.webp") center / 100% 100% no-repeat;
+      pointer-events: none;
     }
 
     .home-figma-route-stage {
@@ -5610,43 +5641,43 @@
     .home-figma-title {
       position: absolute;
       z-index: 3;
-      top: max(44px, calc(env(safe-area-inset-top) + 8px));
+      top: calc(env(safe-area-inset-top) + clamp(8px, 2.163cqw, 16.22px));
       left: 5.333%;
       margin: 0;
-      color: #192e41;
-      font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      font-size: clamp(20px, 5.333cqw, 23px);
+      color: var(--home-ink);
+      font-family: "Alibaba PuHuiTi 3.0", "Plus Jakarta Sans", "PingFang SC", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: clamp(20px, 5.333cqw, 40px);
       line-height: 1.1;
-      font-weight: 700;
-      letter-spacing: -0.046em;
+      font-weight: 850;
+      letter-spacing: -0.04em;
     }
 
     .home-route-art {
-      width: 46.66%;
-      height: 30.111%;
+      width: 56.733%;
+      height: 31.689%;
       position: absolute;
       z-index: 1;
-      top: 17.874%;
-      left: 27.067%;
-      opacity: 0.58;
+      top: 13.651%;
+      left: 28.4%;
+      opacity: 1;
       mix-blend-mode: soft-light;
       transform: scaleX(-1);
       pointer-events: none;
     }
 
-    .home-route-star.scene-shopping { top: 11.562%; left: 18.267%; }
-    .home-route-star.scene-restaurant { top: 19.875%; left: 32.667%; }
-    .home-route-star.scene-hotel { top: 28.62%; left: 24.133%; }
-    .home-route-star.scene-transport { top: 34.469%; left: 53.467%; }
-    .home-route-star.scene-airport { top: 40.442%; left: 9.733%; }
+    .home-route-star.scene-shopping { top: 8.1%; left: 27.7%; }
+    .home-route-star.scene-restaurant { top: 17.2%; left: 42.1%; }
+    .home-route-star.scene-hotel { top: 24.09%; left: 25.6%; }
+    .home-route-star.scene-transport { top: 33.2%; left: 62.9%; }
+    .home-route-star.scene-airport { top: 39.7%; left: 19.2%; }
 
     .home-route-star {
-      width: clamp(64px, 18.667cqw, 80px);
+      width: 18.667%;
       aspect-ratio: 1;
       position: absolute;
       z-index: 2;
-      top: 28.62%;
-      left: 24.133%;
+      top: 24.09%;
+      left: 25.6%;
       overflow: hidden;
       pointer-events: none;
     }
@@ -5677,40 +5708,40 @@
     }
 
     .home-route-node {
-      --node-color: #4d83e8;
-      min-width: 74px;
-      min-height: 44px;
+      --node-color: var(--home-dot);
+      min-width: clamp(90px, 24cqw, 180px);
+      min-height: clamp(23px, 6.133cqw, 46px);
       position: absolute;
       z-index: 3;
       display: flex;
       align-items: center;
-      gap: clamp(8px, 2.667cqw, 12px);
+      gap: clamp(10px, 2.667cqw, 20px);
       border: 0;
-      padding: 5px;
-      color: #192e41;
+      padding: 0;
+      color: var(--home-ink);
       background: transparent;
-      transform: translate(-5px, -25%);
+      transform: none;
       transform-origin: 10px center;
       transition: transform 160ms cubic-bezier(0.2, 0.75, 0.2, 1);
       pointer-events: auto;
       -webkit-tap-highlight-color: transparent;
     }
 
-    .home-route-node:nth-of-type(1) { top: 17.105%; left: 35.733%; }
-    .home-route-node:nth-of-type(2) { top: 25.418%; left: 50.133%; }
-    .home-route-node:nth-of-type(3) { top: 34.161%; left: 41.6%; }
-    .home-route-node:nth-of-type(4) { top: 40.011%; left: 70.933%; }
-    .home-route-node:nth-of-type(5) { top: 45.985%; left: 27.2%; }
+    .home-route-node.scene-shopping { top: 12.131%; left: 35.733%; }
+    .home-route-node.scene-restaurant { top: 21.253%; left: 50.133%; }
+    .home-route-node.scene-hotel { top: 31.95%; left: 41.6%; }
+    .home-route-node.scene-transport { top: 37.267%; left: 70.933%; }
+    .home-route-node.scene-airport { top: 43.821%; left: 27.2%; }
 
     .home-route-node-dot {
-      width: clamp(10px, 2.667cqw, 12px);
-      height: clamp(10px, 2.667cqw, 12px);
+      width: clamp(10px, 2.667cqw, 20px);
+      height: clamp(10px, 2.667cqw, 20px);
       position: relative;
       flex: 0 0 auto;
       border: 0;
       border-radius: 50%;
       background: var(--node-color);
-      box-shadow: 0 0 0 3px #fff, 0 1px 3px 3px rgba(25, 46, 65, 0.12);
+      box-shadow: 0 0 0 clamp(3px, 0.8cqw, 6px) #fff, 0 1px 3px 3px rgba(25, 46, 65, 0.12);
     }
 
     .home-route-node-dot::after {
@@ -5724,25 +5755,26 @@
     }
 
     .home-route-node.current {
-      --node-color: #f3b43f;
+      --node-color: var(--home-active-dot);
     }
 
     .home-route-node.current .home-route-node-dot {
-      width: clamp(12px, 3.2cqw, 14px);
-      height: clamp(12px, 3.2cqw, 14px);
+      width: clamp(12px, 3.2cqw, 24px);
+      height: clamp(12px, 3.2cqw, 24px);
     }
 
     .home-route-node-label {
-      font-size: clamp(14px, 4.267cqw, 18px);
-      line-height: 1.375;
-      font-weight: 600;
+      font-size: clamp(16px, 4.267cqw, 32px);
+      line-height: normal;
+      font-family: "PingFang SC", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-weight: 400;
       white-space: nowrap;
       text-shadow: 0 1px 8px rgba(228, 242, 242, 0.88);
     }
 
     .home-route-node:active,
     .home-route-node.is-launching {
-      transform: translate(-5px, -25%) scale(0.92);
+      transform: scale(0.92);
     }
 
     .home-route-node.is-launching .home-route-node-dot::after {
@@ -5755,21 +5787,22 @@
     }
 
     .home-figma-content {
-      width: 94.667%;
+      width: 92%;
       position: absolute;
       z-index: 4;
-      left: 2.667%;
-      bottom: calc(max(20px, env(safe-area-inset-bottom)) + 58px);
+      left: 4%;
+      bottom: calc(var(--home-nav-h) + var(--home-stack-gap) + env(safe-area-inset-bottom));
       display: grid;
-      gap: clamp(10px, 2.667cqw, 12px);
+      gap: var(--home-stack-gap);
     }
 
     .home-figma-summary {
-      height: clamp(52px, 14.533cqw, 62px);
+      min-height: clamp(54.5px, 14.533cqw, 109px);
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       align-items: center;
-      border-radius: clamp(10px, 2.667cqw, 12px);
+      padding: clamp(16px, 4.267cqw, 32px) clamp(20px, 5.333cqw, 40px);
+      border-radius: clamp(10px, 2.667cqw, 20px);
       background: #fff;
     }
 
@@ -5778,42 +5811,43 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: clamp(8px, 2.667cqw, 12px);
+      gap: clamp(5px, 1.333cqw, 10px);
     }
 
     .home-figma-summary div + div {
-      border-left: 1px solid rgba(25, 46, 65, 0.16);
+      border-left: 1px solid rgba(25, 46, 65, 0.18);
     }
 
     .home-figma-summary span {
       color: rgba(25, 46, 65, 0.6);
-      font-size: clamp(12px, 3.733cqw, 16px);
+      font-size: clamp(14px, 3.733cqw, 28px);
+      line-height: normal;
       white-space: nowrap;
     }
 
     .home-figma-summary strong {
-      color: #192e41;
-      font-size: clamp(14px, 4.267cqw, 18px);
-      line-height: 1;
+      color: var(--home-ink);
+      font-size: clamp(16px, 4.267cqw, 32px);
+      line-height: normal;
       font-weight: 500;
       font-variant-numeric: tabular-nums;
     }
 
     .home-figma-course {
-      height: clamp(208px, 57.733cqw, 248px);
+      min-height: clamp(222px, 59.2cqw, 444px);
       display: flex;
       flex-direction: column;
-      gap: clamp(20px, 6.4cqw, 28px);
-      border-radius: clamp(12px, 3.2cqw, 14px);
-      padding: clamp(18px, 5.333cqw, 23px) clamp(18px, 5.333cqw, 23px) clamp(22px, 6.4cqw, 26px);
+      gap: clamp(24px, 6.4cqw, 48px);
+      border-radius: clamp(12px, 3.2cqw, 24px);
+      padding: clamp(20px, 5.333cqw, 40px) clamp(20px, 5.333cqw, 40px) clamp(24px, 6.4cqw, 48px);
       background: #fff;
     }
 
     .home-figma-course-top {
-      height: clamp(96px, 26.8cqw, 115px);
+      min-height: clamp(106px, 28.267cqw, 212px);
       display: flex;
       flex-direction: column;
-      gap: clamp(14px, 4.267cqw, 18px);
+      gap: clamp(16px, 4.267cqw, 32px);
     }
 
     .home-figma-course-row {
@@ -5821,7 +5855,7 @@
       display: flex;
       align-items: flex-end;
       justify-content: space-between;
-      gap: clamp(8px, 2.667cqw, 12px);
+      gap: clamp(10px, 2.667cqw, 20px);
       flex: 1;
     }
 
@@ -5829,43 +5863,43 @@
       width: 63.375%;
       display: grid;
       align-content: end;
-      gap: clamp(3px, 1.067cqw, 5px);
+      gap: clamp(6px, 1.6cqw, 12px);
     }
 
     .home-figma-course-copy small,
     .home-figma-course-copy p {
       margin: 0;
       color: rgba(25, 46, 65, 0.6);
-      font-size: clamp(12px, 3.733cqw, 16px);
-      line-height: 1.3929;
+      font-size: clamp(14px, 3.733cqw, 28px);
+      line-height: clamp(20px, 5.333cqw, 40px);
     }
 
     .home-figma-course-copy small {
-      color: #192e41;
-      letter-spacing: 0.577px;
+      color: var(--home-ink);
+      letter-spacing: clamp(0.58px, 0.154cqw, 1.15px);
     }
 
     .home-figma-course-copy h2 {
       margin: 0;
-      color: #192e41;
-      font-size: clamp(22px, 6.4cqw, 28px);
-      line-height: 1.3958;
+      color: var(--home-ink);
+      font-size: clamp(24px, 6.4cqw, 48px);
+      line-height: clamp(34px, 9.067cqw, 68px);
       font-weight: 500;
-      letter-spacing: -0.308px;
+      letter-spacing: clamp(-0.31px, -0.082cqw, -0.62px);
     }
 
     .home-figma-progress-value {
       flex: 0 0 auto;
-      color: #192e41;
-      font-size: clamp(44px, 13.333cqw, 58px);
-      line-height: 0.9922;
+      color: var(--home-ink);
+      font-size: clamp(50px, 13.333cqw, 100px);
+      line-height: clamp(52px, 13.867cqw, 104px);
       font-weight: 500;
       letter-spacing: 0;
       font-variant-numeric: tabular-nums;
     }
 
     .home-figma-progress-track {
-      height: clamp(4px, 1.067cqw, 5px);
+      height: clamp(4px, 1.067cqw, 8px);
       overflow: hidden;
       border-radius: 99px;
       background: #f1f3f4;
@@ -5879,15 +5913,15 @@
     }
 
     .home-figma-action {
-      height: clamp(48px, 12.8cqw, 55px);
+      height: clamp(48px, 12.8cqw, 96px);
       border: 0;
-      border-radius: clamp(8px, 2.133cqw, 10px);
+      border-radius: clamp(12px, 3.2cqw, 24px);
       color: #fff;
-      background: #192e41;
-      font-size: clamp(14px, 4.267cqw, 18px);
-      line-height: 1.40625;
+      background: var(--home-ink);
+      font-size: clamp(16px, 4.267cqw, 32px);
+      line-height: clamp(23px, 6.133cqw, 46px);
       font-weight: 500;
-      letter-spacing: -0.308px;
+      letter-spacing: clamp(-0.31px, -0.082cqw, -0.62px);
       transition: transform 150ms ease, background 150ms ease;
     }
 
@@ -5912,11 +5946,45 @@
       -webkit-backdrop-filter: none;
     }
 
+    .app.home.has-tabbar .bottom-nav.figma-bottom-nav {
+      width: min(100vw, var(--app-shell-width));
+      height: calc(var(--home-nav-h) + env(safe-area-inset-bottom));
+      min-height: calc(var(--home-nav-h) + env(safe-area-inset-bottom));
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0;
+      border: 0;
+      border-radius: 0;
+      padding: clamp(10px, 2.667cqw, 20px) clamp(20px, 5.333cqw, 40px) calc(clamp(10px, 2.667cqw, 20px) + env(safe-area-inset-bottom));
+      background: #f2f3f5;
+      box-shadow: none;
+    }
+
+    .app.home.has-tabbar .figma-bottom-nav .nav-btn {
+      height: clamp(48px, 12.8cqw, 96px) !important;
+      min-height: clamp(48px, 12.8cqw, 96px) !important;
+      flex: 1 1 0;
+      min-width: 0;
+      gap: 0;
+      border-radius: clamp(40px, 10.667cqw, 80px) !important;
+      padding: 0;
+      font-size: clamp(14px, 3.733cqw, 28px);
+      line-height: normal;
+      letter-spacing: clamp(-1.846px, -0.246cqw, -0.923px);
+    }
+
+    .app.home.has-tabbar .figma-bottom-nav .nav-btn b {
+      width: clamp(30px, 8cqw, 60px);
+      height: clamp(30px, 8cqw, 60px);
+    }
+
     .app.learn::after,
     .app.favorites::after {
       content: "";
       width: min(100vw, var(--app-shell-width));
-      height: calc(68px + max(20px, env(safe-area-inset-bottom)));
+      height: var(--figma-tabbar-h);
       position: fixed;
       z-index: 9;
       left: 50%;
@@ -5932,6 +6000,15 @@
     .app.learn .figma-bottom-nav,
     .app.favorites .figma-bottom-nav {
       z-index: 10;
+    }
+
+    .app.learn .bottom-nav.figma-bottom-nav {
+      width: min(100vw, var(--app-shell-width));
+      height: var(--figma-tabbar-h);
+      min-height: var(--figma-tabbar-h);
+      bottom: 0;
+      padding: clamp(10px, 2.667cqw, 20px) var(--figma-x) calc(clamp(10px, 2.667cqw, 20px) + env(safe-area-inset-bottom));
+      background: #f2f3f5;
     }
 
     .figma-bottom-nav .nav-btn {
@@ -5982,11 +6059,11 @@
 
     /* Figma 93:71 / 94:225 learning tabs. */
     .app.learn {
-      --learn-type-title: clamp(18px, 5.333cqw, 23px);
-      --learn-type-body: clamp(12px, 3.733cqw, 16px);
-      --learn-type-value: clamp(14px, 4.267cqw, 18px);
-      --learn-type-display: clamp(20px, 6.4cqw, 28px);
-      --learn-type-progress: clamp(15px, 4.8cqw, 20px);
+      --learn-type-title: var(--figma-title);
+      --learn-type-body: var(--figma-body);
+      --learn-type-value: var(--figma-value);
+      --learn-type-display: var(--figma-tab);
+      --learn-type-progress: var(--figma-value);
       width: min(100%, var(--app-shell-width));
       height: 100dvh;
       min-height: 0;
@@ -6017,11 +6094,11 @@
     }
 
     .app.learn .learn-titlebar {
-      height: 44px;
-      min-height: 44px;
+      height: var(--figma-header-h);
+      min-height: var(--figma-header-h);
       position: relative;
       z-index: 1;
-      padding: 0 5.333cqw;
+      padding: 0 var(--figma-x);
       border: 0;
       background: transparent;
     }
@@ -6057,15 +6134,15 @@
     }
 
     .learn-tab-page {
-      height: calc(100dvh - env(safe-area-inset-top) - 44px);
+      height: calc(100dvh - env(safe-area-inset-top) - var(--figma-header-h));
       min-height: 0;
       position: relative;
       z-index: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: clamp(20px, 6.4cqw, 26px);
-      padding: clamp(20px, 6.4cqw, 26px) 2.667cqw calc(106px + env(safe-area-inset-bottom));
+      gap: clamp(24px, 6.4cqw, 48px);
+      padding: clamp(24px, 6.4cqw, 48px) var(--figma-side) var(--figma-tabbar-h);
       overflow: hidden;
       touch-action: pan-y;
     }
@@ -6079,24 +6156,24 @@
     }
 
     .learn-tab-list {
-      width: 100%;
-      min-height: clamp(72px, 21.333cqw, 86px);
+      width: min(94.667cqw, 710px);
+      min-height: clamp(60px, 16cqw, 120px);
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: clamp(16px, 5.333cqw, 22px);
-      padding: clamp(16px, 5.333cqw, 22px);
+      gap: clamp(40px, 10.667cqw, 80px);
+      padding: clamp(10px, 2.667cqw, 20px);
     }
 
     .learn-tab-button {
-      width: 128px;
-      height: 40px;
+      width: clamp(84px, 22.4cqw, 168px);
+      height: clamp(40px, 10.667cqw, 80px);
       border: 0;
       padding: 0;
       color: #fff;
       background: transparent;
       font-size: var(--learn-type-display);
-      line-height: 40px;
+      line-height: clamp(40px, 10.667cqw, 80px);
       font-weight: 600;
       font-family: "PingFang SC", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       text-align: center;
@@ -6117,7 +6194,7 @@
       min-height: 0;
       flex-direction: column;
       align-items: center;
-      gap: 20px;
+      gap: clamp(20px, 5.333cqw, 40px);
       overflow: hidden;
       animation: learn-tab-enter 180ms ease-out both;
     }
@@ -6128,14 +6205,14 @@
     }
 
     .learn-scene-pill {
-      min-height: 64px;
+      min-height: clamp(64px, 17.067cqw, 128px);
       max-width: 100%;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: clamp(8px, 2.267cqw, 17px);
       border: 1px dashed rgba(21, 28, 39, 0.4);
       border-radius: 50px;
-      padding: 10px 20px 10px 10px;
+      padding: clamp(10px, 2.667cqw, 20px) var(--figma-x) clamp(10px, 2.667cqw, 20px) clamp(10px, 2.667cqw, 20px);
       color: #151c27;
       background: rgba(255, 255, 255, 0.1);
       text-align: left;
@@ -6147,8 +6224,8 @@
     }
 
     .learn-icon-placeholder {
-      width: 44px;
-      height: 44px;
+      width: clamp(44px, 11.733cqw, 88px);
+      height: clamp(44px, 11.733cqw, 88px);
       position: relative;
       flex: 0 0 auto;
       border: 1px dashed rgba(25, 46, 65, 0.35);
@@ -6187,35 +6264,35 @@
     }
 
     .learn-entry-arrow {
-      width: 20px;
+      width: clamp(15px, 4.103cqw, 30.77px);
       flex: 0 0 auto;
       color: #151c27;
-      font-size: 27px;
+      font-size: clamp(15px, 4.103cqw, 30.77px);
       line-height: 1;
       font-weight: 400;
       text-align: center;
     }
 
     .learn-practice-grid {
-      width: min(84cqw, 380px);
+      width: min(94.667cqw, 710px);
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: clamp(16px, 5.333cqw, 22px) clamp(8px, 2.667cqw, 12px);
+      gap: clamp(20px, 5.333cqw, 40px) clamp(10px, 2.667cqw, 20px);
     }
 
     .learn-practice-card {
       width: 100%;
       height: auto;
       min-width: 0;
-      aspect-ratio: 305 / 329;
+      aspect-ratio: 325 / 334;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
       justify-content: center;
-      gap: 8px;
+      gap: clamp(8px, 2.133cqw, 16px);
       border: 1px dashed rgba(21, 28, 39, 0.4);
-      border-radius: 12px;
-      padding: 16px;
+      border-radius: clamp(12px, 3.2cqw, 24px);
+      padding: clamp(16px, 4.267cqw, 32px);
       color: #151c27;
       background: rgba(255, 255, 255, 0.1);
       text-align: left;
@@ -6223,7 +6300,7 @@
 
     .learn-practice-card.wide {
       height: auto;
-      aspect-ratio: 630 / 290;
+      aspect-ratio: 670 / 295;
       grid-column: 1 / -1;
     }
 
@@ -6301,12 +6378,13 @@
       .learn-tab-button { width: 120px; }
     }
 
-    /* Figma-inspired review page. */
+    /* Figma 98:363 review page. */
     .app.favorites {
-      --review-title: clamp(24px, 7.467cqw, 32px);
-      --review-card-title: clamp(20px, 6.133cqw, 26px);
-      --review-body: clamp(13px, 3.733cqw, 16px);
-      --review-meta: clamp(12px, 3.2cqw, 14px);
+      --review-title: clamp(20px, 5.333cqw, 40px);
+      --review-tab-size: clamp(21px, 5.6cqw, 42px);
+      --review-card-title: clamp(24px, 6.4cqw, 48px);
+      --review-body: clamp(14px, 3.733cqw, 28px);
+      --review-meta: clamp(14px, 3.733cqw, 28px);
       width: min(100%, var(--app-shell-width));
       height: 100dvh;
       min-height: 0;
@@ -6315,24 +6393,22 @@
       container-type: inline-size;
       color: #192e41;
       background-color: #f2f3f5;
-      background-image: url("assets/home-figma-bg.webp");
-      background-position: center top;
-      background-size: 100% 100%;
-      background-repeat: no-repeat;
     }
 
     .app.favorites::before {
-      content: "";
-      position: absolute;
-      z-index: 0;
-      inset: 0;
-      pointer-events: none;
-      background: rgba(255, 255, 255, 0.18);
-      backdrop-filter: blur(25px);
-      -webkit-backdrop-filter: blur(25px);
+      display: none;
     }
 
     .app.favorites::after {
+      background: #f2f3f5;
+    }
+
+    .app.favorites .bottom-nav.figma-bottom-nav {
+      width: min(100vw, var(--app-shell-width));
+      height: var(--figma-tabbar-h);
+      min-height: var(--figma-tabbar-h);
+      bottom: 0;
+      padding: clamp(10px, 2.667cqw, 20px) var(--figma-x) calc(clamp(10px, 2.667cqw, 20px) + env(safe-area-inset-bottom));
       background: #f2f3f5;
     }
 
@@ -6343,149 +6419,137 @@
       z-index: 1;
       display: flex;
       flex-direction: column;
-      gap: clamp(14px, 4.8cqw, 20px);
-      padding: max(18px, env(safe-area-inset-top)) 3.733cqw calc(92px + env(safe-area-inset-bottom));
+      gap: clamp(20px, 5.333cqw, 40px);
+      padding: env(safe-area-inset-top) 0 var(--figma-tabbar-h);
       overflow: hidden;
     }
 
     .app.favorites .review-titlebar {
-      min-height: 44px;
+      height: clamp(44px, 11.733cqw, 88px);
       flex: 0 0 auto;
-      padding: 0 1.6cqw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 clamp(20px, 5.333cqw, 40px);
       border: 0;
       background: transparent;
     }
 
     .app.favorites .review-titlebar h1 {
       color: #192e41;
-      font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      font-size: clamp(20px, 6.4cqw, 27px);
-      line-height: 1.2;
-      font-weight: 700;
+      font-family: "Alibaba PuHuiTi 3.0", "PingFang SC", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: var(--review-title);
+      line-height: normal;
+      font-weight: 850;
     }
 
     .review-total {
       display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 2px;
-      color: rgba(25, 46, 65, 0.6);
-      font-size: var(--review-meta);
-      font-weight: 500;
-      line-height: 1.25;
-      text-align: right;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(5px, 1.333cqw, 10px);
+      white-space: nowrap;
     }
 
     .review-total strong {
       color: #192e41;
-      font-size: clamp(15px, 4.533cqw, 19px);
-      font-weight: 600;
+      font-size: clamp(16px, 4.267cqw, 32px);
+      font-weight: 500;
       font-variant-numeric: tabular-nums;
     }
 
     .app.favorites .review-titlebar .review-total span {
       color: rgba(25, 46, 65, 0.6);
       font-size: var(--review-meta);
-      font-weight: 500;
+      font-weight: 400;
     }
 
-    .review-overview-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
+    .review-category-row {
+      width: min(94.667cqw, 710px);
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      align-self: center;
+      padding: 0 clamp(10px, 2.667cqw, 20px);
       flex: 0 0 auto;
     }
 
-    .review-overview-card,
-    .review-wrong-entry {
-      border: 1px solid rgba(255, 255, 255, 0.72);
-      border-radius: 22px;
-      padding: 16px;
-      color: #192e41;
-      background: rgba(255, 255, 255, 0.82);
-      box-shadow: 0 18px 42px rgba(25, 46, 65, 0.08);
-      text-align: left;
-    }
-
-    .review-overview-card span,
-    .review-wrong-entry span {
-      display: block;
-      color: rgba(25, 46, 65, 0.58);
-      font-size: var(--review-meta);
-      font-weight: 500;
-      line-height: 1.35;
-    }
-
-    .review-wrong-entry em {
-      display: block;
-      font-style: normal;
-    }
-
-    .review-overview-card strong {
-      display: block;
-      margin-top: 8px;
-      color: #192e41;
-      font-size: clamp(28px, 9.6cqw, 42px);
-      line-height: 1;
-      font-weight: 700;
-      letter-spacing: -1.2px;
-      font-variant-numeric: tabular-nums;
-    }
-
-    .review-wrong-entry {
-      width: 100%;
-      min-height: 74px;
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
+    .review-tab-list {
+      display: flex;
       align-items: center;
-      gap: 14px;
-      flex: 0 0 auto;
-    }
-
-    .review-wrong-entry strong {
-      display: block;
-      margin-top: 5px;
-      color: #192e41;
-      font-size: clamp(18px, 5.333cqw, 23px);
-      line-height: 1.2;
-      font-weight: 650;
-    }
-
-    .review-wrong-entry .learn-entry-arrow {
-      color: rgba(25, 46, 65, 0.72);
-    }
-
-    .review-tabs {
-      height: 52px;
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 6px;
-      flex: 0 0 auto;
-      border-radius: 999px;
-      padding: 6px;
-      background: rgba(255, 255, 255, 0.46);
-      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.62);
+      justify-content: center;
+      gap: clamp(30px, 8cqw, 60px);
     }
 
     .review-tab-button {
+      min-width: 0;
       border: 0;
-      border-radius: 999px;
-      color: rgba(25, 46, 65, 0.62);
+      padding: 0;
+      color: #192e41;
       background: transparent;
-      font-size: clamp(15px, 4.267cqw, 18px);
-      font-weight: 560;
-      transition: transform 150ms ease, background 150ms ease, color 150ms ease;
+      font-family: "PingFang SC", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: var(--review-tab-size);
+      line-height: clamp(40px, 10.667cqw, 80px);
+      font-weight: 600;
+      text-align: center;
+      text-underline-offset: clamp(3px, 0.8cqw, 6px);
+      text-decoration-thickness: 1px;
+      transition: transform 150ms ease, color 150ms ease;
     }
 
     .review-tab-button.active {
-      color: #192e41;
-      background: #ffffff;
-      box-shadow: 0 10px 24px rgba(25, 46, 65, 0.08);
+      color: #467ffb;
+      text-decoration: underline;
     }
 
     .review-tab-button:active,
-    .review-wrong-entry:active {
+    .review-wrong-pill:active {
       transform: scale(0.985);
+    }
+
+    .review-wrong-pill {
+      min-height: clamp(44px, 11.733cqw, 88px);
+      display: flex;
+      align-items: center;
+      gap: 0;
+      border: 0;
+      background: transparent;
+      padding: 0;
+      color: #192e41;
+    }
+
+    .review-wrong-icon {
+      width: clamp(44px, 11.733cqw, 88px);
+      height: clamp(40px, 10.667cqw, 80px);
+      flex: 0 0 auto;
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+      margin-right: clamp(-44px, -5.867cqw, -22px);
+    }
+
+    .review-wrong-icon img {
+      width: 140%;
+      height: 155%;
+      position: absolute;
+      left: -19%;
+      top: -5%;
+      object-fit: contain;
+    }
+
+    .review-wrong-label {
+      min-height: clamp(40px, 10.667cqw, 80px);
+      display: flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: clamp(8px, 2.133cqw, 16px) clamp(12px, 3.2cqw, 24px) clamp(8px, 2.133cqw, 16px) clamp(44px, 11.733cqw, 88px);
+      background: #ffffff;
+      color: #192e41;
+      font-size: var(--review-meta);
+      line-height: clamp(20px, 5.333cqw, 40px);
+      font-weight: 500;
+      letter-spacing: 0.58px;
+      white-space: nowrap;
     }
 
     .review-favorites-panel {
@@ -6493,7 +6557,7 @@
       flex: 1 1 auto;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
-      padding: 2px 0 10px;
+      padding: 0 clamp(20px, 5.333cqw, 40px) clamp(20px, 5.333cqw, 40px);
       scrollbar-width: none;
     }
 
@@ -6502,34 +6566,98 @@
     }
 
     .app.favorites .review-list {
-      gap: 12px;
+      gap: clamp(16px, 4.267cqw, 32px);
+      width: 100%;
+      align-items: center;
     }
 
     .app.favorites .review-card {
-      gap: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.74);
-      border-radius: 22px;
-      padding: 18px 16px;
-      background: rgba(255, 255, 255, 0.84);
-      box-shadow: 0 14px 34px rgba(25, 46, 65, 0.075);
+      width: min(100%, 710px);
+      gap: clamp(20px, 5.333cqw, 40px);
+      border: 0;
+      border-radius: clamp(12px, 3.2cqw, 24px);
+      padding: clamp(20px, 5.333cqw, 40px) clamp(20px, 5.333cqw, 40px) clamp(24px, 6.4cqw, 48px);
+      background: #ffffff;
+      box-shadow: none;
+    }
+
+    .review-card-copy {
+      min-height: clamp(86px, 22.933cqw, 172px);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: clamp(6px, 1.6cqw, 12px);
+    }
+
+    .app.favorites .review-card-meta {
+      color: #192e41;
+      font-size: var(--review-meta);
+      line-height: clamp(20px, 5.333cqw, 40px);
+      font-weight: 400;
+      letter-spacing: 0.58px;
+      justify-content: flex-start;
     }
 
     .app.favorites .review-card .en {
       color: #192e41;
       font-size: var(--review-card-title);
-      font-weight: 700;
-      letter-spacing: -0.4px;
+      line-height: clamp(34px, 9.067cqw, 68px);
+      font-weight: 500;
+      letter-spacing: -0.31px;
     }
 
-    .app.favorites .review-card .zh,
-    .app.favorites .review-card .ipa {
-      color: rgba(25, 46, 65, 0.62);
+    .app.favorites .review-card .zh {
+      color: rgba(25, 46, 65, 0.6);
       font-size: var(--review-body);
+      line-height: clamp(20px, 5.333cqw, 40px);
+      font-weight: 400;
     }
 
+    .app.favorites .review-card .ipa,
     .app.favorites .review-example {
-      border-radius: 16px;
-      background: rgba(242, 247, 236, 0.95);
+      display: none;
+    }
+
+    .review-card-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: clamp(12px, 3.067cqw, 23px);
+    }
+
+    .review-sound-actions {
+      display: flex;
+      align-items: center;
+      gap: clamp(12px, 3.067cqw, 23px);
+    }
+
+    .review-audio-icon {
+      width: clamp(40px, 10.667cqw, 80px);
+      height: clamp(40px, 10.667cqw, 80px);
+      border: 0;
+      border-radius: 50%;
+      padding: 0;
+      background: transparent;
+    }
+
+    .review-audio-icon img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .app.favorites .review-remove-button {
+      min-width: auto;
+      height: auto;
+      margin-left: 0;
+      border: 1px solid rgba(25, 46, 65, 0.6);
+      border-radius: 999px;
+      padding: clamp(10px, 2.667cqw, 20px) clamp(16px, 4.267cqw, 32px);
+      color: #192e41;
+      background: #ffffff;
+      font-size: var(--review-meta);
+      line-height: normal;
+      font-weight: 400;
     }
 
     .review-empty-card {
@@ -6637,7 +6765,7 @@
     @media (prefers-reduced-motion: reduce) {
       .learn-tab-panel { animation: none; }
       .review-tab-button,
-      .review-wrong-entry { transition: none; }
+      .review-wrong-pill { transition: none; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -7839,7 +7967,7 @@
       homeSceneId: "",
       learnTab: "scenes",
       learnTabDirection: 1,
-      reviewTab: "vocabulary",
+      reviewTab: "phrase",
       history: [],
       showCloudPanel: false,
       cloudStatus: CLOUD_ENABLED ? "connecting" : "local",
@@ -9530,7 +9658,7 @@
 
             <section aria-label="旅行场景路线">
               ${routeScenes.map(scene => `
-                <button class="home-route-node ${scene.id === lastScene.id ? "current" : ""}" onclick="enterHomeScene('${scene.id}', this)" aria-label="进入${scene.title}场景，当前进度 ${moduleProgress(scene)}%">
+                <button class="home-route-node scene-${scene.id} ${scene.id === lastScene.id ? "current" : ""}" onclick="enterHomeScene('${scene.id}', this)" aria-label="进入${scene.title}场景，当前进度 ${moduleProgress(scene)}%">
                   <span class="home-route-node-dot" aria-hidden="true"></span>
                   <span class="home-route-node-label">${scene.title}</span>
                 </button>
@@ -10471,31 +10599,33 @@
               <strong>${favoriteItems.length + wrongItems.length}</strong>
             </div>
           </header>
-          <section class="review-overview-grid" aria-label="复习概览">
-            <article class="review-overview-card"><span>词汇收藏</span><strong>${vocabItems.length}</strong></article>
-            <article class="review-overview-card"><span>短句收藏</span><strong>${phraseItems.length}</strong></article>
+          <section class="review-category-row">
+            <div class="review-tab-list" role="tablist" aria-label="收藏复习分类">
+              <button class="review-tab-button ${state.reviewTab === "vocabulary" ? "active" : ""}" role="tab" aria-selected="${state.reviewTab === "vocabulary"}" onclick="setReviewTab('vocabulary')">词汇</button>
+              <button class="review-tab-button ${state.reviewTab === "phrase" ? "active" : ""}" role="tab" aria-selected="${state.reviewTab === "phrase"}" onclick="setReviewTab('phrase')">短句</button>
+            </div>
+            <button class="review-wrong-pill" onclick="setView('wrongBook')" aria-label="进入错题本">
+              <span class="review-wrong-icon"><img src="assets/review-wrongbook-figma.png" alt="" aria-hidden="true"></span>
+              <span class="review-wrong-label">错题本</span>
+            </button>
           </section>
-          <button class="review-wrong-entry" onclick="setView('wrongBook')" aria-label="进入错题本">
-            <span><em>听力错题</em><strong>${wrongItems.length ? `${wrongItems.length} 题待练` : "暂无错题"}</strong></span>
-            <i class="learn-entry-arrow" aria-hidden="true">›</i>
-          </button>
-          <div class="review-tabs" role="tablist" aria-label="收藏复习分类">
-            <button class="review-tab-button ${state.reviewTab === "vocabulary" ? "active" : ""}" role="tab" aria-selected="${state.reviewTab === "vocabulary"}" onclick="setReviewTab('vocabulary')">词汇</button>
-            <button class="review-tab-button ${state.reviewTab === "phrase" ? "active" : ""}" role="tab" aria-selected="${state.reviewTab === "phrase"}" onclick="setReviewTab('phrase')">短句</button>
-          </div>
           <section class="review-favorites-panel" aria-label="${tabLabel}收藏">
           ${currentItems.length ? `
             <div class="review-list">
               ${currentItems.map(item => `
                 <article class="review-card">
-                  <div class="review-card-meta"><span>${item.sceneTitle}</span><span>${item.type === "vocabulary" ? "词汇" : "短句"}</span></div>
-                  <div class="en">${item.en}</div>
-                  ${item.ipa ? `<div class="ipa">${item.ipa}</div>` : ""}
-                  <div class="zh">${item.zh}</div>
-                  ${item.example ? `<div class="review-example"><strong>例句</strong><span>${item.example}</span>${item.exampleZh ? `<small>${item.exampleZh}</small>` : ""}</div>` : ""}
+                  <div class="review-card-copy">
+                    <div class="review-card-meta"><span>${item.sceneTitle}</span></div>
+                    <div class="en">${item.en}</div>
+                    ${item.ipa ? `<div class="ipa">${item.ipa}</div>` : ""}
+                    <div class="zh">${item.zh}</div>
+                    ${item.example ? `<div class="review-example"><strong>例句</strong><span>${item.example}</span>${item.exampleZh ? `<small>${item.exampleZh}</small>` : ""}</div>` : ""}
+                  </div>
                   <div class="review-card-actions">
-                    <button class="module-audio-button" onclick="speak('${escapeQuote(item.en)}')" aria-label="播放">${lineIcon(`<path d="M11 5 6.5 9H3v6h3.5l4.5 4V5Z"/><path d="M15 9a4 4 0 0 1 0 6"/>`)}</button>
-                    <button class="module-audio-button" onclick="speak('${escapeQuote(item.en)}', 0.55)" aria-label="慢速播放">${lineIcon(`<path d="M20 11a8 8 0 1 1-2.3-5.7"/><path d="M20 4v7h-7"/>`)}</button>
+                    <div class="review-sound-actions">
+                      <button class="review-audio-icon" onclick="speak('${escapeQuote(item.en)}')" aria-label="播放"><img src="assets/review-play-figma.svg" alt="" aria-hidden="true"></button>
+                      <button class="review-audio-icon" onclick="speak('${escapeQuote(item.en)}', 0.55)" aria-label="慢速播放"><img src="assets/review-slow-figma.svg" alt="" aria-hidden="true"></button>
+                    </div>
                     <button class="review-remove-button" onclick="toggleFavorite('${item.id}')">取消收藏</button>
                   </div>
                 </article>
