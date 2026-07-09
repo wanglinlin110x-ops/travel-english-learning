@@ -1,0 +1,7 @@
+<svg preserveAspectRatio="none" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Button">
+<rect width="96" height="96" rx="48" fill="var(--fill-0, #F6F7F6)"/>
+<rect x="1" y="1" width="94" height="94" rx="47" stroke="var(--stroke-0, #192E41)" stroke-opacity="0.2" stroke-width="2"/>
+<path id="Icon" d="M51.9428 58.2857L41.6571 48L51.9428 37.7143L54.3428 40.1143L46.4571 48L54.3428 55.8857L51.9428 58.2857V58.2857" fill="var(--fill-0, #192E41)"/>
+</g>
+</svg>

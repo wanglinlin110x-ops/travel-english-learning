@@ -1,4 +1,4 @@
-const CACHE_VERSION = "travel-english-v27";
+const CACHE_VERSION = "travel-english-v34";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -13,6 +13,16 @@ const APP_SHELL = [
   "./assets/review-play-figma.svg",
   "./assets/review-slow-figma.svg",
   "./assets/review-wrongbook-figma.png",
+  "./assets/immersion-back-figma.svg",
+  "./assets/immersion-word-audio-figma.svg",
+  "./assets/immersion-example-play-figma.svg",
+  "./assets/immersion-example-slow-figma.svg",
+  "./assets/immersion-favorite-figma.svg",
+  "./assets/immersion-favorite-active-figma.svg",
+  "./assets/immersion-prev-figma.svg",
+  "./assets/immersion-prev-active-figma.svg",
+  "./assets/immersion-next-figma.svg",
+  "./assets/immersion-next-muted-figma.svg",
   "./assets/icons/icon-192.png",
   "./assets/icons/icon-512.png",
   "./assets/icons/icon-maskable-512.png",

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#72b7db">
+  <meta name="theme-color" content="#cde5e8">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="旅行英语">
@@ -62,6 +62,11 @@
       --figma-percent: clamp(48px, 12.8cqw, 96px);
       --figma-header-h: clamp(44px, 11.733cqw, 88px);
       --figma-tabbar-h: calc(clamp(68px, 18.133cqw, 136px) + env(safe-area-inset-bottom));
+      --primary-page-title-top: clamp(8px, 2.163cqw, 16.22px);
+      --primary-page-title-line: 1.1;
+      --primary-page-title-font: "Alibaba PuHuiTi 3.0", "Plus Jakarta Sans", "PingFang SC", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --primary-page-title-weight: 850;
+      --primary-page-title-tracking: -0.04em;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
     }
 
@@ -83,10 +88,10 @@
       width: 100%;
       height: 100%;
       overflow: hidden;
-      background-color: #72b7db;
+      background-color: #cde5e8;
       background-image: url("assets/home-figma-bg.webp");
       background-position: center top;
-      background-size: 100% 100%;
+      background-size: cover;
       background-repeat: no-repeat;
       overscroll-behavior: none;
     }
@@ -5621,10 +5626,22 @@
       position: absolute;
       z-index: 0;
       left: 0;
-      top: -7.57%;
+      top: 0;
       width: 100%;
-      height: 109.73%;
-      background: url("assets/home-figma-bg.webp") center / 100% 100% no-repeat;
+      height: 100%;
+      background: url("assets/home-figma-bg.webp") center top / cover no-repeat;
+      pointer-events: none;
+    }
+
+    .home-page.home-figma::after {
+      content: "";
+      position: absolute;
+      z-index: 0;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: max(118px, calc(env(safe-area-inset-top) + 96px));
+      background: linear-gradient(180deg, rgba(205, 229, 232, 0.96) 0%, rgba(205, 229, 232, 0.52) 42%, rgba(205, 229, 232, 0) 100%);
       pointer-events: none;
     }
 
@@ -5641,43 +5658,43 @@
     .home-figma-title {
       position: absolute;
       z-index: 3;
-      top: calc(env(safe-area-inset-top) + clamp(8px, 2.163cqw, 16.22px));
+      top: calc(env(safe-area-inset-top) + var(--primary-page-title-top));
       left: 5.333%;
       margin: 0;
       color: var(--home-ink);
-      font-family: "Alibaba PuHuiTi 3.0", "Plus Jakarta Sans", "PingFang SC", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      font-size: clamp(20px, 5.333cqw, 40px);
-      line-height: 1.1;
-      font-weight: 850;
-      letter-spacing: -0.04em;
+      font-family: var(--primary-page-title-font);
+      font-size: var(--figma-title);
+      line-height: var(--primary-page-title-line);
+      font-weight: var(--primary-page-title-weight);
+      letter-spacing: var(--primary-page-title-tracking);
     }
 
     .home-route-art {
-      width: 56.733%;
-      height: 31.689%;
+      width: 46.66%;
+      height: 30.111%;
       position: absolute;
       z-index: 1;
-      top: 13.651%;
-      left: 28.4%;
-      opacity: 1;
+      top: 17.874%;
+      left: 27.067%;
+      opacity: 0.58;
       mix-blend-mode: soft-light;
       transform: scaleX(-1);
       pointer-events: none;
     }
 
-    .home-route-star.scene-shopping { top: 8.1%; left: 27.7%; }
-    .home-route-star.scene-restaurant { top: 17.2%; left: 42.1%; }
-    .home-route-star.scene-hotel { top: 24.09%; left: 25.6%; }
-    .home-route-star.scene-transport { top: 33.2%; left: 62.9%; }
-    .home-route-star.scene-airport { top: 39.7%; left: 19.2%; }
+    .home-route-star.scene-shopping { top: 11.562%; left: 18.267%; }
+    .home-route-star.scene-restaurant { top: 19.875%; left: 32.667%; }
+    .home-route-star.scene-hotel { top: 28.62%; left: 24.133%; }
+    .home-route-star.scene-transport { top: 34.469%; left: 53.467%; }
+    .home-route-star.scene-airport { top: 40.442%; left: 9.733%; }
 
     .home-route-star {
-      width: 18.667%;
+      width: clamp(64px, 18.667cqw, 80px);
       aspect-ratio: 1;
       position: absolute;
       z-index: 2;
-      top: 24.09%;
-      left: 25.6%;
+      top: 28.62%;
+      left: 24.133%;
       overflow: hidden;
       pointer-events: none;
     }
@@ -5709,39 +5726,39 @@
 
     .home-route-node {
       --node-color: var(--home-dot);
-      min-width: clamp(90px, 24cqw, 180px);
-      min-height: clamp(23px, 6.133cqw, 46px);
+      min-width: 74px;
+      min-height: 44px;
       position: absolute;
       z-index: 3;
       display: flex;
       align-items: center;
-      gap: clamp(10px, 2.667cqw, 20px);
+      gap: clamp(8px, 2.667cqw, 12px);
       border: 0;
-      padding: 0;
+      padding: 5px;
       color: var(--home-ink);
       background: transparent;
-      transform: none;
+      transform: translate(-5px, -25%);
       transform-origin: 10px center;
       transition: transform 160ms cubic-bezier(0.2, 0.75, 0.2, 1);
       pointer-events: auto;
       -webkit-tap-highlight-color: transparent;
     }
 
-    .home-route-node.scene-shopping { top: 12.131%; left: 35.733%; }
-    .home-route-node.scene-restaurant { top: 21.253%; left: 50.133%; }
-    .home-route-node.scene-hotel { top: 31.95%; left: 41.6%; }
-    .home-route-node.scene-transport { top: 37.267%; left: 70.933%; }
-    .home-route-node.scene-airport { top: 43.821%; left: 27.2%; }
+    .home-route-node.scene-shopping { top: 17.105%; left: 35.733%; }
+    .home-route-node.scene-restaurant { top: 25.418%; left: 50.133%; }
+    .home-route-node.scene-hotel { top: 34.161%; left: 41.6%; }
+    .home-route-node.scene-transport { top: 40.011%; left: 70.933%; }
+    .home-route-node.scene-airport { top: 45.985%; left: 27.2%; }
 
     .home-route-node-dot {
-      width: clamp(10px, 2.667cqw, 20px);
-      height: clamp(10px, 2.667cqw, 20px);
+      width: clamp(10px, 2.667cqw, 12px);
+      height: clamp(10px, 2.667cqw, 12px);
       position: relative;
       flex: 0 0 auto;
       border: 0;
       border-radius: 50%;
       background: var(--node-color);
-      box-shadow: 0 0 0 clamp(3px, 0.8cqw, 6px) #fff, 0 1px 3px 3px rgba(25, 46, 65, 0.12);
+      box-shadow: 0 0 0 3px #fff, 0 1px 3px 3px rgba(25, 46, 65, 0.12);
     }
 
     .home-route-node-dot::after {
@@ -5759,22 +5776,21 @@
     }
 
     .home-route-node.current .home-route-node-dot {
-      width: clamp(12px, 3.2cqw, 24px);
-      height: clamp(12px, 3.2cqw, 24px);
+      width: clamp(12px, 3.2cqw, 14px);
+      height: clamp(12px, 3.2cqw, 14px);
     }
 
     .home-route-node-label {
-      font-size: clamp(16px, 4.267cqw, 32px);
-      line-height: normal;
-      font-family: "PingFang SC", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      font-weight: 400;
+      font-size: clamp(14px, 4.267cqw, 18px);
+      line-height: 1.375;
+      font-weight: 600;
       white-space: nowrap;
       text-shadow: 0 1px 8px rgba(228, 242, 242, 0.88);
     }
 
     .home-route-node:active,
     .home-route-node.is-launching {
-      transform: scale(0.92);
+      transform: translate(-5px, -25%) scale(0.92);
     }
 
     .home-route-node.is-launching .home-route-node-dot::after {
@@ -6011,6 +6027,43 @@
       background: #f2f3f5;
     }
 
+    .app.learn.has-tabbar .bottom-nav.figma-bottom-nav,
+    .app.favorites.has-tabbar .bottom-nav.figma-bottom-nav {
+      width: min(100vw, var(--app-shell-width));
+      height: var(--figma-tabbar-h);
+      min-height: var(--figma-tabbar-h);
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0;
+      border: 0;
+      border-radius: 0;
+      padding: clamp(10px, 2.667cqw, 20px) var(--figma-x) calc(clamp(10px, 2.667cqw, 20px) + env(safe-area-inset-bottom));
+      background: #f2f3f5;
+      box-shadow: none;
+    }
+
+    .app.learn.has-tabbar .figma-bottom-nav .nav-btn,
+    .app.favorites.has-tabbar .figma-bottom-nav .nav-btn {
+      height: clamp(48px, 12.8cqw, 96px) !important;
+      min-height: clamp(48px, 12.8cqw, 96px) !important;
+      flex: 1 1 0;
+      min-width: 0;
+      gap: 0;
+      border-radius: clamp(40px, 10.667cqw, 80px) !important;
+      padding: 0;
+      font-size: clamp(14px, 3.733cqw, 28px);
+      line-height: normal;
+      letter-spacing: clamp(-1.846px, -0.246cqw, -0.923px);
+    }
+
+    .app.learn.has-tabbar .figma-bottom-nav .nav-btn b,
+    .app.favorites.has-tabbar .figma-bottom-nav .nav-btn b {
+      width: clamp(30px, 8cqw, 60px);
+      height: clamp(30px, 8cqw, 60px);
+    }
+
     .figma-bottom-nav .nav-btn {
       height: 48px !important;
       min-height: 48px !important;
@@ -6064,6 +6117,8 @@
       --learn-type-value: var(--figma-value);
       --learn-type-display: var(--figma-tab);
       --learn-type-progress: var(--figma-value);
+      --learn-scene-title: clamp(20px, 5.333cqw, 40px);
+      --learn-practice-title: clamp(18px, 4.8cqw, 36px);
       width: min(100%, var(--app-shell-width));
       height: 100dvh;
       min-height: 0;
@@ -6076,6 +6131,11 @@
       background-position: center top;
       background-size: 100% 100%;
       background-repeat: no-repeat;
+    }
+
+    .app.learn.has-tabbar,
+    .app.favorites.has-tabbar {
+      padding-top: 0;
     }
 
     .app.learn::before {
@@ -6094,11 +6154,12 @@
     }
 
     .app.learn .learn-titlebar {
-      height: var(--figma-header-h);
-      min-height: var(--figma-header-h);
+      height: calc(env(safe-area-inset-top) + var(--figma-header-h));
+      min-height: calc(env(safe-area-inset-top) + var(--figma-header-h));
       position: relative;
       z-index: 1;
-      padding: 0 var(--figma-x);
+      align-items: flex-start;
+      padding: calc(env(safe-area-inset-top) + var(--primary-page-title-top)) var(--figma-x) 0;
       border: 0;
       background: transparent;
     }
@@ -6106,17 +6167,19 @@
     .app.learn .learn-titlebar h1 {
       margin: 0;
       color: #192e41;
-      font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: var(--primary-page-title-font);
       font-size: var(--learn-type-title);
-      line-height: 1.24;
-      font-weight: 700;
-      letter-spacing: 0;
+      line-height: var(--primary-page-title-line);
+      font-weight: var(--primary-page-title-weight);
+      letter-spacing: var(--primary-page-title-tracking);
     }
 
     .learn-overall-progress {
       display: flex;
       align-items: center;
+      align-self: flex-start;
       gap: 5px;
+      min-height: clamp(22px, 5.867cqw, 44px);
       white-space: nowrap;
     }
 
@@ -6248,7 +6311,7 @@
     .learn-scene-name {
       min-width: 0;
       color: #151c27;
-      font-size: var(--learn-type-display);
+      font-size: var(--learn-scene-title);
       line-height: 1.2;
       font-weight: 500;
       white-space: nowrap;
@@ -6314,7 +6377,7 @@
     .learn-practice-card h2 {
       margin: 0;
       color: #151c27;
-      font-size: var(--learn-type-display);
+      font-size: var(--learn-practice-title);
       line-height: 1.3;
       font-weight: 500;
     }
@@ -6382,7 +6445,7 @@
     .app.favorites {
       --review-title: clamp(20px, 5.333cqw, 40px);
       --review-tab-size: clamp(21px, 5.6cqw, 42px);
-      --review-card-title: clamp(24px, 6.4cqw, 48px);
+      --review-card-title: clamp(21px, 5.6cqw, 42px);
       --review-body: clamp(14px, 3.733cqw, 28px);
       --review-meta: clamp(14px, 3.733cqw, 28px);
       width: min(100%, var(--app-shell-width));
@@ -6420,34 +6483,37 @@
       display: flex;
       flex-direction: column;
       gap: clamp(20px, 5.333cqw, 40px);
-      padding: env(safe-area-inset-top) 0 var(--figma-tabbar-h);
+      padding: 0 0 var(--figma-tabbar-h);
       overflow: hidden;
     }
 
     .app.favorites .review-titlebar {
-      height: clamp(44px, 11.733cqw, 88px);
+      height: calc(env(safe-area-inset-top) + var(--figma-header-h));
       flex: 0 0 auto;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: space-between;
-      padding: 0 clamp(20px, 5.333cqw, 40px);
+      padding: calc(env(safe-area-inset-top) + var(--primary-page-title-top)) var(--figma-x) 0;
       border: 0;
       background: transparent;
     }
 
     .app.favorites .review-titlebar h1 {
       color: #192e41;
-      font-family: "Alibaba PuHuiTi 3.0", "PingFang SC", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: var(--primary-page-title-font);
       font-size: var(--review-title);
-      line-height: normal;
-      font-weight: 850;
+      line-height: var(--primary-page-title-line);
+      font-weight: var(--primary-page-title-weight);
+      letter-spacing: var(--primary-page-title-tracking);
     }
 
     .review-total {
       display: flex;
       align-items: center;
+      align-self: flex-start;
       justify-content: center;
       gap: clamp(5px, 1.333cqw, 10px);
+      min-height: clamp(22px, 5.867cqw, 44px);
       white-space: nowrap;
     }
 
@@ -6509,9 +6575,13 @@
 
     .review-wrong-pill {
       min-height: clamp(44px, 11.733cqw, 88px);
-      display: flex;
-      align-items: center;
-      gap: 0;
+      display: inline-grid;
+      grid-template-columns: max-content;
+      grid-template-rows: max-content;
+      place-items: start;
+      align-items: start;
+      flex: 0 0 auto;
+      position: relative;
       border: 0;
       background: transparent;
       padding: 0;
@@ -6521,26 +6591,30 @@
     .review-wrong-icon {
       width: clamp(44px, 11.733cqw, 88px);
       height: clamp(40px, 10.667cqw, 80px);
-      flex: 0 0 auto;
+      grid-area: 1 / 1;
       position: relative;
-      z-index: 1;
+      z-index: 2;
       overflow: hidden;
-      margin-right: clamp(-44px, -5.867cqw, -22px);
+      margin: 0;
     }
 
     .review-wrong-icon img {
-      width: 140%;
-      height: 155%;
+      width: clamp(75px, 20cqw, 150px);
+      height: clamp(76px, 20.16cqw, 151.2px);
       position: absolute;
-      left: -19%;
-      top: -5%;
+      left: clamp(-30px, -4cqw, -15px);
+      top: clamp(-19px, -2.533cqw, -9.5px);
+      max-width: none;
       object-fit: contain;
     }
 
     .review-wrong-label {
+      grid-area: 1 / 1;
       min-height: clamp(40px, 10.667cqw, 80px);
       display: flex;
       align-items: center;
+      margin-left: clamp(4.5px, 1.2cqw, 9px);
+      margin-top: clamp(4px, 1.067cqw, 8px);
       border-radius: 999px;
       padding: clamp(8px, 2.133cqw, 16px) clamp(12px, 3.2cqw, 24px) clamp(8px, 2.133cqw, 16px) clamp(44px, 11.733cqw, 88px);
       background: #ffffff;
@@ -6557,7 +6631,7 @@
       flex: 1 1 auto;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
-      padding: 0 clamp(20px, 5.333cqw, 40px) clamp(20px, 5.333cqw, 40px);
+      padding: 0 clamp(20px, 5.333cqw, 40px) calc(clamp(20px, 5.333cqw, 40px) + env(safe-area-inset-bottom));
       scrollbar-width: none;
     }
 
@@ -6574,6 +6648,8 @@
     .app.favorites .review-card {
       width: min(100%, 710px);
       gap: clamp(20px, 5.333cqw, 40px);
+      display: flex;
+      flex-direction: column;
       border: 0;
       border-radius: clamp(12px, 3.2cqw, 24px);
       padding: clamp(20px, 5.333cqw, 40px) clamp(20px, 5.333cqw, 40px) clamp(24px, 6.4cqw, 48px);
@@ -6601,7 +6677,7 @@
     .app.favorites .review-card .en {
       color: #192e41;
       font-size: var(--review-card-title);
-      line-height: clamp(34px, 9.067cqw, 68px);
+      line-height: clamp(30px, 8cqw, 60px);
       font-weight: 500;
       letter-spacing: -0.31px;
     }
@@ -6760,6 +6836,408 @@
       padding: 18px 16px;
       background: #ffffff;
       box-shadow: 0 14px 34px rgba(25, 46, 65, 0.055);
+    }
+
+    /* Figma immersion vocabulary study, nodes 10:4 and 112:125 */
+    .app.vocabStudy {
+      --immersion-ink: #192e41;
+      --immersion-blue: #467ffb;
+      --immersion-panel: #f2f3f5;
+      --immersion-page-x: clamp(20px, 5.333cqw, 40px);
+      --immersion-header-h: clamp(44px, 11.733cqw, 88px);
+      --immersion-footer-button: clamp(48px, 12.8cqw, 96px);
+      width: min(100%, var(--app-shell-width));
+      height: 100vh;
+      height: 100dvh;
+      max-height: none;
+      min-height: 0;
+      aspect-ratio: auto;
+      display: flex;
+      flex-direction: column;
+      container-type: inline-size;
+      margin: 0 auto;
+      overflow: hidden;
+      color: var(--immersion-ink);
+      background: #ffffff;
+      border: 0;
+      border-radius: 0;
+      box-shadow: none;
+      overscroll-behavior: none;
+    }
+
+    .app.vocabStudy .immersion-statusbar {
+      display: none;
+    }
+
+    .app.vocabStudy .immersion-titlebar {
+      flex: 0 0 auto;
+      height: calc(var(--immersion-header-h) + env(safe-area-inset-top));
+      min-height: calc(var(--immersion-header-h) + env(safe-area-inset-top));
+      display: grid;
+      grid-template-columns: var(--immersion-header-h) minmax(0, 1fr) var(--immersion-header-h);
+      align-items: end;
+      padding: env(safe-area-inset-top) var(--immersion-page-x) 0;
+      border-bottom: clamp(1px, 0.256cqw, 1.923px) solid rgba(0, 0, 0, 0.05);
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(23px);
+      -webkit-backdrop-filter: blur(23px);
+    }
+
+    .app.vocabStudy .immersion-back-button {
+      width: var(--immersion-header-h);
+      height: var(--immersion-header-h);
+      display: grid;
+      place-items: center;
+      border: 0;
+      border-radius: 50%;
+      padding: 0;
+      color: var(--immersion-ink);
+      background: transparent;
+    }
+
+    .app.vocabStudy .immersion-back-button svg,
+    .app.vocabStudy .immersion-back-button img {
+      width: clamp(16px, 4.103cqw, 30.769px);
+      height: clamp(16px, 4.103cqw, 30.769px);
+      stroke-width: 2;
+    }
+
+    .app.vocabStudy .immersion-back-button img,
+    .app.vocabStudy .immersion-tool-button img,
+    .app.vocabStudy .immersion-example-button img,
+    .app.vocabStudy .immersion-favorite img,
+    .app.vocabStudy .immersion-control-button img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      pointer-events: none;
+    }
+
+    .app.vocabStudy .immersion-titlebar h1 {
+      align-self: center;
+      margin: 0;
+      color: var(--immersion-ink);
+      font-family: "PingFang SC", "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: clamp(17px, 4.533cqw, 34px);
+      line-height: clamp(24px, 6.4cqw, 48px);
+      font-weight: 600;
+      letter-spacing: 0;
+      text-align: center;
+    }
+
+    .app.vocabStudy .immersion-progress {
+      flex: 0 0 auto;
+      padding: clamp(24px, 6.4cqw, 48px) var(--immersion-page-x) 0;
+      background: #ffffff;
+    }
+
+    .app.vocabStudy .immersion-progress-meta {
+      color: var(--immersion-ink);
+      font-size: clamp(16px, 4.267cqw, 32px);
+      line-height: clamp(23px, 6.133cqw, 46px);
+      font-weight: 500;
+      letter-spacing: 0;
+    }
+
+    .app.vocabStudy .immersion-progress-meta strong,
+    .app.vocabStudy .immersion-progress-meta span {
+      color: inherit;
+      font-weight: 500;
+    }
+
+    .app.vocabStudy .immersion-progress-track {
+      height: clamp(4px, 1.067cqw, 8px);
+      margin-top: clamp(8px, 2.133cqw, 16px);
+      border-radius: 999px;
+      background: #f1f3f4;
+    }
+
+    .app.vocabStudy .immersion-progress-track span {
+      background: var(--immersion-ink);
+    }
+
+    .app.vocabStudy .immersion-main {
+      flex: 1 1 auto;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      grid-template-rows: none;
+      padding: clamp(24px, 6.4cqw, 48px) var(--immersion-page-x) calc(var(--immersion-footer-button) + clamp(20px, 5.333cqw, 40px) + env(safe-area-inset-bottom));
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior-y: contain;
+      background: #ffffff;
+      scrollbar-width: none;
+    }
+
+    .app.vocabStudy .immersion-main::-webkit-scrollbar {
+      display: none;
+    }
+
+    .app.vocabStudy .immersion-learning-card {
+      width: 100%;
+      height: auto;
+      min-height: auto;
+      display: flex;
+      flex-direction: column;
+      gap: clamp(24px, 6.4cqw, 48px);
+      border: 0;
+      border-radius: clamp(12px, 3.2cqw, 24px);
+      padding: clamp(28px, 7.467cqw, 56px) var(--immersion-page-x);
+      background: var(--immersion-panel);
+      box-shadow: none;
+      cursor: pointer;
+    }
+
+    .app.vocabStudy .immersion-word-block {
+      flex: none;
+      min-height: 0;
+      align-items: center;
+      text-align: center;
+    }
+
+    .app.vocabStudy .immersion-word-block .en {
+      margin: 0;
+      color: var(--immersion-ink);
+      font-family: "Alibaba PuHuiTi", "Alibaba PHT", "PingFang SC", "Inter", system-ui, sans-serif;
+      font-size: clamp(30px, 8cqw, 60px);
+      line-height: clamp(40px, 10.667cqw, 80px);
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .app.vocabStudy .immersion-word-block .ipa {
+      margin-top: clamp(8px, 2.133cqw, 16px);
+      color: rgba(25, 46, 65, 0.6);
+      font-size: clamp(16px, 4.267cqw, 32px);
+      line-height: clamp(24px, 6.4cqw, 48px);
+      font-weight: 400;
+      letter-spacing: clamp(1px, 0.267cqw, 2px);
+    }
+
+    .app.vocabStudy .immersion-word-tools {
+      margin-top: clamp(20px, 5.333cqw, 40px);
+      gap: clamp(12px, 3.2cqw, 24px);
+    }
+
+    .app.vocabStudy .immersion-tool-button {
+      width: clamp(28px, 7.467cqw, 56px);
+      height: clamp(28px, 7.467cqw, 56px);
+      color: #16601f;
+      background: transparent;
+    }
+
+    .app.vocabStudy .immersion-tool-button svg {
+      width: clamp(18px, 4.8cqw, 36px);
+      height: clamp(18px, 4.8cqw, 36px);
+      stroke-width: 2.2;
+    }
+
+    .app.vocabStudy .immersion-divider {
+      width: clamp(60px, 16cqw, 120px);
+      height: clamp(1px, 0.267cqw, 2px);
+      margin: clamp(20px, 5.333cqw, 40px) auto;
+      background: rgba(25, 46, 65, 0.12);
+    }
+
+    .app.vocabStudy .immersion-meaning {
+      color: var(--immersion-ink);
+      font-size: clamp(18px, 4.8cqw, 36px);
+      line-height: clamp(26px, 6.933cqw, 52px);
+      font-weight: 500;
+      letter-spacing: clamp(-0.31px, -0.082cqw, 0px);
+    }
+
+    .app.vocabStudy .immersion-example {
+      width: 100%;
+      min-height: 0;
+      margin-top: 0;
+      display: flex;
+      flex-direction: column;
+      gap: clamp(10px, 2.667cqw, 20px);
+      border: 0;
+      border-radius: clamp(12px, 3.2cqw, 24px);
+      padding: clamp(24px, 6.4cqw, 48px) var(--immersion-page-x);
+      background: #ffffff;
+    }
+
+    .app.vocabStudy .immersion-example-head {
+      align-items: center;
+      gap: clamp(12px, 3.2cqw, 24px);
+    }
+
+    .app.vocabStudy .immersion-example-tag {
+      min-height: auto;
+      border-radius: 0;
+      padding: 0;
+      color: rgba(25, 46, 65, 0.6);
+      background: transparent;
+      font-size: clamp(14px, 3.733cqw, 28px);
+      line-height: clamp(20px, 5.333cqw, 40px);
+      font-weight: 400;
+      letter-spacing: 0;
+    }
+
+    .app.vocabStudy .immersion-example-tools {
+      gap: clamp(12px, 3.077cqw, 23px);
+    }
+
+    .app.vocabStudy .immersion-example-button {
+      width: clamp(40px, 10.667cqw, 80px);
+      height: clamp(40px, 10.667cqw, 80px);
+      border: 0;
+      color: #16601f;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .app.vocabStudy .immersion-example-button svg {
+      width: clamp(18px, 4.8cqw, 36px);
+      height: clamp(18px, 4.8cqw, 36px);
+      stroke-width: 2.1;
+    }
+
+    .app.vocabStudy .immersion-example .en {
+      margin: 0;
+      color: var(--immersion-ink);
+      font-size: clamp(21px, 5.6cqw, 42px);
+      line-height: clamp(30px, 8cqw, 60px);
+      font-weight: 500;
+      letter-spacing: clamp(-0.31px, -0.082cqw, 0px);
+    }
+
+    .app.vocabStudy .immersion-example .zh {
+      margin: 0;
+      color: var(--immersion-ink);
+      font-size: clamp(16px, 4.267cqw, 32px);
+      line-height: clamp(24px, 6.4cqw, 48px);
+      font-weight: 400;
+    }
+
+    .app.vocabStudy .immersion-favorite {
+      align-self: center;
+      min-height: clamp(34px, 9.067cqw, 68px);
+      margin-top: clamp(24px, 6.4cqw, 48px);
+      gap: clamp(6px, 1.6cqw, 12px);
+      padding: 0;
+      color: var(--immersion-ink);
+      font-size: clamp(14px, 3.733cqw, 28px);
+      line-height: clamp(20px, 5.333cqw, 40px);
+      font-weight: 400;
+      background: transparent;
+    }
+
+    .app.vocabStudy .immersion-favorite svg {
+      width: clamp(24px, 6.4cqw, 48px);
+      height: clamp(24px, 6.4cqw, 48px);
+      stroke-width: 1.8;
+    }
+
+    .app.vocabStudy .immersion-favorite img {
+      width: clamp(24px, 6.4cqw, 48px);
+      height: clamp(24px, 6.4cqw, 48px);
+    }
+
+    .app.vocabStudy .immersion-favorite.active {
+      color: rgba(25, 46, 65, 0.6);
+      font-weight: 400;
+    }
+
+    .app.vocabStudy .immersion-favorite.active svg {
+      fill: none;
+      stroke: currentColor;
+    }
+
+    .app.vocabStudy .immersion-footer {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      z-index: 8;
+      width: 100%;
+      height: calc(var(--immersion-footer-button) + clamp(20px, 5.333cqw, 40px) + env(safe-area-inset-bottom));
+      display: flex;
+      padding: clamp(10px, 2.667cqw, 20px) var(--immersion-page-x) calc(clamp(10px, 2.667cqw, 20px) + env(safe-area-inset-bottom));
+      border-top: 1px solid rgba(25, 46, 65, 0.08);
+      background: #ffffff;
+    }
+
+    .app.vocabStudy .immersion-footer-actions {
+      width: 100%;
+      display: grid;
+      grid-template-columns: var(--immersion-footer-button) minmax(0, 1fr) var(--immersion-footer-button);
+      align-items: center;
+      gap: clamp(12px, 3.077cqw, 23.077px);
+    }
+
+    .app.vocabStudy .immersion-control-button {
+      width: var(--immersion-footer-button);
+      height: var(--immersion-footer-button);
+      border: 0;
+      border-radius: 50%;
+      color: var(--immersion-ink);
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .app.vocabStudy .immersion-control-button.next {
+      color: #16601f;
+      background: transparent;
+      border-color: transparent;
+    }
+
+    .app.vocabStudy .immersion-control-button.previous:not(:disabled) {
+      color: var(--immersion-ink);
+      background: transparent;
+      border-color: transparent;
+    }
+
+    .app.vocabStudy .immersion-control-button:disabled {
+      color: rgba(25, 46, 65, 0.18);
+      background: transparent;
+      opacity: 1;
+      box-shadow: none;
+    }
+
+    .app.vocabStudy .immersion-control-button svg {
+      width: clamp(18px, 4.8cqw, 36px);
+      height: clamp(18px, 4.8cqw, 36px);
+      stroke-width: 2;
+    }
+
+    .app.vocabStudy .immersion-master-button {
+      min-width: 0;
+      height: var(--immersion-footer-button);
+      border: 0;
+      border-radius: clamp(12px, 3.2cqw, 24px);
+      padding: 0 clamp(22px, 5.867cqw, 44px);
+      color: #ffffff;
+      background: var(--immersion-ink);
+      font-family: "PingFang SC", "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: clamp(16px, 4.267cqw, 32px);
+      line-height: clamp(23px, 6.133cqw, 46px);
+      font-weight: 500;
+      letter-spacing: clamp(-0.31px, -0.082cqw, 0px);
+      box-shadow: none;
+    }
+
+    .app.vocabStudy .immersion-master-button svg {
+      display: none;
+    }
+
+    .app.vocabStudy .immersion-master-button.is-mastered {
+      color: #ffffff;
+      background: var(--immersion-blue);
+    }
+
+    .app.vocabStudy .immersion-complete {
+      width: 100%;
+      margin-top: 0;
+      border: 0;
+      border-radius: clamp(12px, 3.2cqw, 24px);
+      background: var(--immersion-panel);
+      box-shadow: none;
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -9398,7 +9876,7 @@
       document.body.classList.toggle("home-active", isHome);
       document.body.classList.toggle("learn-active", isLearn);
       const themeMeta = document.querySelector('meta[name="theme-color"]');
-      if (themeMeta) themeMeta.content = isHome || isLearn ? "#72b7db" : "#f6f7f4";
+      if (themeMeta) themeMeta.content = isHome ? "#cde5e8" : (isLearn ? "#72b7db" : "#f6f7f4");
       app.className = ["home", "learn", "favorites"].includes(state.view) ? `app ${state.view} has-tabbar` : `app ${state.view}`;
       if (state.view === "scene") {
         app.classList.add("learning-module-page", `${state.module || "vocabulary"}-page`);
@@ -9926,7 +10404,7 @@
       app.innerHTML = `
         <header class="immersion-titlebar">
           <button class="immersion-back-button" onclick="goBack()" aria-label="返回上一页" title="返回上一页">
-            ${lineIcon(`<path d="m15 18-6-6 6-6"/>`)}
+            <img src="assets/immersion-back-figma.svg" alt="" aria-hidden="true">
           </button>
           <h1>沉浸学习</h1>
           <span aria-hidden="true"></span>
@@ -9963,7 +10441,7 @@
                 <div class="ipa">${item[1]}</div>
                 <div class="immersion-word-tools">
                   <button class="immersion-tool-button" onclick="event.stopPropagation(); speak('${escapeQuote(item[0])}')" aria-label="播放词汇" title="播放词汇">
-                    ${lineIcon(`<path d="M11 5 6.5 9H3v6h3.5l4.5 4V5Z"/><path d="M15 9a4 4 0 0 1 0 6"/>`)}
+                    <img src="assets/immersion-word-audio-figma.svg" alt="" aria-hidden="true">
                   </button>
                 </div>
                 <div class="immersion-divider"></div>
@@ -9974,10 +10452,10 @@
                   <span class="immersion-example-tag">例句</span>
                   <div class="immersion-example-tools">
                     <button class="immersion-example-button" onclick="event.stopPropagation(); speak('${escapeQuote(item[4])}')" aria-label="播放例句" title="播放例句">
-                      ${lineIcon(`<path d="m9 7 8 5-8 5V7Z"/>`)}
+                      <img src="assets/immersion-example-play-figma.svg" alt="" aria-hidden="true">
                     </button>
                     <button class="immersion-example-button" onclick="event.stopPropagation(); speak('${escapeQuote(item[4])}', 0.8)" aria-label="慢速播放例句" title="慢速播放例句">
-                      ${lineIcon(`<path d="M20 11a8 8 0 1 1-2.3-5.7"/><path d="M20 4v7h-7"/>`)}
+                      <img src="assets/immersion-example-slow-figma.svg" alt="" aria-hidden="true">
                     </button>
                   </div>
                 </div>
@@ -9986,7 +10464,7 @@
               </div>
             </article>
             <button class="immersion-favorite ${favorite ? "active" : ""}" onclick="toggleFavorite('${id}')" aria-label="${favorite ? "取消收藏" : "收藏"}">
-              ${lineIcon(`<path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.3l-5.6 2.9 1.1-6.2L3 9.6l6.2-.9L12 3Z"/>`)}
+              <img src="assets/${favorite ? "immersion-favorite-active-figma.svg" : "immersion-favorite-figma.svg"}" alt="" aria-hidden="true">
               <span>${favorite ? "已收藏" : "收藏"}</span>
             </button>
           `}
@@ -9995,14 +10473,13 @@
           <footer class="immersion-footer">
             <div class="immersion-footer-actions">
               <button class="immersion-control-button previous" onclick="previousStudyVocab()" aria-label="上一条" title="上一条" ${position <= 1 ? "disabled" : ""}>
-                ${lineIcon(`<path d="m15 18-6-6 6-6"/>`)}
+                <img src="assets/${position <= 1 ? "immersion-prev-figma.svg" : "immersion-prev-active-figma.svg"}" alt="" aria-hidden="true">
               </button>
               <button class="immersion-master-button ${learned ? "is-mastered" : ""}" onclick="masterStudyVocab()" aria-pressed="${learned}" aria-label="${learned ? "取消掌握" : "标记掌握"}">
-                ${lineIcon(`<circle cx="12" cy="12" r="8"/><path d="m8.5 12 2.2 2.2 4.8-5"/>`)}
                 <span>${learned ? "已掌握" : "标记掌握"}</span>
               </button>
               <button class="immersion-control-button next" onclick="skipStudyVocab()" aria-label="下一条" title="下一条">
-                ${lineIcon(`<path d="m9 18 6-6-6-6"/>`)}
+                <img src="assets/${learned ? "immersion-next-muted-figma.svg" : "immersion-next-figma.svg"}" alt="" aria-hidden="true">
               </button>
             </div>
           </footer>
