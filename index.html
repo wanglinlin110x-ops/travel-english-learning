@@ -7402,15 +7402,30 @@
     }
 
     .app.vocabStudy .immersion-tool-button {
-      width: 36px;
-      min-width: 36px;
-      height: 36px;
-      min-height: 36px;
+      width: clamp(28px, 7.507cqw, 56.3px);
+      min-width: clamp(28px, 7.507cqw, 56.3px);
+      height: clamp(28px, 7.467cqw, 56px);
+      min-height: clamp(28px, 7.467cqw, 56px);
     }
 
     .app.vocabStudy .immersion-tool-button img {
-      width: 30px;
-      height: 30px;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .app.vocabStudy .immersion-example-button,
+    .app.favorites .review-audio-icon {
+      width: clamp(40px, 10.667cqw, 80px);
+      min-width: clamp(40px, 10.667cqw, 80px);
+      height: clamp(40px, 10.667cqw, 80px);
+      min-height: clamp(40px, 10.667cqw, 80px);
+    }
+
+    .app.vocabStudy .immersion-example-button img,
+    .app.favorites .review-audio-icon img {
+      width: 100%;
+      height: 100%;
       object-fit: contain;
     }
 
