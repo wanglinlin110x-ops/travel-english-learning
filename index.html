@@ -8909,6 +8909,10 @@
       background: #f2f3f5 !important;
     }
 
+    .app.vocabDetail {
+      --secondary-green: #467ffb;
+    }
+
     .app.scene .secondary-titlebar,
     .app.vocabDetail .secondary-titlebar,
     .app.globalChat .secondary-titlebar,
@@ -9328,6 +9332,131 @@
     .app.scene .speaking-complete-button.is-complete .figma-text-icon,
     .app.vocabDetail .vocab-master-button.is-mastered .figma-text-icon {
       color: #467ffb;
+    }
+
+    .app.scene.vocabulary-page .secondary-progress-card .secondary-primary-action {
+      margin-top: clamp(10px, 2.667cqw, 20px);
+    }
+
+    .app.scene.vocabulary-page .vocab-card-tools {
+      margin-top: clamp(10px, 2.667cqw, 20px);
+    }
+
+    .app.scene.vocabulary-page .vocab-card-actions {
+      margin-top: clamp(12px, 3.2cqw, 24px);
+    }
+
+    .app.vocabDetail .detail-word-card {
+      gap: clamp(10px, 2.667cqw, 20px);
+      padding: clamp(22px, 5.867cqw, 44px) clamp(20px, 5.333cqw, 40px);
+      background: #ffffff !important;
+    }
+
+    .app.vocabDetail .detail-scene-label {
+      width: fit-content;
+      padding: clamp(5px, 1.333cqw, 10px) clamp(12px, 3.2cqw, 24px);
+      color: rgba(25, 46, 65, 0.64);
+      background: #f2f3f5;
+      font-size: clamp(13px, 3.467cqw, 26px);
+      line-height: clamp(20px, 5.333cqw, 40px);
+      font-weight: 500;
+    }
+
+    .app.vocabDetail .detail-word-card .en {
+      color: #192e41;
+      font-size: clamp(26px, 6.4cqw, 48px);
+      line-height: clamp(34px, 9.067cqw, 68px);
+      font-weight: 700;
+      letter-spacing: -0.31px;
+    }
+
+    .app.vocabDetail .detail-word-card .ipa {
+      color: rgba(25, 46, 65, 0.55);
+      font-size: clamp(15px, 4cqw, 30px);
+      line-height: clamp(22px, 5.867cqw, 44px);
+      font-weight: 400;
+      letter-spacing: 0.5px;
+    }
+
+    .app.vocabDetail .detail-word-card .zh {
+      color: #192e41;
+      font-size: clamp(18px, 4.8cqw, 36px);
+      line-height: clamp(26px, 6.933cqw, 52px);
+      font-weight: 500;
+    }
+
+    .app.vocabDetail .module-audio-actions,
+    .app.vocabDetail .detail-main-actions {
+      margin-top: clamp(10px, 2.667cqw, 20px);
+    }
+
+    .app.vocabDetail .detail-section-card {
+      gap: clamp(14px, 3.733cqw, 28px);
+      padding: clamp(20px, 5.333cqw, 40px);
+      background: #ffffff !important;
+    }
+
+    .app.vocabDetail .detail-section-card h3 {
+      margin: 0;
+      padding: 0;
+      color: #192e41;
+      font-size: clamp(18px, 4.8cqw, 36px);
+      line-height: clamp(26px, 6.933cqw, 52px);
+      font-weight: 600;
+      letter-spacing: -0.31px;
+    }
+
+    .app.vocabDetail .detail-example-card,
+    .app.vocabDetail .detail-related-item {
+      gap: clamp(10px, 2.667cqw, 20px);
+      padding: clamp(18px, 4.8cqw, 36px);
+      border-radius: clamp(10px, 2.667cqw, 20px) !important;
+      background: #f7f8fa !important;
+    }
+
+    .app.vocabDetail .detail-example-card .en,
+    .app.vocabDetail .detail-related-item .en {
+      color: #192e41;
+      font-size: clamp(18px, 4.8cqw, 36px);
+      line-height: clamp(28px, 7.467cqw, 56px);
+      font-weight: 600;
+      letter-spacing: -0.31px;
+    }
+
+    .app.vocabDetail .detail-example-card .zh,
+    .app.vocabDetail .detail-related-item .zh {
+      margin: 0;
+      color: rgba(25, 46, 65, 0.62);
+      font-size: clamp(14px, 3.733cqw, 28px);
+      line-height: clamp(22px, 5.867cqw, 44px);
+      font-weight: 400;
+    }
+
+    .app.vocabDetail .detail-related-list {
+      gap: clamp(12px, 3.2cqw, 24px);
+    }
+
+    .app.vocabDetail .speech-result {
+      margin-top: clamp(10px, 2.667cqw, 20px);
+      border: 1px solid rgba(25, 46, 65, 0.08);
+      border-radius: clamp(10px, 2.667cqw, 20px);
+      padding: clamp(12px, 3.2cqw, 24px);
+      color: rgba(25, 46, 65, 0.68);
+      background: #f7f8fa;
+      font-size: clamp(13px, 3.467cqw, 26px);
+      line-height: clamp(20px, 5.333cqw, 40px);
+    }
+
+    .app.vocabDetail .speech-result.good {
+      border-color: rgba(70, 127, 251, 0.18);
+      color: #315fb8;
+      background: #eef3ff;
+    }
+
+    .app.vocabDetail .speech-result.warn {
+      border-color: rgba(155, 101, 31, 0.18);
+      color: #8b5b22;
+      background: #fff7ea;
     }
 
     .app.vocabStudy .immersion-titlebar {
@@ -12496,7 +12625,6 @@
             <span style="width:${learnedPercent}%"></span>
           </div>
           <button class="secondary-primary-action" onclick="startVocabStudy('${scene.id}')">
-            ${uiIcon("play")}
             <span>${learnedCount ? "继续沉浸学习" : "开始沉浸学习"}</span>
           </button>
         </article>
@@ -12594,9 +12722,6 @@
                 <div class="immersion-complete-stat"><strong>${learnedCount}</strong><span>已掌握词汇</span></div>
                 <div class="immersion-complete-stat"><strong>${order.length}</strong><span>本轮核心词</span></div>
               </div>
-              <div class="immersion-complete-tip">
-                <strong>能力提示：</strong>你已经熟悉了 ${scene.title} 场景中的核心词汇，可以继续练 3 条短句，把词汇转成能说出口的表达。
-              </div>
               <div class="immersion-complete-actions">
                 ${state.vocabStudyEntry === "daily" ? `<button class="immersion-complete-action primary" onclick="confirmVocabStudyExit()">回到首页</button>` : `<button class="immersion-complete-action primary" onclick="setView('scene', { sceneId: '${scene.id}', module: 'vocabulary' })">返回词汇列表</button>`}
                 <button class="immersion-complete-action" onclick="setView('scene', { sceneId: '${scene.id}', module: 'phrases' })">去学短句</button>
@@ -12678,10 +12803,6 @@
       return [...scored, ...fallback].slice(0, 5);
     }
 
-    function vocabLearningTip(scene, item) {
-      return `先记住 ${item[0]} = ${item[2]}，再把它放进例句里读 2 遍。这个词在${scene.title}场景中不用背复杂语法，能听懂关键词并能说出一个完整句就够用。`;
-    }
-
     function renderVocabDetail() {
       const scene = sceneById(state.sceneId);
       const index = Math.min(Math.max(Number(state.vocabIndex) || 0, 0), scene.vocab.length - 1);
@@ -12738,8 +12859,6 @@
               `).join("")}
             </div>
           </article>
-
-          <div class="detail-memory-note">${vocabLearningTip(scene, item)}</div>
         </main>
       `;
     }
