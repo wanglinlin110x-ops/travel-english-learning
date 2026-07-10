@@ -2,6 +2,6 @@
 <g id="Button">
 <rect width="96" height="96" rx="48" fill="var(--fill-0, #F6F7F6)"/>
 <rect x="1" y="1" width="94" height="94" rx="47" stroke="var(--stroke-0, #151C27)" stroke-opacity="0.2" stroke-width="2"/>
-<path id="Icon" d="M51.9428 58.2857L41.6571 48L51.9428 37.7143L54.3428 40.1143L46.4571 48L54.3428 55.8857L51.9428 58.2857V58.2857" fill="var(--fill-0, #151C27)"/>
+<path id="Icon" d="M44.0572 37.7143L54.3429 48L44.0572 58.2857L41.6572 55.8857L49.5429 48L41.6572 40.1143L44.0572 37.7143Z" fill="var(--fill-0, #151C27)"/>
 </g>
 </svg>

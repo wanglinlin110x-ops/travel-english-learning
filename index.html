@@ -7239,6 +7239,542 @@
       box-shadow: none;
     }
 
+    .app.vocabStudy .immersion-complete-card {
+      width: 100%;
+      display: grid;
+      justify-items: center;
+      gap: clamp(18px, 4.8cqw, 36px);
+      margin: clamp(10px, 2.667cqw, 20px) 0 0;
+      border: 0;
+      border-radius: clamp(24px, 6.4cqw, 48px);
+      padding: clamp(34px, 9.067cqw, 68px) clamp(24px, 6.4cqw, 48px);
+      color: var(--immersion-ink);
+      background: #ffffff;
+      box-shadow: none;
+      text-align: center;
+    }
+
+    .app.vocabStudy .immersion-complete-badge {
+      width: clamp(78px, 20.8cqw, 156px);
+      height: clamp(78px, 20.8cqw, 156px);
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: #eaf8d9;
+    }
+
+    .app.vocabStudy .immersion-complete-badge img {
+      width: clamp(58px, 15.467cqw, 116px);
+      height: clamp(58px, 15.467cqw, 116px);
+      object-fit: contain;
+    }
+
+    .app.vocabStudy .immersion-complete-label {
+      min-height: clamp(28px, 7.467cqw, 56px);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      padding: 0 clamp(16px, 4.267cqw, 32px);
+      color: var(--immersion-green);
+      background: #edf8dc;
+      font-size: clamp(13px, 3.467cqw, 26px);
+      line-height: 1;
+      font-weight: 700;
+    }
+
+    .app.vocabStudy .immersion-complete-title {
+      margin: 0;
+      color: var(--immersion-ink);
+      font-size: clamp(30px, 8cqw, 60px);
+      line-height: 1.16;
+      font-weight: 850;
+      letter-spacing: -0.03em;
+    }
+
+    .app.vocabStudy .immersion-complete-copy {
+      margin: 0;
+      max-width: 26em;
+      color: rgba(25, 46, 65, 0.62);
+      font-size: clamp(15px, 4cqw, 30px);
+      line-height: 1.58;
+      font-weight: 500;
+    }
+
+    .app.vocabStudy .immersion-complete-stats {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(12px, 3.2cqw, 24px);
+    }
+
+    .app.vocabStudy .immersion-complete-stat {
+      display: grid;
+      gap: clamp(4px, 1.067cqw, 8px);
+      border: 1px solid rgba(25, 46, 65, 0.08);
+      border-radius: clamp(16px, 4.267cqw, 32px);
+      padding: clamp(16px, 4.267cqw, 32px);
+      background: #f7faf3;
+      text-align: left;
+    }
+
+    .app.vocabStudy .immersion-complete-stat strong {
+      color: var(--immersion-green);
+      font-size: clamp(28px, 7.467cqw, 56px);
+      line-height: 1;
+      font-weight: 850;
+    }
+
+    .app.vocabStudy .immersion-complete-stat span {
+      color: rgba(25, 46, 65, 0.58);
+      font-size: clamp(13px, 3.467cqw, 26px);
+      line-height: 1.25;
+      font-weight: 500;
+    }
+
+    .app.vocabStudy .immersion-complete-tip {
+      width: 100%;
+      border-radius: clamp(16px, 4.267cqw, 32px);
+      padding: clamp(16px, 4.267cqw, 32px);
+      color: rgba(25, 46, 65, 0.72);
+      background: #f2f3f5;
+      font-size: clamp(14px, 3.733cqw, 28px);
+      line-height: 1.55;
+      font-weight: 500;
+      text-align: left;
+    }
+
+    .app.vocabStudy .immersion-complete-tip strong {
+      color: var(--immersion-ink);
+      font-weight: 800;
+    }
+
+    .app.vocabStudy .immersion-complete-actions {
+      width: 100%;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: clamp(12px, 3.2cqw, 24px);
+    }
+
+    .app.vocabStudy .immersion-complete-action {
+      min-height: var(--immersion-footer-button);
+      border-radius: clamp(12px, 3.2cqw, 24px);
+      border: 1px solid rgba(25, 46, 65, 0.1);
+      padding: 0 clamp(16px, 4.267cqw, 32px);
+      color: var(--immersion-ink);
+      background: #ffffff;
+      font-size: clamp(15px, 4cqw, 30px);
+      line-height: 1.2;
+      font-weight: 650;
+    }
+
+    .app.vocabStudy .immersion-complete-action.primary {
+      border-color: var(--immersion-ink);
+      color: #ffffff;
+      background: var(--immersion-ink);
+    }
+
+    /* Immersion page final visual fixes: align back control and reduce word audio icon. */
+    .app.vocabStudy {
+      --immersion-header-h: 52px;
+      --immersion-page-x: 20px;
+    }
+
+    .app.vocabStudy .immersion-titlebar {
+      grid-template-columns: 44px minmax(0, 1fr) 44px;
+      align-items: center;
+      padding: env(safe-area-inset-top) var(--immersion-page-x) 0;
+    }
+
+    .app.vocabStudy .immersion-back-button {
+      align-self: center;
+      justify-self: start;
+      width: 44px;
+      min-width: 44px;
+      height: 44px;
+      min-height: 44px;
+    }
+
+    .app.vocabStudy .immersion-back-button img {
+      width: 22px;
+      height: 22px;
+      object-fit: contain;
+    }
+
+    .app.vocabStudy .immersion-tool-button {
+      width: 36px;
+      min-width: 36px;
+      height: 36px;
+      min-height: 36px;
+    }
+
+    .app.vocabStudy .immersion-tool-button img {
+      width: 30px;
+      height: 30px;
+      object-fit: contain;
+    }
+
+    /* Typography sync from latest Figma file (750px design base). */
+    .app {
+      --font-ui: "PingFang SC", "Helvetica Neue", Arial, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-brand: "Alibaba PuHuiTi 3.0", "Alibaba PuHuiTi", "Alibaba PHT", "PingFang SC", system-ui, sans-serif;
+      --figma-ink: #192e41;
+      --figma-muted: rgba(25, 46, 65, 0.6);
+      --figma-blue: #467ffb;
+      --ty-title: clamp(18px, 4.8cqw, 36px);
+      --ty-title-lh: clamp(25px, 6.667cqw, 50px);
+      --ty-hero-word: clamp(28px, 7.467cqw, 56px);
+      --ty-hero-word-lh: clamp(39px, 10.4cqw, 78px);
+      --ty-h1: clamp(22px, 5.867cqw, 44px);
+      --ty-h1-lh: clamp(31px, 8.267cqw, 62px);
+      --ty-section: clamp(20px, 5.333cqw, 40px);
+      --ty-section-lh: clamp(40px, 10.667cqw, 80px);
+      --ty-card-title: clamp(18px, 4.8cqw, 36px);
+      --ty-card-title-lh: clamp(25px, 6.667cqw, 50px);
+      --ty-top-title: clamp(17px, 4.533cqw, 34px);
+      --ty-top-title-lh: clamp(24px, 6.4cqw, 48px);
+      --ty-number: clamp(16px, 4.267cqw, 32px);
+      --ty-number-lh: clamp(22.5px, 6cqw, 45px);
+      --ty-body: clamp(14px, 3.733cqw, 28px);
+      --ty-body-lh: clamp(20px, 5.333cqw, 40px);
+      --ty-button: clamp(16px, 4.267cqw, 32px);
+      --ty-button-lh: clamp(23px, 6.133cqw, 46px);
+      --ty-percent-xl: clamp(44px, 11.733cqw, 88px);
+      --ty-percent-xl-lh: clamp(52px, 13.867cqw, 104px);
+      font-family: var(--font-ui);
+      color: var(--figma-ink);
+      letter-spacing: 0;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    .home-figma-title,
+    .learn-titlebar h1,
+    .review-titlebar h1 {
+      font-family: var(--font-brand);
+      font-size: var(--ty-title) !important;
+      line-height: var(--ty-title-lh) !important;
+      font-weight: 700 !important;
+      letter-spacing: 0 !important;
+      color: var(--figma-ink) !important;
+    }
+
+    .home-route-node-label {
+      font-family: var(--font-ui);
+      font-size: var(--ty-number) !important;
+      line-height: var(--ty-number-lh) !important;
+      font-weight: 400 !important;
+      letter-spacing: 0 !important;
+      color: var(--figma-ink) !important;
+    }
+
+    .home-figma-summary span,
+    .home-figma-course-copy small,
+    .learn-overall-progress span,
+    .review-total span {
+      font-family: var(--font-ui);
+      font-size: var(--ty-body) !important;
+      line-height: var(--ty-body-lh) !important;
+      font-weight: 400 !important;
+      letter-spacing: 0 !important;
+      color: var(--figma-muted) !important;
+    }
+
+    .home-figma-summary strong,
+    .learn-overall-progress strong,
+    .review-total strong {
+      font-family: var(--font-ui);
+      font-size: var(--ty-number) !important;
+      line-height: var(--ty-number-lh) !important;
+      font-weight: 500 !important;
+      letter-spacing: 0 !important;
+      color: var(--figma-ink) !important;
+    }
+
+    .home-figma-course-copy h2 {
+      font-family: var(--font-ui);
+      font-size: var(--ty-h1) !important;
+      line-height: var(--ty-h1-lh) !important;
+      font-weight: 500 !important;
+      letter-spacing: 0 !important;
+      color: var(--figma-ink) !important;
+    }
+
+    .home-figma-course-copy p,
+    .learn-practice-card p {
+      font-family: var(--font-ui);
+      font-size: var(--ty-body) !important;
+      line-height: var(--ty-body-lh) !important;
+      font-weight: 400 !important;
+      letter-spacing: 0 !important;
+      color: var(--figma-muted) !important;
+    }
+
+    .home-figma-progress-value {
+      font-family: var(--font-brand);
+      font-size: var(--ty-percent-xl) !important;
+      line-height: var(--ty-percent-xl-lh) !important;
+      font-weight: 500 !important;
+      letter-spacing: 0 !important;
+      color: var(--figma-ink) !important;
+    }
+
+    .home-figma-action,
+    .immersion-master-button,
+    .immersion-complete-action,
+    .secondary-primary-action,
+    .vocab-master-button,
+    .phrase-master-button,
+    .speaking-complete-button,
+    .chat-submit-button,
+    .primary-btn {
+      font-family: var(--font-ui);
+      font-size: var(--ty-button) !important;
+      line-height: var(--ty-button-lh) !important;
+      font-weight: 500 !important;
+      letter-spacing: clamp(-0.31px, -0.082cqw, 0px) !important;
+    }
+
+    .nav-btn span,
+    .review-remove-button,
+    .chat-secondary-button,
+    .secondary-btn {
+      font-family: var(--font-ui);
+      font-size: var(--ty-body) !important;
+      line-height: var(--ty-body-lh) !important;
+      font-weight: 400 !important;
+      letter-spacing: clamp(-0.923px, -0.246cqw, 0px) !important;
+    }
+
+    .nav-btn.active span {
+      font-weight: 500 !important;
+    }
+
+    .learn-tab-button {
+      font-family: var(--font-ui);
+      font-size: var(--ty-section) !important;
+      line-height: var(--ty-section-lh) !important;
+      font-weight: 600 !important;
+      letter-spacing: 0 !important;
+    }
+
+    .learn-tab-button.active {
+      color: var(--figma-blue) !important;
+    }
+
+    .learn-scene-name,
+    .learn-practice-card h2 {
+      font-family: var(--font-brand);
+      font-size: var(--ty-card-title) !important;
+      line-height: var(--ty-card-title-lh) !important;
+      font-weight: 500 !important;
+      letter-spacing: 0 !important;
+      color: var(--figma-ink) !important;
+    }
+
+    .learn-scene-percent {
+      font-family: var(--font-ui);
+      font-size: var(--ty-body) !important;
+      line-height: var(--ty-body-lh) !important;
+      font-weight: 500 !important;
+      letter-spacing: 0 !important;
+      color: var(--figma-muted) !important;
+    }
+
+    .review-tab-button {
+      font-family: var(--font-ui);
+      font-size: clamp(18px, 4.8cqw, 36px) !important;
+      line-height: clamp(30px, 8cqw, 60px) !important;
+      font-weight: 600 !important;
+      letter-spacing: 0 !important;
+    }
+
+    .review-tab-button.active {
+      color: var(--figma-blue) !important;
+    }
+
+    .review-wrong-label,
+    .review-card-meta span,
+    .detail-scene-label {
+      font-family: var(--font-ui);
+      font-size: var(--ty-body) !important;
+      line-height: var(--ty-body-lh) !important;
+      font-weight: 400 !important;
+      letter-spacing: clamp(0px, 0.154cqw, 1.154px) !important;
+      color: var(--figma-muted) !important;
+    }
+
+    .review-card .en,
+    .review-question-card h3,
+    .detail-example-card .en,
+    .detail-related-item .en,
+    .phrase-study-copy .en,
+    .speaking-card-copy .en,
+    .listening-card h3,
+    .chat-prompt-card .en,
+    .bubble,
+    .vocab-card .en {
+      font-family: var(--font-ui);
+      font-size: var(--ty-card-title) !important;
+      line-height: var(--ty-card-title-lh) !important;
+      font-weight: 500 !important;
+      letter-spacing: 0 !important;
+      color: var(--figma-ink) !important;
+    }
+
+    .review-card .zh,
+    .review-example small,
+    .detail-example-card .zh,
+    .detail-related-item .zh,
+    .phrase-study-copy .zh,
+    .speaking-card-copy .zh,
+    .chat-prompt-card .zh,
+    .vocab-card .zh,
+    .learning-feedback,
+    .detail-memory-note,
+    .free-answer textarea {
+      font-family: var(--font-ui);
+      font-size: var(--ty-body) !important;
+      line-height: var(--ty-body-lh) !important;
+      font-weight: 400 !important;
+      letter-spacing: 0 !important;
+      color: var(--figma-muted) !important;
+    }
+
+    .review-card .ipa,
+    .vocab-card .ipa,
+    .detail-word-card .ipa {
+      font-family: var(--font-ui);
+      font-size: var(--ty-body) !important;
+      line-height: var(--ty-body-lh) !important;
+      font-weight: 400 !important;
+      letter-spacing: clamp(0px, 0.267cqw, 2px) !important;
+      color: var(--figma-muted) !important;
+    }
+
+    .secondary-heading h1,
+    .app.vocabStudy .immersion-titlebar h1 {
+      font-family: var(--font-ui);
+      font-size: var(--ty-top-title) !important;
+      line-height: var(--ty-top-title-lh) !important;
+      font-weight: 600 !important;
+      letter-spacing: 0 !important;
+      color: var(--figma-ink) !important;
+    }
+
+    .secondary-tab,
+    .learning-card-meta,
+    .secondary-progress-meta,
+    .chat-text-toggle,
+    .mode-btn,
+    .listening-choice {
+      font-family: var(--font-ui);
+      font-size: var(--ty-body) !important;
+      line-height: var(--ty-body-lh) !important;
+      font-weight: 500 !important;
+      letter-spacing: 0 !important;
+    }
+
+    .secondary-progress-card h2,
+    .chat-page-title h2,
+    .detail-section-card h3,
+    .wrong-book-summary strong {
+      font-family: var(--font-brand);
+      font-size: var(--ty-card-title) !important;
+      line-height: var(--ty-card-title-lh) !important;
+      font-weight: 500 !important;
+      letter-spacing: 0 !important;
+      color: var(--figma-ink) !important;
+    }
+
+    .secondary-progress-card p,
+    .chat-page-title span,
+    .wrong-book-summary span {
+      font-family: var(--font-ui);
+      font-size: var(--ty-body) !important;
+      line-height: var(--ty-body-lh) !important;
+      font-weight: 400 !important;
+      color: var(--figma-muted) !important;
+    }
+
+    .app.vocabStudy .immersion-progress-meta,
+    .app.vocabStudy .immersion-progress-meta strong,
+    .app.vocabStudy .immersion-progress-meta span {
+      font-family: var(--font-ui);
+      font-size: var(--ty-number) !important;
+      line-height: var(--ty-number-lh) !important;
+      font-weight: 500 !important;
+      letter-spacing: 0 !important;
+      color: var(--figma-ink) !important;
+    }
+
+    .app.vocabStudy .immersion-word-block .en,
+    .app.vocabStudy .immersion-complete-title {
+      font-family: var(--font-brand);
+      font-size: var(--ty-hero-word) !important;
+      line-height: var(--ty-hero-word-lh) !important;
+      font-weight: 700 !important;
+      letter-spacing: 0 !important;
+      color: var(--figma-ink) !important;
+    }
+
+    .app.vocabStudy .immersion-word-block .ipa {
+      font-family: var(--font-ui);
+      font-size: var(--ty-number) !important;
+      line-height: var(--ty-number-lh) !important;
+      font-weight: 400 !important;
+      letter-spacing: clamp(1px, 0.267cqw, 2px) !important;
+      color: var(--figma-muted) !important;
+    }
+
+    .app.vocabStudy .immersion-meaning {
+      font-family: var(--font-ui);
+      font-size: var(--ty-card-title) !important;
+      line-height: var(--ty-card-title-lh) !important;
+      font-weight: 400 !important;
+      letter-spacing: clamp(-0.31px, -0.082cqw, 0px) !important;
+      color: var(--figma-ink) !important;
+    }
+
+    .app.vocabStudy .immersion-example-tag,
+    .app.vocabStudy .immersion-favorite,
+    .app.vocabStudy .immersion-complete-label {
+      font-family: var(--font-ui);
+      font-size: var(--ty-body) !important;
+      line-height: var(--ty-body-lh) !important;
+      font-weight: 400 !important;
+      letter-spacing: 0 !important;
+    }
+
+    .app.vocabStudy .immersion-example .en {
+      font-family: var(--font-ui);
+      font-size: var(--ty-card-title) !important;
+      line-height: var(--ty-card-title-lh) !important;
+      font-weight: 500 !important;
+      letter-spacing: 0 !important;
+      color: var(--figma-ink) !important;
+    }
+
+    .app.vocabStudy .immersion-example .zh,
+    .app.vocabStudy .immersion-complete-copy,
+    .app.vocabStudy .immersion-complete-tip,
+    .app.vocabStudy .immersion-complete-stat span {
+      font-family: var(--font-ui);
+      font-size: var(--ty-number) !important;
+      line-height: var(--ty-number-lh) !important;
+      font-weight: 400 !important;
+      letter-spacing: 0 !important;
+      color: var(--figma-muted) !important;
+    }
+
+    .app.vocabStudy .immersion-complete-stat strong {
+      font-family: var(--font-ui);
+      font-size: var(--ty-number) !important;
+      line-height: var(--ty-number-lh) !important;
+      font-weight: 500 !important;
+      letter-spacing: 0 !important;
+    }
+
     @media (prefers-reduced-motion: reduce) {
       .learn-tab-panel { animation: none; }
       .review-tab-button,
@@ -8344,6 +8880,455 @@
       .chat-controls .chat-icon-button {
         justify-self: start;
       }
+    }
+
+    /* Final visual normalization: align secondary pages with home/learn/review/immersion system. */
+    .app.scene,
+    .app.vocabDetail,
+    .app.globalChat,
+    .app.wrongBook {
+      --secondary-x: var(--figma-x, clamp(20px, 5.333cqw, 40px));
+      --secondary-header-h: var(--figma-header-h, clamp(52px, 13.867cqw, 104px));
+      --secondary-button-h: clamp(40px, 10.667cqw, 80px);
+      --secondary-card-radius: clamp(12px, 3.2cqw, 24px);
+      background: #f2f3f5 !important;
+    }
+
+    .app.scene .secondary-titlebar,
+    .app.vocabDetail .secondary-titlebar,
+    .app.globalChat .secondary-titlebar,
+    .app.wrongBook .secondary-titlebar {
+      min-height: calc(env(safe-area-inset-top) + var(--secondary-header-h));
+      grid-template-columns: var(--secondary-header-h) minmax(0, 1fr) var(--secondary-header-h);
+      padding: env(safe-area-inset-top) var(--secondary-x) 0;
+      background: #f2f3f5;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+
+    .app.scene .secondary-titlebar::after,
+    .app.vocabDetail .secondary-titlebar::after,
+    .app.globalChat .secondary-titlebar::after,
+    .app.wrongBook .secondary-titlebar::after {
+      display: none;
+    }
+
+    .app.scene .secondary-back,
+    .app.vocabDetail .secondary-back,
+    .app.globalChat .secondary-back,
+    .app.wrongBook .secondary-back,
+    .app.scene .secondary-title-spacer,
+    .app.vocabDetail .secondary-title-spacer,
+    .app.globalChat .secondary-title-spacer,
+    .app.wrongBook .secondary-title-spacer {
+      width: var(--secondary-header-h);
+      height: var(--secondary-header-h);
+      align-self: end;
+    }
+
+    .app.scene .secondary-back .figma-icon-back,
+    .app.vocabDetail .secondary-back .figma-icon-back,
+    .app.globalChat .secondary-back .figma-icon-back,
+    .app.wrongBook .secondary-back .figma-icon-back {
+      width: clamp(16px, 4.103cqw, 30.769px);
+      height: clamp(16px, 4.103cqw, 30.769px);
+    }
+
+    .app.scene .secondary-heading,
+    .app.vocabDetail .secondary-heading,
+    .app.globalChat .secondary-heading,
+    .app.wrongBook .secondary-heading {
+      height: var(--secondary-header-h);
+      align-self: end;
+      display: grid;
+      place-items: center;
+      gap: 0;
+    }
+
+    .app.scene .secondary-heading span,
+    .app.vocabDetail .secondary-heading span,
+    .app.globalChat .secondary-heading span,
+    .app.wrongBook .secondary-heading span {
+      display: none;
+    }
+
+    .app.scene .secondary-heading h1,
+    .app.vocabDetail .secondary-heading h1,
+    .app.globalChat .secondary-heading h1,
+    .app.wrongBook .secondary-heading h1 {
+      font-family: var(--primary-page-title-font, "PingFang SC", system-ui, sans-serif);
+      font-size: clamp(17px, 4.533cqw, 34px);
+      line-height: clamp(24px, 6.4cqw, 48px);
+      font-weight: 600;
+      letter-spacing: 0;
+    }
+
+    .app.scene .secondary-tabs {
+      position: sticky;
+      top: calc(env(safe-area-inset-top) + var(--secondary-header-h));
+      min-height: clamp(56px, 14.933cqw, 112px);
+      gap: clamp(10px, 2.667cqw, 20px);
+      padding: clamp(8px, 2.133cqw, 16px) var(--secondary-x);
+      background: #f2f3f5;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+
+    .app.scene .secondary-tab {
+      min-width: auto;
+      min-height: clamp(40px, 10.667cqw, 80px);
+      gap: clamp(5px, 1.333cqw, 10px);
+      border-color: rgba(25, 46, 65, 0.08);
+      padding: 0 clamp(13px, 3.467cqw, 26px);
+      background: #ffffff;
+      color: rgba(25, 46, 65, 0.66);
+      font-size: clamp(14px, 3.733cqw, 28px);
+      font-weight: 500;
+    }
+
+    .app.scene .secondary-tab.active {
+      color: #ffffff;
+      background: #192e41;
+    }
+
+    .app.scene .secondary-tab-icon {
+      width: clamp(22px, 5.867cqw, 44px);
+      height: clamp(22px, 5.867cqw, 44px);
+      background: rgba(25, 46, 65, 0.06);
+      font-size: clamp(11px, 2.933cqw, 22px);
+    }
+
+    .app.scene .secondary-tab.active .secondary-tab-icon {
+      background: #ffffff;
+      color: #192e41;
+    }
+
+    .app.scene .secondary-content,
+    .app.vocabDetail .secondary-content,
+    .app.globalChat .secondary-content,
+    .app.wrongBook .secondary-content {
+      gap: clamp(16px, 4.267cqw, 32px);
+      padding: clamp(16px, 4.267cqw, 32px) var(--secondary-x) calc(clamp(24px, 6.4cqw, 48px) + env(safe-area-inset-bottom));
+      background: #f2f3f5;
+    }
+
+    .app.scene .secondary-card,
+    .app.scene .vocab-card,
+    .app.scene .phrase-study-card,
+    .app.scene .speaking-card,
+    .app.scene .listening-card,
+    .app.scene .chat-prompt-card,
+    .app.scene .free-answer,
+    .app.vocabDetail .detail-word-card,
+    .app.vocabDetail .detail-example-card,
+    .app.vocabDetail .detail-related-item,
+    .app.vocabDetail .detail-section-card,
+    .app.globalChat .chat-prompt-card,
+    .app.globalChat .free-answer,
+    .app.wrongBook .wrong-book-summary,
+    .app.wrongBook .review-question-card {
+      border: 0 !important;
+      border-radius: clamp(12px, 3.2cqw, 24px) !important;
+      background: #ffffff !important;
+      box-shadow: none !important;
+    }
+
+    .app.scene .secondary-progress-card,
+    .app.scene .vocab-card,
+    .app.scene .phrase-study-card,
+    .app.scene .speaking-card,
+    .app.scene .listening-card,
+    .app.scene .chat-prompt-card,
+    .app.vocabDetail .detail-word-card,
+    .app.vocabDetail .detail-example-card,
+    .app.vocabDetail .detail-related-item,
+    .app.globalChat .chat-prompt-card,
+    .app.globalChat .free-answer,
+    .app.wrongBook .wrong-book-summary,
+    .app.wrongBook .review-question-card {
+      gap: clamp(8px, 2.133cqw, 16px);
+      padding: clamp(18px, 4.8cqw, 36px) clamp(20px, 5.333cqw, 40px);
+    }
+
+    .app.scene .vocab-list,
+    .app.scene .phrase-list,
+    .app.scene .speaking-list,
+    .app.scene .listening-list,
+    .app.globalChat .chat,
+    .app.wrongBook .review-list {
+      gap: clamp(14px, 3.733cqw, 28px);
+    }
+
+    .app.scene .secondary-card-icon {
+      width: clamp(38px, 10.133cqw, 76px);
+      height: clamp(38px, 10.133cqw, 76px);
+      border-radius: clamp(10px, 2.667cqw, 20px);
+      background: #f2f3f5;
+      font-size: clamp(16px, 4.267cqw, 32px);
+      font-weight: 800;
+    }
+
+    .app.scene .vocab-card.learned-collapsed {
+      min-height: auto;
+      border-color: transparent !important;
+      background: #ffffff !important;
+    }
+
+    .app.scene .vocab-card.learned-collapsed .vocab-head {
+      min-height: clamp(44px, 11.733cqw, 88px);
+      align-items: center;
+    }
+
+    .app.scene .vocab-collapsed-status {
+      color: #467ffb;
+    }
+
+    .app.scene .vocab-collapse-btn {
+      border: 1px solid rgba(25, 46, 65, 0.08);
+      border-radius: 999px;
+      padding: clamp(8px, 2.133cqw, 16px) clamp(12px, 3.2cqw, 24px);
+      color: rgba(25, 46, 65, 0.62);
+      background: #ffffff;
+      font-size: clamp(13px, 3.467cqw, 26px);
+    }
+
+    .app.scene .module-audio-button,
+    .app.scene .vocab-audio-button,
+    .app.scene .phrase-audio-button,
+    .app.scene .vocab-pronunciation-button,
+    .app.scene .chat-icon-button,
+    .app.scene .bubble-play,
+    .app.vocabDetail .module-audio-button,
+    .app.vocabDetail .vocab-favorite-button,
+    .app.globalChat .module-audio-button,
+    .app.globalChat .chat-icon-button,
+    .app.globalChat .bubble-play,
+    .app.wrongBook .module-audio-button {
+      width: clamp(40px, 10.667cqw, 80px);
+      height: clamp(40px, 10.667cqw, 80px);
+      border: 0;
+      background: transparent;
+    }
+
+    .app.scene .vocab-favorite-button,
+    .app.scene .phrase-favorite-button,
+    .app.scene .speaking-favorite-button {
+      width: clamp(40px, 10.667cqw, 80px);
+      height: clamp(40px, 10.667cqw, 80px);
+      border: 1px solid rgba(25, 46, 65, 0.08);
+      background: #ffffff;
+    }
+
+    .app.scene .module-audio-button .figma-icon-play,
+    .app.scene .module-audio-button .figma-icon-slow,
+    .app.scene .vocab-audio-button .figma-icon-play,
+    .app.scene .vocab-audio-button .figma-icon-slow,
+    .app.scene .phrase-audio-button .figma-icon-play,
+    .app.scene .phrase-audio-button .figma-icon-slow,
+    .app.scene .chat-icon-button .figma-icon-play,
+    .app.scene .bubble-play .figma-icon-play,
+    .app.vocabDetail .module-audio-button .figma-icon-play,
+    .app.vocabDetail .module-audio-button .figma-icon-slow,
+    .app.globalChat .module-audio-button .figma-icon-play,
+    .app.globalChat .module-audio-button .figma-icon-slow,
+    .app.globalChat .chat-icon-button .figma-icon-play,
+    .app.globalChat .bubble-play .figma-icon-play,
+    .app.wrongBook .module-audio-button .figma-icon-play,
+    .app.wrongBook .module-audio-button .figma-icon-slow {
+      width: 100%;
+      height: 100%;
+    }
+
+    .app.scene .vocab-pronunciation-button .figma-icon-mic,
+    .app.vocabDetail .module-audio-button .figma-icon-mic {
+      width: clamp(22px, 5.867cqw, 44px);
+      height: clamp(22px, 5.867cqw, 44px);
+    }
+
+    .app.scene .vocab-favorite-button .figma-icon-favorite,
+    .app.scene .vocab-favorite-button .figma-icon-favorite-active,
+    .app.scene .phrase-favorite-button .figma-icon-favorite,
+    .app.scene .phrase-favorite-button .figma-icon-favorite-active,
+    .app.scene .speaking-favorite-button .figma-icon-favorite,
+    .app.scene .speaking-favorite-button .figma-icon-favorite-active,
+    .app.vocabDetail .vocab-favorite-button .figma-icon-favorite,
+    .app.vocabDetail .vocab-favorite-button .figma-icon-favorite-active {
+      width: clamp(22px, 5.867cqw, 44px);
+      height: clamp(22px, 5.867cqw, 44px);
+    }
+
+    .app.scene .vocab-master-button,
+    .app.scene .phrase-master-button,
+    .app.scene .speaking-complete-button,
+    .app.scene .chat-submit-button,
+    .app.globalChat .chat-submit-button,
+    .app.vocabDetail .vocab-master-button {
+      min-height: clamp(44px, 11.733cqw, 88px);
+      border-radius: clamp(12px, 3.2cqw, 24px);
+      font-size: clamp(15px, 4cqw, 30px);
+      font-weight: 500;
+    }
+
+    .app.scene .detail-memory-note,
+    .app.scene .learning-feedback.good,
+    .app.scene .listening-choice.correct {
+      background: #ffffff;
+      border: 1px solid rgba(70, 127, 251, 0.2);
+      color: #192e41;
+    }
+
+    .app.scene .learning-feedback.warn,
+    .app.scene .listening-choice.wrong {
+      background: #fff7f5;
+      border: 1px solid rgba(227, 91, 79, 0.35);
+      color: #192e41;
+    }
+
+    .app.vocabStudy .immersion-titlebar {
+      grid-template-columns: var(--immersion-header-h) minmax(0, 1fr) var(--immersion-header-h);
+      align-items: end;
+      padding: env(safe-area-inset-top) var(--immersion-page-x) 0;
+    }
+
+    .app.vocabStudy .immersion-back-button {
+      align-self: end;
+      justify-self: start;
+      width: var(--immersion-header-h);
+      height: var(--immersion-header-h);
+      transform: translateX(0);
+    }
+
+    .app.vocabStudy .immersion-back-button img {
+      width: clamp(16px, 4.103cqw, 30.769px);
+      height: clamp(16px, 4.103cqw, 30.769px);
+    }
+
+    /* Final pass: stricter secondary-page rhythm and icon sizing. */
+    .app.scene .secondary-content,
+    .app.vocabDetail .secondary-content,
+    .app.globalChat .secondary-content,
+    .app.wrongBook .secondary-content {
+      gap: clamp(14px, 3.733cqw, 28px);
+      padding-top: clamp(14px, 3.733cqw, 28px);
+    }
+
+    .app.scene .secondary-progress-card,
+    .app.scene .vocab-card,
+    .app.scene .phrase-study-card,
+    .app.scene .speaking-card,
+    .app.scene .listening-card,
+    .app.scene .chat-prompt-card,
+    .app.vocabDetail .detail-word-card,
+    .app.vocabDetail .detail-example-card,
+    .app.vocabDetail .detail-related-item,
+    .app.globalChat .chat-prompt-card,
+    .app.globalChat .free-answer,
+    .app.wrongBook .wrong-book-summary,
+    .app.wrongBook .review-question-card {
+      gap: clamp(6px, 1.6cqw, 12px);
+      padding: clamp(16px, 4.267cqw, 32px) clamp(18px, 4.8cqw, 36px);
+    }
+
+    .app.scene .vocab-list,
+    .app.scene .phrase-list,
+    .app.scene .speaking-list,
+    .app.scene .listening-list,
+    .app.globalChat .chat,
+    .app.wrongBook .review-list {
+      gap: clamp(12px, 3.2cqw, 24px);
+    }
+
+    .app.scene .module-audio-button,
+    .app.scene .vocab-audio-button,
+    .app.scene .phrase-audio-button,
+    .app.scene .vocab-pronunciation-button,
+    .app.scene .chat-icon-button,
+    .app.scene .bubble-play,
+    .app.vocabDetail .module-audio-button,
+    .app.vocabDetail .vocab-favorite-button,
+    .app.globalChat .module-audio-button,
+    .app.globalChat .chat-icon-button,
+    .app.globalChat .bubble-play,
+    .app.wrongBook .module-audio-button {
+      width: clamp(34px, 9.067cqw, 68px);
+      min-width: clamp(34px, 9.067cqw, 68px);
+      height: clamp(34px, 9.067cqw, 68px);
+      min-height: clamp(34px, 9.067cqw, 68px);
+    }
+
+    .app.scene .vocab-favorite-button,
+    .app.scene .phrase-favorite-button,
+    .app.scene .speaking-favorite-button {
+      width: clamp(34px, 9.067cqw, 68px);
+      min-width: clamp(34px, 9.067cqw, 68px);
+      height: clamp(34px, 9.067cqw, 68px);
+      min-height: clamp(34px, 9.067cqw, 68px);
+    }
+
+    .app.scene .module-audio-button .figma-icon-play,
+    .app.scene .module-audio-button .figma-icon-slow,
+    .app.scene .vocab-audio-button .figma-icon-play,
+    .app.scene .vocab-audio-button .figma-icon-slow,
+    .app.scene .phrase-audio-button .figma-icon-play,
+    .app.scene .phrase-audio-button .figma-icon-slow,
+    .app.scene .chat-icon-button .figma-icon-play,
+    .app.scene .bubble-play .figma-icon-play,
+    .app.vocabDetail .module-audio-button .figma-icon-play,
+    .app.vocabDetail .module-audio-button .figma-icon-slow,
+    .app.globalChat .module-audio-button .figma-icon-play,
+    .app.globalChat .module-audio-button .figma-icon-slow,
+    .app.globalChat .chat-icon-button .figma-icon-play,
+    .app.globalChat .bubble-play .figma-icon-play,
+    .app.wrongBook .module-audio-button .figma-icon-play,
+    .app.wrongBook .module-audio-button .figma-icon-slow {
+      width: clamp(30px, 8cqw, 60px);
+      height: clamp(30px, 8cqw, 60px);
+    }
+
+    .app.scene .vocab-pronunciation-button .figma-icon-mic,
+    .app.vocabDetail .module-audio-button .figma-icon-mic,
+    .app.scene .vocab-favorite-button .figma-icon-favorite,
+    .app.scene .vocab-favorite-button .figma-icon-favorite-active,
+    .app.scene .phrase-favorite-button .figma-icon-favorite,
+    .app.scene .phrase-favorite-button .figma-icon-favorite-active,
+    .app.scene .speaking-favorite-button .figma-icon-favorite,
+    .app.scene .speaking-favorite-button .figma-icon-favorite-active,
+    .app.vocabDetail .vocab-favorite-button .figma-icon-favorite,
+    .app.vocabDetail .vocab-favorite-button .figma-icon-favorite-active {
+      width: clamp(20px, 5.333cqw, 40px);
+      height: clamp(20px, 5.333cqw, 40px);
+    }
+
+    .app.scene .vocab-master-button.is-mastered,
+    .app.scene .phrase-master-button.is-mastered,
+    .app.scene .speaking-complete-button.is-complete,
+    .app.vocabDetail .vocab-master-button.is-mastered {
+      border: 1px solid rgba(25, 46, 65, 0.1);
+      color: #192e41;
+      background: #ffffff;
+    }
+
+    .app.scene .vocab-master-button.is-mastered .figma-text-icon,
+    .app.scene .phrase-master-button.is-mastered .figma-text-icon,
+    .app.scene .speaking-complete-button.is-complete .figma-text-icon,
+    .app.vocabDetail .vocab-master-button.is-mastered .figma-text-icon {
+      color: #467ffb;
+    }
+
+    .app.vocabStudy .immersion-titlebar {
+      align-items: center;
+      padding: env(safe-area-inset-top) var(--immersion-page-x) 0;
+    }
+
+    .app.vocabStudy .immersion-back-button {
+      align-self: center;
+      justify-self: start;
+    }
+
+    .app.vocabStudy .immersion-back-button img {
+      width: clamp(15px, 4cqw, 30px);
+      height: clamp(15px, 4cqw, 30px);
+      object-fit: contain;
     }
   </style>
 </head>
@@ -11583,20 +12568,23 @@
         </div>
         <main class="immersion-main">
           ${state.vocabStudyDone ? `
-            <article class="content-card detail-hero completion-panel immersion-complete">
-              <div class="pill">${scene.title}</div>
-              <div class="en">${state.vocabStudyEntry === "daily" ? "今日学习完成" : "本轮完成"}</div>
-              <p class="note">你已经把这组核心词过了一轮。接下来可以用短句和听力把这些词放进真实旅行问答里。</p>
-              <div class="completion-stats">
-                <div class="completion-stat"><strong>${learnedCount}</strong><span>已掌握词汇</span></div>
-                <div class="completion-stat"><strong>${order.length}</strong><span>本轮核心词</span></div>
+            <article class="immersion-complete-card">
+              <div class="immersion-complete-badge" aria-hidden="true">
+                <img src="assets/home-figma-star.png" alt="">
               </div>
-              <div class="feedback show">
+              <span class="immersion-complete-label">${scene.title}</span>
+              <h2 class="immersion-complete-title">${state.vocabStudyEntry === "daily" ? "今日学习完成" : "本轮完成"}</h2>
+              <p class="immersion-complete-copy">这组核心词已经过完一轮。接下来可以用短句和听力，把词汇放进真实旅行问答里。</p>
+              <div class="immersion-complete-stats">
+                <div class="immersion-complete-stat"><strong>${learnedCount}</strong><span>已掌握词汇</span></div>
+                <div class="immersion-complete-stat"><strong>${order.length}</strong><span>本轮核心词</span></div>
+              </div>
+              <div class="immersion-complete-tip">
                 <strong>能力提示：</strong>你已经熟悉了 ${scene.title} 场景中的核心词汇，可以继续练 3 条短句，把词汇转成能说出口的表达。
               </div>
-              <div class="actions">
-                ${state.vocabStudyEntry === "daily" ? `<button class="primary-btn" onclick="confirmVocabStudyExit()">回到首页</button>` : `<button class="primary-btn" onclick="setView('scene', { sceneId: '${scene.id}', module: 'vocabulary' })">返回词汇列表</button>`}
-                <button class="secondary-btn" onclick="setView('scene', { sceneId: '${scene.id}', module: 'phrases' })">去学短句</button>
+              <div class="immersion-complete-actions">
+                ${state.vocabStudyEntry === "daily" ? `<button class="immersion-complete-action primary" onclick="confirmVocabStudyExit()">回到首页</button>` : `<button class="immersion-complete-action primary" onclick="setView('scene', { sceneId: '${scene.id}', module: 'vocabulary' })">返回词汇列表</button>`}
+                <button class="immersion-complete-action" onclick="setView('scene', { sceneId: '${scene.id}', module: 'phrases' })">去学短句</button>
               </div>
             </article>
           ` : `

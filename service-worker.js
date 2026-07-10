@@ -1,4 +1,4 @@
-const CACHE_VERSION = "travel-english-v38";
+const CACHE_VERSION = "travel-english-v40";
 const APP_SHELL = [
   "./",
   "./index.html",
