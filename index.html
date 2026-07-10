@@ -6902,7 +6902,6 @@
       stroke-width: 2;
     }
 
-    .app.vocabStudy .immersion-back-button img,
     .app.vocabStudy .immersion-tool-button img,
     .app.vocabStudy .immersion-example-button img,
     .app.vocabStudy .immersion-favorite img,
@@ -7023,8 +7022,8 @@
     }
 
     .app.vocabStudy .immersion-tool-button {
-      width: clamp(28px, 7.467cqw, 56px);
-      height: clamp(28px, 7.467cqw, 56px);
+      width: clamp(28.026px, 7.474cqw, 56.052px);
+      height: clamp(28.22px, 7.525cqw, 56.44px);
       color: #16601f;
       background: transparent;
     }
@@ -7250,6 +7249,1101 @@
       .home-route-node,
       .home-figma-action { transition: none; }
       .home-route-node.is-launching .home-route-node-dot::after { animation: none; }
+    }
+
+    /* Secondary pages 2.0: applies the complete UI guidelines to pages outside home/learn/review/immersion. */
+    .app.scene,
+    .app.vocabDetail,
+    .app.globalChat,
+    .app.wrongBook {
+      --secondary-ink: #192e41;
+      --secondary-blue: #467ffb;
+      --secondary-green: #16601f;
+      --secondary-bg: #f2f3f5;
+      --secondary-panel: #ffffff;
+      --secondary-soft: rgba(255, 255, 255, 0.72);
+      --secondary-muted: rgba(25, 46, 65, 0.6);
+      --secondary-line: rgba(25, 46, 65, 0.09);
+      --secondary-x: clamp(20px, 5.333cqw, 40px);
+      --secondary-header-h: clamp(56px, 14.933cqw, 112px);
+      --secondary-radius: clamp(18px, 4.8cqw, 36px);
+      --secondary-card-radius: clamp(16px, 4.267cqw, 32px);
+      --secondary-button-h: clamp(48px, 12.8cqw, 96px);
+      width: min(100%, var(--app-shell-width));
+      min-height: 100dvh;
+      position: relative;
+      container-type: inline-size;
+      overflow-x: hidden;
+      color: var(--secondary-ink);
+      background:
+        radial-gradient(circle at 16% 0%, rgba(205, 229, 232, 0.72), rgba(205, 229, 232, 0) 38%),
+        linear-gradient(180deg, #f8faf8 0%, var(--secondary-bg) 100%);
+      border: 0;
+      border-radius: 0;
+      box-shadow: none;
+    }
+
+    .app.scene .topbar,
+    .app.vocabDetail .topbar,
+    .app.globalChat .topbar,
+    .app.wrongBook .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 8;
+      height: calc(env(safe-area-inset-top) + var(--secondary-header-h));
+      min-height: calc(env(safe-area-inset-top) + var(--secondary-header-h));
+      display: grid;
+      grid-template-columns: var(--secondary-header-h) minmax(0, 1fr) var(--secondary-header-h);
+      align-items: end;
+      gap: 0;
+      padding: env(safe-area-inset-top) var(--secondary-x) 0;
+      border: 0;
+      background: rgba(248, 250, 248, 0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+
+    .app.scene .topbar::after,
+    .app.vocabDetail .topbar::after,
+    .app.globalChat .topbar::after,
+    .app.wrongBook .topbar::after {
+      content: "";
+      width: 100%;
+      height: 1px;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      background: rgba(25, 46, 65, 0.06);
+    }
+
+    .app.scene .topbar .back-btn,
+    .app.vocabDetail .topbar .back-btn,
+    .app.globalChat .topbar .back-btn,
+    .app.wrongBook .topbar .back-btn {
+      width: var(--secondary-header-h);
+      height: var(--secondary-header-h);
+      display: grid;
+      place-items: center;
+      align-self: end;
+      border: 0;
+      border-radius: 50%;
+      padding: 0;
+      color: var(--secondary-ink);
+      background: transparent;
+      font-size: clamp(22px, 5.867cqw, 44px);
+      transition: transform 150ms ease, background 150ms ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .app.scene .topbar .back-btn svg,
+    .app.vocabDetail .topbar .back-btn svg,
+    .app.globalChat .topbar .back-btn svg,
+    .app.wrongBook .topbar .back-btn svg {
+      width: clamp(18px, 4.8cqw, 36px);
+      height: clamp(18px, 4.8cqw, 36px);
+      stroke-width: 2.2;
+    }
+
+    .app.scene .topbar .back-btn:active,
+    .app.vocabDetail .topbar .back-btn:active,
+    .app.globalChat .topbar .back-btn:active,
+    .app.wrongBook .topbar .back-btn:active {
+      transform: scale(0.92);
+      background: rgba(255, 255, 255, 0.6);
+    }
+
+    .app.scene .topbar-mark,
+    .app.vocabDetail .topbar-mark,
+    .app.globalChat .topbar-mark {
+      display: none;
+    }
+
+    .app.scene .topbar h2,
+    .app.vocabDetail .topbar h2,
+    .app.globalChat .topbar h2,
+    .app.wrongBook .topbar h2 {
+      margin: 0;
+      align-self: center;
+      color: var(--secondary-ink);
+      font-family: "PingFang SC", "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: clamp(20px, 5.333cqw, 40px);
+      line-height: clamp(28px, 7.467cqw, 56px);
+      font-weight: 600;
+      letter-spacing: 0;
+      text-align: center;
+    }
+
+    .app.scene .module-tabs,
+    .app.globalChat .module-tabs {
+      position: sticky;
+      top: calc(env(safe-area-inset-top) + var(--secondary-header-h));
+      z-index: 7;
+      min-height: clamp(64px, 17.067cqw, 128px);
+      display: flex;
+      gap: clamp(8px, 2.133cqw, 16px);
+      padding: clamp(10px, 2.667cqw, 20px) var(--secondary-x);
+      overflow-x: auto;
+      border: 0;
+      background: rgba(248, 250, 248, 0.9);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      scrollbar-width: none;
+    }
+
+    .app.scene .module-tabs::-webkit-scrollbar {
+      display: none;
+    }
+
+    .app.scene .tab-btn {
+      flex: 0 0 auto;
+      min-width: clamp(68px, 18.133cqw, 136px);
+      min-height: clamp(42px, 11.2cqw, 84px);
+      border: 1px solid var(--secondary-line);
+      border-radius: 999px;
+      padding: 0 clamp(14px, 3.733cqw, 28px);
+      color: var(--secondary-muted);
+      background: rgba(255, 255, 255, 0.62);
+      box-shadow: none;
+      font-size: clamp(14px, 3.733cqw, 28px);
+      line-height: 1;
+      font-weight: 500;
+      transition: transform 150ms ease, background 150ms ease, color 150ms ease, border-color 150ms ease;
+    }
+
+    .app.scene.learning-module-page .module-tabs .tab-btn {
+      flex: 0 0 auto;
+      min-width: clamp(68px, 18.133cqw, 136px);
+      min-height: clamp(42px, 11.2cqw, 84px);
+      border: 1px solid var(--secondary-line);
+      border-radius: 999px;
+      padding: 0 clamp(14px, 3.733cqw, 28px);
+      color: var(--secondary-muted);
+      background: rgba(255, 255, 255, 0.62);
+      box-shadow: none;
+      font-size: clamp(14px, 3.733cqw, 28px);
+      line-height: 1;
+      font-weight: 500;
+    }
+
+    .app.scene .tab-btn.active {
+      border-color: transparent;
+      color: #ffffff;
+      background: var(--secondary-ink);
+      box-shadow: none;
+    }
+
+    .app.scene.learning-module-page .module-tabs .tab-btn.active {
+      border-color: transparent;
+      color: #ffffff;
+      background: var(--secondary-ink);
+      box-shadow: none;
+    }
+
+    .app.scene .tab-btn.completed:not(.active)::after {
+      content: "";
+      width: clamp(6px, 1.6cqw, 12px);
+      height: clamp(6px, 1.6cqw, 12px);
+      position: absolute;
+      right: clamp(8px, 2.133cqw, 16px);
+      top: clamp(8px, 2.133cqw, 16px);
+      border-radius: 50%;
+      background: var(--secondary-green);
+    }
+
+    .app.scene .tab-btn:active {
+      transform: scale(0.96);
+    }
+
+    .app.scene > .section,
+    .app.vocabDetail > .section,
+    .app.globalChat > .section {
+      display: grid;
+      gap: clamp(20px, 5.333cqw, 40px);
+      padding: clamp(22px, 5.867cqw, 44px) var(--secondary-x) calc(clamp(32px, 8.533cqw, 64px) + env(safe-area-inset-bottom));
+      background: transparent;
+    }
+
+    .vocab-learning-overview,
+    .module-learning-overview,
+    .detail-word-card,
+    .detail-example-card,
+    .detail-related-item,
+    .listening-card,
+    .speaking-card,
+    .phrase-study-card,
+    .chat-prompt-card,
+    .chat-page .free-answer,
+    .wrong-book-summary,
+    .review-wrong-page .review-question-card {
+      border: 0 !important;
+      border-radius: var(--secondary-card-radius) !important;
+      background: var(--secondary-panel) !important;
+      box-shadow: 0 14px 34px rgba(25, 46, 65, 0.055) !important;
+    }
+
+    .vocab-learning-overview,
+    .module-learning-overview {
+      gap: clamp(12px, 3.2cqw, 24px);
+      margin: 0;
+      padding: clamp(20px, 5.333cqw, 40px);
+    }
+
+    .vocab-learning-heading h2,
+    .module-learning-heading h2,
+    .chat-page-title h2,
+    .detail-section-card h3 {
+      color: var(--secondary-ink);
+      font-size: clamp(22px, 5.867cqw, 44px);
+      line-height: clamp(30px, 8cqw, 60px);
+      font-weight: 600;
+      letter-spacing: -0.31px;
+    }
+
+    .vocab-learning-heading span,
+    .vocab-progress-copy,
+    .module-learning-heading span,
+    .module-learning-progress,
+    .learning-card-meta,
+    .chat-page-title span {
+      color: var(--secondary-muted);
+      font-size: clamp(13px, 3.467cqw, 26px);
+      line-height: clamp(20px, 5.333cqw, 40px);
+      font-weight: 400;
+    }
+
+    .vocab-progress-track,
+    .module-progress-track {
+      height: clamp(4px, 1.067cqw, 8px);
+      border-radius: 999px;
+      background: rgba(25, 46, 65, 0.08);
+    }
+
+    .vocab-progress-track span,
+    .module-progress-track span {
+      background: var(--secondary-ink);
+    }
+
+    .vocab-start-button,
+    .vocab-master-button,
+    .phrase-master-button,
+    .speaking-complete-button,
+    .chat-submit-button {
+      min-height: var(--secondary-button-h);
+      border: 0;
+      border-radius: clamp(12px, 3.2cqw, 24px);
+      padding: 0 clamp(20px, 5.333cqw, 40px);
+      color: #ffffff;
+      background: var(--secondary-ink);
+      font-size: clamp(16px, 4.267cqw, 32px);
+      line-height: clamp(23px, 6.133cqw, 46px);
+      font-weight: 500;
+      letter-spacing: -0.31px;
+      box-shadow: none;
+    }
+
+    .vocab-master-button.is-mastered,
+    .phrase-master-button.is-mastered,
+    .speaking-complete-button.is-complete {
+      color: #ffffff;
+      background: var(--secondary-blue);
+    }
+
+    .vocab-list,
+    .phrase-list,
+    .listening-list,
+    .speaking-list,
+    .review-wrong-page .review-list {
+      gap: clamp(16px, 4.267cqw, 32px);
+    }
+
+    .vocabulary-page .vocab-card,
+    .phrase-study-card,
+    .speaking-card,
+    .listening-card {
+      gap: clamp(14px, 3.733cqw, 28px);
+      padding: clamp(20px, 5.333cqw, 40px);
+      border-radius: var(--secondary-card-radius) !important;
+      background: #ffffff;
+    }
+
+    .vocabulary-page .vocab-card .en,
+    .phrase-study-copy .en,
+    .speaking-card-copy .en,
+    .listening-card h3,
+    .chat-prompt-card .en,
+    .chat-page .bubble,
+    .review-question-card h3 {
+      color: var(--secondary-ink);
+      font-size: clamp(20px, 5.333cqw, 40px);
+      line-height: clamp(30px, 8cqw, 60px);
+      font-weight: 600;
+      letter-spacing: -0.31px;
+    }
+
+    .vocabulary-page .vocab-card .ipa,
+    .vocabulary-page .vocab-card .zh,
+    .phrase-study-copy .zh,
+    .speaking-card-copy .zh,
+    .chat-prompt-card .zh,
+    .detail-example-card .zh,
+    .detail-related-item .zh,
+    .learning-feedback,
+    .listening-transcript small {
+      color: var(--secondary-muted);
+      font-size: clamp(14px, 3.733cqw, 28px);
+      line-height: clamp(22px, 5.867cqw, 44px);
+      font-weight: 400;
+    }
+
+    .vocab-card-actions,
+    .phrase-study-actions,
+    .speaking-card-actions,
+    .detail-main-actions {
+      grid-template-columns: minmax(0, 1fr) var(--secondary-button-h);
+      gap: clamp(12px, 3.2cqw, 24px);
+    }
+
+    .vocab-favorite-button,
+    .phrase-favorite-button,
+    .speaking-favorite-button,
+    .module-audio-button,
+    .phrase-audio-button,
+    .vocab-audio-button,
+    .vocab-pronunciation-button,
+    .chat-icon-button,
+    .chat-page .bubble-play {
+      width: var(--secondary-button-h);
+      height: var(--secondary-button-h);
+      border: 1px solid var(--secondary-line);
+      border-radius: 50%;
+      color: var(--secondary-green);
+      background: #ffffff;
+      box-shadow: none;
+    }
+
+    .module-audio-actions,
+    .phrase-audio-actions,
+    .vocab-card-tools {
+      gap: clamp(10px, 2.667cqw, 20px);
+      flex-wrap: wrap;
+    }
+
+    .vocab-audio-button svg,
+    .vocab-pronunciation-button svg,
+    .vocab-master-button svg,
+    .vocab-favorite-button svg,
+    .vocab-collapse-btn svg,
+    .phrase-audio-button svg,
+    .phrase-favorite-button svg,
+    .phrase-master-button svg,
+    .module-audio-button svg,
+    .chat-icon-button svg,
+    .speaking-complete-button svg,
+    .speaking-favorite-button svg,
+    .chat-submit-button svg,
+    .choice-state-icon svg,
+    .chat-page .bubble-play svg {
+      width: clamp(18px, 4.8cqw, 36px);
+      height: clamp(18px, 4.8cqw, 36px);
+      stroke-width: 2;
+    }
+
+    .detail-word-card {
+      gap: clamp(14px, 3.733cqw, 28px);
+      padding: clamp(26px, 6.933cqw, 52px) clamp(20px, 5.333cqw, 40px);
+    }
+
+    .detail-scene-label {
+      padding: clamp(6px, 1.6cqw, 12px) clamp(12px, 3.2cqw, 24px);
+      border-radius: 999px;
+      color: var(--secondary-green);
+      background: #edf7e9;
+      font-size: clamp(13px, 3.467cqw, 26px);
+      font-weight: 500;
+    }
+
+    .detail-word-card .en {
+      color: var(--secondary-ink);
+      font-size: clamp(36px, 9.6cqw, 72px);
+      line-height: clamp(44px, 11.733cqw, 88px);
+      font-weight: 800;
+    }
+
+    .detail-word-card .ipa {
+      color: var(--secondary-muted);
+      font-size: clamp(18px, 4.8cqw, 36px);
+      line-height: clamp(26px, 6.933cqw, 52px);
+      letter-spacing: 1px;
+    }
+
+    .detail-word-card .zh {
+      color: var(--secondary-ink);
+      font-size: clamp(22px, 5.867cqw, 44px);
+      line-height: clamp(30px, 8cqw, 60px);
+      font-weight: 600;
+    }
+
+    .detail-section-card {
+      gap: clamp(12px, 3.2cqw, 24px);
+    }
+
+    .detail-example-card,
+    .detail-related-item {
+      display: grid;
+      gap: clamp(10px, 2.667cqw, 20px);
+      padding: clamp(20px, 5.333cqw, 40px);
+    }
+
+    .detail-example-card .en,
+    .detail-related-item .en {
+      color: var(--secondary-ink);
+      font-size: clamp(22px, 5.867cqw, 44px);
+      line-height: clamp(32px, 8.533cqw, 64px);
+      font-weight: 600;
+      letter-spacing: -0.31px;
+    }
+
+    .detail-memory-note {
+      border-radius: var(--secondary-card-radius);
+      padding: clamp(18px, 4.8cqw, 36px);
+      color: var(--secondary-green);
+      background: #edf7e9;
+      font-size: clamp(14px, 3.733cqw, 28px);
+      line-height: clamp(22px, 5.867cqw, 44px);
+    }
+
+    .listening-transcript {
+      border-radius: clamp(14px, 3.733cqw, 28px);
+      padding: clamp(16px, 4.267cqw, 32px);
+      background: var(--secondary-bg);
+    }
+
+    .listening-transcript .en {
+      color: var(--secondary-ink);
+      font-size: clamp(18px, 4.8cqw, 36px);
+      line-height: clamp(28px, 7.467cqw, 56px);
+      font-weight: 600;
+    }
+
+    .listening-options,
+    .chat-choice-list {
+      gap: clamp(10px, 2.667cqw, 20px);
+    }
+
+    .listening-choice,
+    .chat-choice-button,
+    .chat-secondary-button {
+      min-height: clamp(56px, 14.933cqw, 112px);
+      border: 1px solid var(--secondary-line);
+      border-radius: clamp(14px, 3.733cqw, 28px);
+      padding: clamp(14px, 3.733cqw, 28px) clamp(16px, 4.267cqw, 32px);
+      color: var(--secondary-ink);
+      background: #ffffff;
+      font-size: clamp(15px, 4cqw, 30px);
+      line-height: clamp(22px, 5.867cqw, 44px);
+      font-weight: 500;
+    }
+
+    .choice-letter {
+      width: clamp(30px, 8cqw, 60px);
+      height: clamp(30px, 8cqw, 60px);
+      color: var(--secondary-muted);
+      background: #f2f3f5;
+      font-size: clamp(13px, 3.467cqw, 26px);
+    }
+
+    .listening-choice.correct,
+    .learning-feedback.good {
+      border-color: rgba(22, 96, 31, 0.16);
+      color: var(--secondary-green);
+      background: #edf7e9;
+    }
+
+    .listening-choice.wrong,
+    .learning-feedback.warn {
+      border-color: rgba(231, 83, 74, 0.2);
+      color: #9e3d36;
+      background: #fff1ef;
+    }
+
+    .learning-feedback {
+      border-radius: clamp(14px, 3.733cqw, 28px);
+      padding: clamp(16px, 4.267cqw, 32px);
+    }
+
+    .chat-page-header {
+      gap: clamp(14px, 3.733cqw, 28px);
+      margin-bottom: 0;
+    }
+
+    .chat-controls {
+      grid-template-columns: minmax(0, 1fr) auto auto;
+      gap: clamp(8px, 2.133cqw, 16px);
+    }
+
+    .chat-page .chat-mode {
+      border-radius: clamp(16px, 4.267cqw, 32px);
+      padding: clamp(4px, 1.067cqw, 8px);
+      background: rgba(255, 255, 255, 0.72);
+    }
+
+    .chat-page .mode-btn {
+      min-height: clamp(42px, 11.2cqw, 84px);
+      border-radius: clamp(12px, 3.2cqw, 24px);
+      color: var(--secondary-muted);
+      font-size: clamp(13px, 3.467cqw, 26px);
+      font-weight: 500;
+    }
+
+    .chat-page .mode-btn.active {
+      color: #ffffff;
+      background: var(--secondary-ink);
+    }
+
+    .chat-text-toggle {
+      min-width: clamp(54px, 14.4cqw, 108px);
+      height: clamp(48px, 12.8cqw, 96px);
+      border-radius: 999px;
+      font-size: clamp(13px, 3.467cqw, 26px);
+      font-weight: 500;
+    }
+
+    .chat-page .chat {
+      gap: clamp(14px, 3.733cqw, 28px);
+    }
+
+    .chat-page .bubble {
+      max-width: 88%;
+      border: 0;
+      border-radius: clamp(18px, 4.8cqw, 36px);
+      padding: clamp(16px, 4.267cqw, 32px) clamp(18px, 4.8cqw, 36px);
+      box-shadow: 0 10px 26px rgba(25, 46, 65, 0.05);
+    }
+
+    .chat-page .bubble.system {
+      background: #ffffff;
+    }
+
+    .chat-page .bubble.user {
+      color: var(--secondary-green);
+      background: #edf7e9;
+      justify-self: end;
+    }
+
+    .chat-page .free-answer textarea {
+      min-height: clamp(118px, 31.467cqw, 236px);
+      border: 1px solid var(--secondary-line);
+      border-radius: clamp(16px, 4.267cqw, 32px);
+      padding: clamp(18px, 4.8cqw, 36px);
+      color: var(--secondary-ink);
+      background: #ffffff;
+      font-size: clamp(16px, 4.267cqw, 32px);
+      line-height: clamp(24px, 6.4cqw, 48px);
+    }
+
+    .chat-free-actions {
+      gap: clamp(10px, 2.667cqw, 20px);
+    }
+
+    .app.wrongBook {
+      min-height: 100dvh;
+      background:
+        radial-gradient(circle at 80% 6%, rgba(205, 229, 232, 0.7), rgba(205, 229, 232, 0) 32%),
+        #f2f3f5;
+    }
+
+    .wrong-book-content {
+      gap: clamp(16px, 4.267cqw, 32px);
+      padding: clamp(22px, 5.867cqw, 44px) var(--secondary-x) calc(clamp(32px, 8.533cqw, 64px) + env(safe-area-inset-bottom));
+    }
+
+    .wrong-book-summary {
+      padding: clamp(20px, 5.333cqw, 40px);
+    }
+
+    .wrong-book-summary span {
+      color: var(--secondary-muted);
+      font-size: clamp(14px, 3.733cqw, 28px);
+      font-weight: 400;
+    }
+
+    .wrong-book-summary strong {
+      color: var(--secondary-ink);
+      font-size: clamp(36px, 9.6cqw, 72px);
+      font-weight: 600;
+    }
+
+    .review-wrong-page .review-question-card {
+      gap: clamp(14px, 3.733cqw, 28px);
+      padding: clamp(20px, 5.333cqw, 40px);
+    }
+
+    .review-empty-card {
+      min-height: clamp(170px, 45.333cqw, 340px);
+      border: 1px dashed rgba(25, 46, 65, 0.24);
+      border-radius: var(--secondary-card-radius);
+      padding: clamp(24px, 6.4cqw, 48px);
+      color: var(--secondary-muted);
+      background: rgba(255, 255, 255, 0.64);
+      font-size: clamp(15px, 4cqw, 30px);
+      line-height: clamp(24px, 6.4cqw, 48px);
+    }
+
+    .confirm-overlay {
+      padding: max(24px, env(safe-area-inset-top)) var(--secondary-x, 24px) max(24px, env(safe-area-inset-bottom));
+      background: rgba(25, 46, 65, 0.42);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .confirm-dialog {
+      width: min(calc(100vw - 48px), 336px);
+      border: 0;
+      border-radius: 28px;
+      padding: 28px 24px 24px;
+      background: #ffffff;
+      box-shadow: 0 24px 72px rgba(25, 46, 65, 0.22);
+    }
+
+    .confirm-dialog h3 {
+      color: #192e41;
+      font-size: 22px;
+      line-height: 1.35;
+      font-weight: 700;
+    }
+
+    .confirm-dialog p {
+      color: rgba(25, 46, 65, 0.62);
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    .confirm-dialog .actions {
+      gap: 12px;
+    }
+
+    .confirm-dialog .actions button {
+      min-height: 52px;
+      border-radius: 18px;
+      font-size: 15px;
+      font-weight: 650;
+    }
+
+    .secondary-titlebar {
+      position: sticky;
+      top: 0;
+      z-index: 12;
+      min-height: calc(env(safe-area-inset-top) + clamp(68px, 18.133cqw, 136px));
+      display: grid;
+      grid-template-columns: clamp(56px, 14.933cqw, 112px) minmax(0, 1fr) clamp(56px, 14.933cqw, 112px);
+      align-items: end;
+      gap: clamp(10px, 2.667cqw, 20px);
+      padding: env(safe-area-inset-top) var(--secondary-x) clamp(10px, 2.667cqw, 20px);
+      background: rgba(248, 250, 248, 0.9);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+
+    .secondary-titlebar::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 1px;
+      background: rgba(25, 46, 65, 0.06);
+    }
+
+    .secondary-back,
+    .secondary-title-spacer,
+    .ui-round-button {
+      width: clamp(48px, 12.8cqw, 96px);
+      height: clamp(48px, 12.8cqw, 96px);
+    }
+
+    .secondary-back,
+    .ui-round-button {
+      display: grid;
+      place-items: center;
+      border: 0;
+      border-radius: 50%;
+      padding: 0;
+      background: transparent;
+      transition: transform 150ms ease, filter 150ms ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .secondary-back:active,
+    .ui-round-button:active,
+    .secondary-tab:active,
+    .secondary-primary-action:active,
+    .secondary-secondary-action:active {
+      transform: scale(0.96);
+    }
+
+    .secondary-heading {
+      min-width: 0;
+      align-self: center;
+      display: grid;
+      gap: clamp(2px, 0.533cqw, 4px);
+      text-align: center;
+    }
+
+    .secondary-heading span {
+      color: rgba(25, 46, 65, 0.56);
+      font-size: clamp(12px, 3.2cqw, 24px);
+      line-height: clamp(18px, 4.8cqw, 36px);
+      font-weight: 400;
+    }
+
+    .secondary-heading h1 {
+      margin: 0;
+      color: var(--secondary-ink);
+      font-family: "PingFang SC", "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: clamp(21px, 5.6cqw, 42px);
+      line-height: clamp(28px, 7.467cqw, 56px);
+      font-weight: 600;
+      letter-spacing: 0;
+    }
+
+    .ui-icon {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: contain;
+      pointer-events: none;
+    }
+
+    .figma-text-icon {
+      display: inline-grid;
+      place-items: center;
+      width: 1.25em;
+      height: 1.25em;
+      border-radius: 50%;
+      color: currentColor;
+      font-family: "Inter", "PingFang SC", system-ui, sans-serif;
+      font-size: 0.9em;
+      line-height: 1;
+      font-weight: 800;
+      background: transparent;
+    }
+
+    .figma-text-icon.success {
+      color: #467ffb;
+    }
+
+    .figma-text-icon.error {
+      color: #e7534a;
+    }
+
+    .module-audio-button .ui-icon,
+    .chat-icon-button .ui-icon,
+    .vocab-audio-button .ui-icon,
+    .phrase-audio-button .ui-icon,
+    .cloud-status-button .ui-icon,
+    .feedback-event .ui-icon,
+    .vocab-favorite-button .ui-icon,
+    .phrase-favorite-button .ui-icon,
+    .speaking-favorite-button .ui-icon,
+    .bubble-play .ui-icon,
+    .choice-state-icon .ui-icon,
+    .learning-status .ui-icon,
+    .vocab-collapsed-status .ui-icon {
+      width: 20px;
+      height: 20px;
+      object-fit: contain;
+      display: block;
+      transform: none;
+    }
+
+    .feedback-event .figma-text-icon,
+    .cloud-status-button .figma-text-icon {
+      width: 20px;
+      height: 20px;
+    }
+
+    .vocab-favorite-button .ui-icon,
+    .phrase-favorite-button .ui-icon,
+    .speaking-favorite-button .ui-icon {
+      width: 22px;
+      height: 22px;
+    }
+
+    .secondary-primary-action .ui-icon,
+    .chat-submit-button .ui-icon,
+    .vocab-master-button .ui-icon,
+    .phrase-master-button .ui-icon,
+    .speaking-complete-button .ui-icon {
+      width: 18px;
+      height: 18px;
+      object-fit: contain;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    .chat-submit-button .figma-text-icon,
+    .vocab-master-button .figma-text-icon,
+    .phrase-master-button .figma-text-icon,
+    .speaking-complete-button .figma-text-icon {
+      width: clamp(18px, 4.8cqw, 36px);
+      height: clamp(18px, 4.8cqw, 36px);
+      font-size: clamp(16px, 4.267cqw, 32px);
+    }
+
+    .choice-state-icon .figma-text-icon,
+    .learning-status .figma-text-icon,
+    .vocab-collapsed-status .figma-text-icon {
+      width: clamp(18px, 4.8cqw, 36px);
+      height: clamp(18px, 4.8cqw, 36px);
+      font-size: clamp(16px, 4.267cqw, 32px);
+    }
+
+    .secondary-tabs {
+      position: sticky;
+      top: calc(env(safe-area-inset-top) + clamp(68px, 18.133cqw, 136px));
+      z-index: 11;
+      min-height: clamp(72px, 19.2cqw, 144px);
+      display: flex;
+      gap: clamp(8px, 2.133cqw, 16px);
+      padding: clamp(10px, 2.667cqw, 20px) var(--secondary-x);
+      overflow-x: auto;
+      background: rgba(248, 250, 248, 0.92);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      scrollbar-width: none;
+    }
+
+    .secondary-tabs::-webkit-scrollbar {
+      display: none;
+    }
+
+    .secondary-tab {
+      min-width: clamp(92px, 24.533cqw, 184px);
+      min-height: clamp(52px, 13.867cqw, 104px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(6px, 1.6cqw, 12px);
+      position: relative;
+      flex: 0 0 auto;
+      border: 1px solid var(--secondary-line);
+      border-radius: 999px;
+      padding: 0 clamp(12px, 3.2cqw, 24px);
+      color: rgba(25, 46, 65, 0.68);
+      background: rgba(255, 255, 255, 0.68);
+      font-size: clamp(14px, 3.733cqw, 28px);
+      line-height: 1;
+      font-weight: 500;
+      white-space: nowrap;
+      transition: transform 150ms ease, background 150ms ease, color 150ms ease;
+    }
+
+    .secondary-tab.active {
+      border-color: transparent;
+      color: #ffffff;
+      background: var(--secondary-ink);
+    }
+
+    .secondary-tab.completed:not(.active)::after {
+      content: "";
+      width: clamp(7px, 1.867cqw, 14px);
+      height: clamp(7px, 1.867cqw, 14px);
+      position: absolute;
+      right: clamp(10px, 2.667cqw, 20px);
+      top: clamp(8px, 2.133cqw, 16px);
+      border-radius: 50%;
+      background: #16601f;
+    }
+
+    .secondary-tab-icon {
+      width: clamp(28px, 7.467cqw, 56px);
+      height: clamp(28px, 7.467cqw, 56px);
+      display: inline-grid;
+      place-items: center;
+      border-radius: 50%;
+      color: #192e41;
+      background: rgba(25, 46, 65, 0.06);
+      font-size: clamp(12px, 3.2cqw, 24px);
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+    }
+
+    .secondary-tab.active .secondary-tab-icon {
+      color: #192e41;
+      background: #ffffff;
+    }
+
+    .secondary-card-icon {
+      width: clamp(52px, 13.867cqw, 104px);
+      height: clamp(52px, 13.867cqw, 104px);
+      display: inline-grid;
+      flex: 0 0 auto;
+      place-items: center;
+      border-radius: clamp(16px, 4.267cqw, 32px);
+      color: #192e41;
+      background: #edf7e9;
+      font-size: clamp(20px, 5.333cqw, 40px);
+      line-height: 1;
+      font-weight: 850;
+      letter-spacing: -0.04em;
+    }
+
+    .secondary-content {
+      display: grid;
+      gap: clamp(20px, 5.333cqw, 40px);
+      padding: clamp(22px, 5.867cqw, 44px) var(--secondary-x) calc(clamp(36px, 9.6cqw, 72px) + env(safe-area-inset-bottom));
+    }
+
+    .secondary-card {
+      border: 0;
+      border-radius: var(--secondary-card-radius);
+      background: #ffffff;
+      box-shadow: 0 14px 34px rgba(25, 46, 65, 0.055);
+    }
+
+    .secondary-progress-card {
+      display: grid;
+      gap: clamp(14px, 3.733cqw, 28px);
+      padding: clamp(20px, 5.333cqw, 40px);
+    }
+
+    .secondary-progress-head,
+    .secondary-progress-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: clamp(12px, 3.2cqw, 24px);
+    }
+
+    .secondary-progress-head h2 {
+      margin: 0;
+      color: var(--secondary-ink);
+      font-size: clamp(22px, 5.867cqw, 44px);
+      line-height: clamp(30px, 8cqw, 60px);
+      font-weight: 600;
+      letter-spacing: -0.31px;
+    }
+
+    .secondary-progress-head span,
+    .secondary-progress-meta {
+      color: var(--secondary-muted);
+      font-size: clamp(14px, 3.733cqw, 28px);
+      line-height: clamp(22px, 5.867cqw, 44px);
+      font-weight: 400;
+    }
+
+    .secondary-progress-track {
+      height: clamp(4px, 1.067cqw, 8px);
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(25, 46, 65, 0.08);
+    }
+
+    .secondary-progress-track span {
+      display: block;
+      width: var(--progress, 0%);
+      height: 100%;
+      border-radius: inherit;
+      background: var(--secondary-ink);
+      transition: width 180ms ease;
+    }
+
+    .secondary-primary-action,
+    .secondary-secondary-action {
+      min-height: var(--secondary-button-h);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(8px, 2.133cqw, 16px);
+      border-radius: clamp(12px, 3.2cqw, 24px);
+      padding: 0 clamp(18px, 4.8cqw, 36px);
+      font-size: clamp(16px, 4.267cqw, 32px);
+      line-height: clamp(23px, 6.133cqw, 46px);
+      font-weight: 500;
+      letter-spacing: -0.31px;
+      transition: transform 150ms ease;
+    }
+
+    .secondary-primary-action {
+      border: 0;
+      color: #ffffff;
+      background: var(--secondary-ink);
+    }
+
+    .secondary-secondary-action {
+      border: 1px solid var(--secondary-line);
+      color: var(--secondary-ink);
+      background: #ffffff;
+    }
+
+    .secondary-primary-action.is-complete,
+    .secondary-primary-action.is-mastered {
+      background: var(--secondary-blue);
+    }
+
+    .secondary-primary-action .ui-icon,
+    .secondary-secondary-action .ui-icon {
+      width: clamp(22px, 5.867cqw, 44px);
+      height: clamp(22px, 5.867cqw, 44px);
+    }
+
+    .module-audio-button .figma-icon-play,
+    .module-audio-button .figma-icon-slow,
+    .vocab-audio-button .figma-icon-play,
+    .vocab-audio-button .figma-icon-slow,
+    .phrase-audio-button .figma-icon-play,
+    .phrase-audio-button .figma-icon-slow,
+    .chat-icon-button .figma-icon-play,
+    .bubble-play .figma-icon-play,
+    .ui-round-button .figma-icon-play,
+    .ui-round-button .figma-icon-slow {
+      width: 100%;
+      height: 100%;
+    }
+
+    .secondary-back .figma-icon-back {
+      width: clamp(24px, 6.4cqw, 48px);
+      height: clamp(24px, 6.4cqw, 48px);
+    }
+
+    .module-audio-button .figma-icon-mic,
+    .vocab-pronunciation-button .figma-icon-mic {
+      width: clamp(28px, 7.467cqw, 56px);
+      height: clamp(28px, 7.467cqw, 56px);
+    }
+
+    .vocab-favorite-button .figma-icon-favorite,
+    .vocab-favorite-button .figma-icon-favorite-active,
+    .phrase-favorite-button .figma-icon-favorite,
+    .phrase-favorite-button .figma-icon-favorite-active,
+    .speaking-favorite-button .figma-icon-favorite,
+    .speaking-favorite-button .figma-icon-favorite-active,
+    .ui-round-button.favorite .figma-icon-favorite,
+    .ui-round-button.favorite .figma-icon-favorite-active {
+      width: clamp(28px, 7.467cqw, 56px);
+      height: clamp(28px, 7.467cqw, 56px);
+    }
+
+    .secondary-primary-action .figma-icon-play {
+      width: clamp(28px, 7.467cqw, 56px);
+      height: clamp(28px, 7.467cqw, 56px);
+    }
+
+    @media (max-width: 350px) {
+      .app.scene .tab-btn {
+        min-width: 62px;
+        padding-inline: 10px;
+      }
+
+      .chat-controls {
+        grid-template-columns: 1fr;
+      }
+
+      .chat-text-toggle,
+      .chat-controls .chat-icon-button {
+        justify-self: start;
+      }
     }
   </style>
 </head>
@@ -8534,10 +9628,9 @@
     }
 
     function feedbackIcon(type) {
-      if (type === "wrong") return lineIcon(`<circle cx="12" cy="12" r="8"/><path d="m9 9 6 6M15 9l-6 6"/>`);
-      if (type === "mastered") return lineIcon(`<path d="M5 4h14v16H5z"/><path d="m8 12 2.5 2.5L16 9"/>`);
-      if (type === "complete") return lineIcon(`<path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.3l-5.6 2.9 1.1-6.2L3 9.6l6.2-.9L12 3Z"/>`);
-      return lineIcon(`<circle cx="12" cy="12" r="8"/><path d="m8.5 12 2.2 2.2 4.8-5"/>`);
+      if (type === "wrong") return uiIcon("error");
+      if (type === "complete") return uiIcon("favorite-active");
+      return uiIcon("check");
     }
 
     function triggerFeedback(type, label) {
@@ -8756,8 +9849,8 @@
 
     function cloudStatusButton() {
       const icon = state.cloudStatus === "syncing" || state.cloudStatus === "connecting"
-        ? lineIcon(`<path d="M20 11a8 8 0 1 1-2.3-5.7"/><path d="M20 4v7h-7"/>`)
-        : lineIcon(`<path d="M7 18h10a4 4 0 0 0 .5-8A6 6 0 0 0 6 8.5 4.5 4.5 0 0 0 7 18Z"/><path d="m9.5 13 1.7 1.7 3.6-4"/>`);
+        ? uiIcon("reset")
+        : uiIcon("check");
       return `<button class="cloud-status-button ${state.cloudStatus}" onclick="openCloudPanel()" aria-label="学习进度：${cloudStatusLabel()}">${icon}<span class="cloud-status-label">${cloudStatusLabel()}</span></button>`;
     }
 
@@ -9758,19 +10851,105 @@
       }
     }
 
-    function lineIcon(path, viewBox = "0 0 24 24") {
-      return `<svg viewBox="${viewBox}" aria-hidden="true">${path}</svg>`;
+    function assetIcon(name, className = "ui-icon", alt = "") {
+      return `<img class="${className}" src="assets/${name}" alt="${alt}" aria-hidden="${alt ? "false" : "true"}">`;
+    }
+
+    function uiIcon(name, className = "ui-icon") {
+      const figmaIconMap = {
+        back: "immersion-back-figma.svg",
+        play: "immersion-example-play-figma.svg",
+        slow: "immersion-example-slow-figma.svg",
+        favorite: "immersion-favorite-figma.svg",
+        "favorite-active": "immersion-favorite-active-figma.svg",
+        reset: "immersion-example-slow-figma.svg",
+        mic: "immersion-word-audio-figma.svg"
+      };
+      if (name === "reset") return `<span class="${className} figma-text-icon figma-icon-reset" aria-hidden="true">↻</span>`;
+      if (figmaIconMap[name]) return assetIcon(figmaIconMap[name], `${className} figma-icon figma-icon-${name}`);
+      if (name === "check") return `<span class="${className} figma-text-icon figma-icon-check success" aria-hidden="true">✓</span>`;
+      if (name === "error") return `<span class="${className} figma-text-icon figma-icon-error error" aria-hidden="true">×</span>`;
+      if (name === "send") return `<span class="${className} figma-text-icon figma-icon-send" aria-hidden="true">→</span>`;
+      return "";
+    }
+
+    function moduleMarkIcon(moduleId) {
+      return {
+        vocabulary: "Aa",
+        phrases: "句",
+        listening: "听",
+        speaking: "读",
+        chat: "聊"
+      }[moduleId] || "学";
+    }
+
+    function audioButtons(text, label = "内容", className = "module-audio-actions") {
+      return `
+        <div class="${className}">
+          <button class="ui-round-button" onclick="event.stopPropagation(); speak('${escapeQuote(text)}')" aria-label="播放${label}" title="播放${label}">
+            ${uiIcon("play")}
+          </button>
+          <button class="ui-round-button" onclick="event.stopPropagation(); speak('${escapeQuote(text)}', 0.55)" aria-label="慢速播放${label}" title="慢速播放${label}">
+            ${uiIcon("slow")}
+          </button>
+        </div>
+      `;
+    }
+
+    function favoriteButton(id, active, className = "ui-round-button favorite") {
+      return `
+        <button class="${className} ${active ? "active" : ""}" onclick="event.stopPropagation(); toggleFavorite('${id}')" aria-label="${active ? "取消收藏" : "收藏"}">
+          ${uiIcon(active ? "favorite-active" : "favorite")}
+        </button>
+      `;
+    }
+
+    function backButton(label = "返回上一页") {
+      return `<button class="secondary-back" onclick="goBack()" aria-label="${label}">${uiIcon("back")}</button>`;
+    }
+
+    function secondaryHeader(title, eyebrow = "") {
+      return `
+        <header class="secondary-titlebar">
+          ${backButton()}
+          <div class="secondary-heading">
+            ${eyebrow ? `<span>${eyebrow}</span>` : ""}
+            <h1>${title}</h1>
+          </div>
+          <span class="secondary-title-spacer" aria-hidden="true"></span>
+        </header>
+      `;
+    }
+
+    function secondaryTabs(scene, activeModule) {
+      const moduleNames = [
+        ["vocabulary", "词汇"],
+        ["phrases", "短句"],
+        ["listening", "听力"],
+        ["speaking", "跟读"],
+        ["chat", "模拟聊天"]
+      ];
+      return `
+        <nav class="secondary-tabs" aria-label="${scene.title}学习模块">
+          ${moduleNames.map(([id, label]) => `
+            <button class="secondary-tab ${activeModule === id ? "active" : ""} ${moduleCompleted(scene, id) ? "completed" : ""}" onclick="setView('scene', { sceneId: '${scene.id}', module: '${id}' })">
+              <span class="secondary-tab-icon" aria-hidden="true">${moduleMarkIcon(id)}</span>
+              <span>${label}</span>
+            </button>
+          `).join("")}
+        </nav>
+      `;
     }
 
     function sceneMark(sceneId) {
       return {
-        airport: lineIcon(`<path d="M3 13.5 21 7l-5.5 9.5-4.5-3-3.5 4.5-2-1 2.5-5.5-5-2Z"/><path d="m11 13.5 2 6"/>`),
-        hotel: lineIcon(`<path d="M5 20V5.8A1.8 1.8 0 0 1 6.8 4h10.4A1.8 1.8 0 0 1 19 5.8V20"/><path d="M3 20h18"/><path d="M9 20v-5h6v5"/><path d="M8.5 8h.01M12 8h.01M15.5 8h.01M8.5 11h.01M12 11h.01M15.5 11h.01"/>`),
-        restaurant: lineIcon(`<path d="M7 3v8"/><path d="M4.5 3v4.5a2.5 2.5 0 0 0 5 0V3"/><path d="M7 11v10"/><path d="M17 3v18"/><path d="M14 3c0 4 1 6 3 7"/>`),
-        transport: lineIcon(`<rect x="5" y="4" width="14" height="14" rx="3"/><path d="M8 18v2M16 18v2M8 8h8M8 14h.01M16 14h.01"/>`),
-        shopping: lineIcon(`<path d="M6 8h12l-1 12H7L6 8Z"/><path d="M9 8a3 3 0 0 1 6 0"/>`),
-        sightseeing: lineIcon(`<path d="M5 8h4l1.5-2h3L15 8h4v10H5V8Z"/><circle cx="12" cy="13" r="3"/>`),
-        social: lineIcon(`<path d="M16 11a4 4 0 1 0-8 0"/><path d="M4 20a8 8 0 0 1 16 0"/><path d="M18.5 7.5h2M19.5 6.5v2"/>`)
+        airport: "机",
+        hotel: "酒",
+        restaurant: "餐",
+        transport: "行",
+        shopping: "购",
+        sightseeing: "景",
+        social: "聊"
       }[sceneId] || "学";
     }
 
@@ -10006,9 +11185,9 @@
 
     function navIcon(name) {
       const icons = {
-        home: lineIcon(`<path d="m4 11 8-7 8 7"/><path d="M6 10v10h12V10"/><path d="M10 20v-5h4v5"/>`),
-        learn: lineIcon(`<path d="M5 5.5A3.5 3.5 0 0 1 8.5 2H20v17H8.5A3.5 3.5 0 0 0 5 22V5.5Z"/><path d="M5 5.5A3.5 3.5 0 0 0 1.5 2H4"/><path d="M8 6h8M8 10h8"/>`),
-        review: lineIcon(`<path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.3l-5.6 2.9 1.1-6.2L3 9.6l6.2-.9L12 3Z"/>`)
+        home: assetIcon("nav-home-figma.png", "nav-fallback-icon"),
+        learn: assetIcon("nav-learn-figma.png", "nav-fallback-icon"),
+        review: assetIcon("nav-review-figma.png", "nav-fallback-icon")
       };
       return icons[name] || "";
     }
@@ -10234,25 +11413,12 @@
     function renderScene() {
       const scene = sceneById(state.sceneId);
       const module = state.module === "overview" ? "vocabulary" : state.module || "vocabulary";
-      const moduleNames = [
-        ["vocabulary", "词汇"],
-        ["phrases", "短句"],
-        ["listening", "听力"],
-        ["speaking", "跟读"],
-        ["chat", "模拟聊天"]
-      ];
       app.innerHTML = `
-        <div class="topbar">
-          <button class="back-btn" onclick="goBack()" aria-label="返回上一页">${lineIcon(`<path d="m15 18-6-6 6-6"/>`)}</button>
-          <span class="topbar-mark">${sceneMark(scene.id)}</span>
-          <h2>${scene.title}</h2>
-        </div>
-        <div class="module-tabs">
-          ${moduleNames.map(([id, label]) => `<button class="tab-btn ${module === id ? "active" : ""} ${moduleCompleted(scene, id) ? "completed" : ""}" onclick="setView('scene', { sceneId: '${scene.id}', module: '${id}' })">${label}</button>`).join("")}
-        </div>
-        <section class="section">
+        ${secondaryHeader(scene.title, "场景课程")}
+        ${secondaryTabs(scene, module)}
+        <main class="secondary-content">
           ${renderSceneModule(scene, module)}
-        </section>
+        </main>
       `;
     }
 
@@ -10314,20 +11480,23 @@
       const learnedCount = idsFor(scene, "vocabulary").filter(id => state.progress.learnedVocabIds.includes(id)).length;
       const learnedPercent = vocabIndexes.length ? Math.round((learnedCount / vocabIndexes.length) * 100) : 0;
       return `
-        <article class="vocab-learning-overview">
-          <div class="vocab-learning-heading">
-            <h2>词汇学习</h2>
-            <span>${vocabIndexes.length} 词</span>
+        <article class="secondary-card secondary-progress-card">
+          <div class="secondary-progress-head">
+            <div>
+              <h2>词汇学习</h2>
+              <p>按场景顺序练熟高频关键词</p>
+            </div>
+            <span class="secondary-card-icon" aria-hidden="true">${moduleMarkIcon("vocabulary")}</span>
           </div>
-          <div class="vocab-progress-copy">
+          <div class="secondary-progress-meta">
             <span>${learnedCount}/${vocabIndexes.length} 已掌握</span>
             <span>${learnedPercent}%</span>
           </div>
-          <div class="vocab-progress-track" aria-label="词汇掌握进度 ${learnedPercent}%">
+          <div class="secondary-progress-track" aria-label="词汇掌握进度 ${learnedPercent}%">
             <span style="width:${learnedPercent}%"></span>
           </div>
-          <button class="vocab-start-button" onclick="startVocabStudy('${scene.id}')">
-            ${lineIcon(`<path d="m9 7 8 5-8 5V7Z"/>`)}
+          <button class="secondary-primary-action" onclick="startVocabStudy('${scene.id}')">
+            ${uiIcon("play")}
             <span>${learnedCount ? "继续沉浸学习" : "开始沉浸学习"}</span>
           </button>
         </article>
@@ -10342,12 +11511,10 @@
                 <article class="content-card vocab-card learned-collapsed" role="button" tabindex="0" onclick="openVocabDetail('${scene.id}', ${index})" onkeydown="openVocabDetailFromKey(event, '${scene.id}', ${index})">
                   <div class="vocab-head">
                     <div class="vocab-collapsed-copy">
-                      <span class="vocab-collapsed-status" aria-hidden="true">${lineIcon(`<circle cx="12" cy="12" r="8"/><path d="m8.5 12 2.2 2.2 4.8-5"/>`)}</span>
+                      <span class="vocab-collapsed-status" aria-hidden="true">${uiIcon("check")}</span>
                       <div class="en">${item[0]}</div>
                     </div>
-                    <button class="vocab-collapse-btn" onclick="event.stopPropagation(); toggleVocabExpanded('${id}')" aria-label="展开 ${escapeHtml(item[0])}">
-                      ${lineIcon(`<path d="m6 9 6 6 6-6"/>`)}
-                    </button>
+                    <button class="vocab-collapse-btn" onclick="event.stopPropagation(); toggleVocabExpanded('${id}')" aria-label="展开 ${escapeHtml(item[0])}">展开</button>
                   </div>
                 </article>
               `;
@@ -10356,30 +11523,28 @@
               <article class="content-card vocab-card" role="button" tabindex="0" onclick="openVocabDetail('${scene.id}', ${index})" onkeydown="openVocabDetailFromKey(event, '${scene.id}', ${index})">
                 <div class="vocab-head">
                   <div class="en">${item[0]}</div>
-                  ${learned ? `<button class="vocab-collapse-btn" onclick="event.stopPropagation(); toggleVocabExpanded('${id}')" aria-label="收起 ${escapeHtml(item[0])}">${lineIcon(`<path d="m18 15-6-6-6 6"/>`)}</button>` : ""}
+                  ${learned ? `<button class="vocab-collapse-btn" onclick="event.stopPropagation(); toggleVocabExpanded('${id}')" aria-label="收起 ${escapeHtml(item[0])}">收起</button>` : ""}
                 </div>
                 <div class="ipa">${item[1]}</div>
                 <div class="zh">${item[2]}</div>
                 <div class="vocab-card-tools">
                   <button class="vocab-audio-button" onclick="event.stopPropagation(); speak('${escapeQuote(item[0])}')" aria-label="播放 ${escapeHtml(item[0])}" title="播放词汇">
-                    ${lineIcon(`<path d="M11 5 6.5 9H3v6h3.5l4.5 4V5Z"/><path d="M15 9a4 4 0 0 1 0 6"/>`)}
+                    ${uiIcon("play")}
                   </button>
                   <button class="vocab-audio-button" onclick="event.stopPropagation(); speak('${escapeQuote(item[0])}', 0.55)" aria-label="慢速播放 ${escapeHtml(item[0])}" title="慢速播放">
-                    ${lineIcon(`<path d="M20 11a8 8 0 1 1-2.3-5.7"/><path d="M20 4v7h-7"/>`)}
+                    ${uiIcon("slow")}
                   </button>
                   <button class="vocab-pronunciation-button" onclick="event.stopPropagation(); startPronunciationCheck('${escapeQuote(item[0])}', 'vocab_${id}')" aria-label="检测 ${escapeHtml(item[0])} 的发音" title="检测发音">
-                    ${lineIcon(`<path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v3"/>`)}
+                    ${uiIcon("mic")}
                   </button>
                 </div>
                 ${speechFeedbackHtml(`vocab_${id}`)}
                 <div class="vocab-card-actions">
                   <button class="vocab-master-button ${learned ? "is-mastered" : ""}" onclick="event.stopPropagation(); markVocabLearned('${scene.id}', ${index})" aria-pressed="${learned}">
-                    ${learned ? lineIcon(`<circle cx="12" cy="12" r="8"/><path d="m8.5 12 2.2 2.2 4.8-5"/>`) : ""}
+                    ${learned ? uiIcon("check") : ""}
                     <span>${learned ? "已掌握" : "标记掌握"}</span>
                   </button>
-                  <button class="vocab-favorite-button ${favorite ? "active" : ""}" onclick="event.stopPropagation(); toggleFavorite('${id}')" aria-label="${favorite ? "取消收藏" : "收藏"}">
-                    ${lineIcon(`<path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.3l-5.6 2.9 1.1-6.2L3 9.6l6.2-.9L12 3Z"/>`)}
-                  </button>
+                  ${favoriteButton(id, favorite, "vocab-favorite-button")}
                 </div>
               </article>
             `;
@@ -10524,26 +11689,22 @@
       const relatedPhrases = relatedPhrasesForVocab(scene, item, index);
 
       app.innerHTML = `
-        <div class="topbar">
-          <button class="back-btn" onclick="goBack()" aria-label="返回上一页">${lineIcon(`<path d="m15 18-6-6 6-6"/>`)}</button>
-          <span class="topbar-mark">${sceneMark(scene.id)}</span>
-          <h2>词汇详情</h2>
-        </div>
-        <section class="section detail-block">
+        ${secondaryHeader("词汇详情", scene.title)}
+        <main class="secondary-content detail-block">
           <article class="detail-word-card">
             <div class="detail-scene-label">${scene.title}</div>
             <div class="en">${item[0]}</div>
             <div class="ipa">${item[1]}</div>
             <div class="zh">${item[2]}</div>
             <div class="module-audio-actions">
-              <button class="module-audio-button" onclick="speak('${escapeQuote(item[0])}')" aria-label="播放词汇">${lineIcon(`<path d="M11 5 6.5 9H3v6h3.5l4.5 4V5Z"/><path d="M15 9a4 4 0 0 1 0 6"/>`)}</button>
-              <button class="module-audio-button" onclick="speak('${escapeQuote(item[0])}', 0.55)" aria-label="慢速播放词汇">${lineIcon(`<path d="M20 11a8 8 0 1 1-2.3-5.7"/><path d="M20 4v7h-7"/>`)}</button>
-              <button class="module-audio-button" onclick="startPronunciationCheck('${escapeQuote(item[0])}', 'vocab_${id}')" aria-label="检测发音">${lineIcon(`<path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v3"/>`)}</button>
+              <button class="module-audio-button" onclick="speak('${escapeQuote(item[0])}')" aria-label="播放词汇">${uiIcon("play")}</button>
+              <button class="module-audio-button" onclick="speak('${escapeQuote(item[0])}', 0.55)" aria-label="慢速播放词汇">${uiIcon("slow")}</button>
+              <button class="module-audio-button" onclick="startPronunciationCheck('${escapeQuote(item[0])}', 'vocab_${id}')" aria-label="检测发音">${uiIcon("mic")}</button>
             </div>
             ${speechFeedbackHtml(`vocab_${id}`)}
             <div class="detail-main-actions">
-              <button class="vocab-master-button ${learned ? "is-mastered" : ""}" onclick="markVocabLearned('${scene.id}', ${index})" aria-pressed="${learned}">${learned ? lineIcon(`<circle cx="12" cy="12" r="8"/><path d="m8.5 12 2.2 2.2 4.8-5"/>`) : ""}<span>${learned ? "已掌握" : "标记掌握"}</span></button>
-              <button class="vocab-favorite-button ${favorite ? "active" : ""}" onclick="toggleFavorite('${id}')" aria-label="${favorite ? "取消收藏" : "收藏"}">${lineIcon(`<path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.3l-5.6 2.9 1.1-6.2L3 9.6l6.2-.9L12 3Z"/>`)}</button>
+              <button class="vocab-master-button ${learned ? "is-mastered" : ""}" onclick="markVocabLearned('${scene.id}', ${index})" aria-pressed="${learned}">${learned ? uiIcon("check") : ""}<span>${learned ? "已掌握" : "标记掌握"}</span></button>
+              ${favoriteButton(id, favorite, "vocab-favorite-button")}
             </div>
           </article>
 
@@ -10553,8 +11714,8 @@
               <div class="en">${item[4]}</div>
               ${item[5] ? `<div class="zh">${item[5]}</div>` : ""}
               <div class="module-audio-actions">
-                <button class="module-audio-button" onclick="speak('${escapeQuote(item[4])}')" aria-label="播放例句">${lineIcon(`<path d="M11 5 6.5 9H3v6h3.5l4.5 4V5Z"/><path d="M15 9a4 4 0 0 1 0 6"/>`)}</button>
-                <button class="module-audio-button" onclick="speak('${escapeQuote(item[4])}', 0.55)" aria-label="慢速播放例句">${lineIcon(`<path d="M20 11a8 8 0 1 1-2.3-5.7"/><path d="M20 4v7h-7"/>`)}</button>
+                <button class="module-audio-button" onclick="speak('${escapeQuote(item[4])}')" aria-label="播放例句">${uiIcon("play")}</button>
+                <button class="module-audio-button" onclick="speak('${escapeQuote(item[4])}', 0.55)" aria-label="慢速播放例句">${uiIcon("slow")}</button>
               </div>
             </div>
           </article>
@@ -10567,8 +11728,8 @@
                   <div class="en">${phrase[1]}</div>
                   <div class="zh">${phrase[0]}</div>
                   <div class="module-audio-actions">
-                    <button class="module-audio-button" onclick="speak('${escapeQuote(phrase[1])}')" aria-label="播放相关短句">${lineIcon(`<path d="M11 5 6.5 9H3v6h3.5l4.5 4V5Z"/><path d="M15 9a4 4 0 0 1 0 6"/>`)}</button>
-                    <button class="module-audio-button" onclick="speak('${escapeQuote(phrase[1])}', 0.55)" aria-label="慢速播放相关短句">${lineIcon(`<path d="M20 11a8 8 0 1 1-2.3-5.7"/><path d="M20 4v7h-7"/>`)}</button>
+                    <button class="module-audio-button" onclick="speak('${escapeQuote(phrase[1])}')" aria-label="播放相关短句">${uiIcon("play")}</button>
+                    <button class="module-audio-button" onclick="speak('${escapeQuote(phrase[1])}', 0.55)" aria-label="慢速播放相关短句">${uiIcon("slow")}</button>
                   </div>
                 </div>
               `).join("")}
@@ -10576,7 +11737,7 @@
           </article>
 
           <div class="detail-memory-note">${vocabLearningTip(scene, item)}</div>
-        </section>
+        </main>
       `;
     }
 
@@ -10590,10 +11751,13 @@
       const speakingPercent = speakingMode && phraseIndexes.length ? Math.round((speakingCompletedCount / phraseIndexes.length) * 100) : 0;
       return `
         ${speakingMode ? `
-          <article class="module-learning-overview">
-            <div class="module-learning-heading"><h2>跟读练习</h2><span>${phraseIndexes.length} 句</span></div>
-            <div class="module-learning-progress"><span>${speakingCompletedCount}/${phraseIndexes.length} 已跟读</span><span>${speakingPercent}%</span></div>
-            <div class="module-progress-track" aria-label="跟读完成进度 ${speakingPercent}%"><span style="width:${speakingPercent}%"></span></div>
+          <article class="secondary-card secondary-progress-card">
+            <div class="secondary-progress-head">
+              <div><h2>跟读练习</h2><p>听标准发音，再开口读熟</p></div>
+              <span class="secondary-card-icon" aria-hidden="true">${moduleMarkIcon("speaking")}</span>
+            </div>
+            <div class="secondary-progress-meta"><span>${speakingCompletedCount}/${phraseIndexes.length} 已跟读</span><span>${speakingPercent}%</span></div>
+            <div class="secondary-progress-track" aria-label="跟读完成进度 ${speakingPercent}%"><span style="width:${speakingPercent}%"></span></div>
           </article>
         ` : ""}
         <div class="${speakingMode ? "speaking-list" : "phrase-list"}">
@@ -10606,20 +11770,20 @@
               <article class="speaking-card">
                 <div class="learning-card-meta">
                   <span>跟读 ${orderIndex + 1}</span>
-                  ${spoken ? `<span class="learning-status">${lineIcon(`<circle cx="12" cy="12" r="8"/><path d="m8.5 12 2.2 2.2 4.8-5"/>`)} 已跟读</span>` : `<span>听一遍，再开口</span>`}
+                  ${spoken ? `<span class="learning-status">${uiIcon("check")} 已跟读</span>` : `<span>待练习</span>`}
                 </div>
                 <div class="speaking-card-copy"><div class="zh">${item[0]}</div><div class="en">${item[1]}</div></div>
                 <div class="module-audio-actions">
-                  <button class="module-audio-button" onclick="speak('${escapeQuote(item[1])}')" aria-label="播放短句" title="播放短句">${lineIcon(`<path d="M11 5 6.5 9H3v6h3.5l4.5 4V5Z"/><path d="M15 9a4 4 0 0 1 0 6"/>`)}</button>
-                  <button class="module-audio-button" onclick="speak('${escapeQuote(item[1])}', 0.55)" aria-label="慢速播放短句" title="慢速播放">${lineIcon(`<path d="M20 11a8 8 0 1 1-2.3-5.7"/><path d="M20 4v7h-7"/>`)}</button>
-                  <button class="module-audio-button" onclick="startPronunciationCheck('${escapeQuote(item[1])}', 'phrase_${id}')" aria-label="检测跟读" title="检测跟读">${lineIcon(`<path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v3"/>`)}</button>
+                  <button class="module-audio-button" onclick="speak('${escapeQuote(item[1])}')" aria-label="播放短句" title="播放短句">${uiIcon("play")}</button>
+                  <button class="module-audio-button" onclick="speak('${escapeQuote(item[1])}', 0.55)" aria-label="慢速播放短句" title="慢速播放">${uiIcon("slow")}</button>
+                  <button class="module-audio-button" onclick="startPronunciationCheck('${escapeQuote(item[1])}', 'phrase_${id}')" aria-label="检测跟读" title="检测跟读">${uiIcon("mic")}</button>
                 </div>
                 ${speechFeedbackHtml(`phrase_${id}`)}
                 <div class="speaking-card-actions">
                   <button class="speaking-complete-button ${spoken ? "is-complete" : ""}" onclick="markPhraseSpoken('${scene.id}', ${index})" aria-pressed="${spoken}">
-                    ${spoken ? lineIcon(`<circle cx="12" cy="12" r="8"/><path d="m8.5 12 2.2 2.2 4.8-5"/>`) : ""}<span>${spoken ? "已跟读" : "我读完了"}</span>
+                    ${spoken ? uiIcon("check") : ""}<span>${spoken ? "已跟读" : "我读完了"}</span>
                   </button>
-                  <button class="speaking-favorite-button ${favorite ? "active" : ""}" onclick="toggleFavorite('${id}')" aria-label="${favorite ? "取消收藏" : "收藏"}">${lineIcon(`<path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.3l-5.6 2.9 1.1-6.2L3 9.6l6.2-.9L12 3Z"/>`)}</button>
+                  ${favoriteButton(id, favorite, "speaking-favorite-button")}
                 </div>
               </article>
             ` : `
@@ -10630,20 +11794,18 @@
                 </div>
                 <div class="phrase-audio-actions">
                   <button class="phrase-audio-button" onclick="speak('${escapeQuote(item[1])}')" aria-label="播放短句" title="播放短句">
-                    ${lineIcon(`<path d="M11 5 6.5 9H3v6h3.5l4.5 4V5Z"/><path d="M15 9a4 4 0 0 1 0 6"/>`)}
+                    ${uiIcon("play")}
                   </button>
                   <button class="phrase-audio-button" onclick="speak('${escapeQuote(item[1])}', 0.55)" aria-label="慢速播放" title="慢速播放">
-                    ${lineIcon(`<path d="M20 11a8 8 0 1 1-2.3-5.7"/><path d="M20 4v7h-7"/>`)}
+                    ${uiIcon("slow")}
                   </button>
                 </div>
                 <div class="phrase-study-actions">
                   <button class="phrase-master-button ${learned ? "is-mastered" : ""}" onclick="markPhraseLearned('${scene.id}', ${index})" aria-pressed="${learned}">
-                    ${learned ? lineIcon(`<circle cx="12" cy="12" r="8"/><path d="m8.5 12 2.2 2.2 4.8-5"/>`) : ""}
+                    ${learned ? uiIcon("check") : ""}
                     <span>${learned ? "已掌握" : "标记掌握"}</span>
                   </button>
-                  <button class="phrase-favorite-button ${favorite ? "active" : ""}" onclick="toggleFavorite('${id}')" aria-label="${favorite ? "取消收藏" : "收藏"}">
-                    ${lineIcon(`<path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.3l-5.6 2.9 1.1-6.2L3 9.6l6.2-.9L12 3Z"/>`)}
-                  </button>
+                  ${favoriteButton(id, favorite, "phrase-favorite-button")}
                 </div>
               </article>
             `;
@@ -10657,16 +11819,19 @@
       const completedCount = listeningIndexes.filter(index => state.progress.completedListeningIds.includes(listeningId(scene, index))).length;
       const completedPercent = listeningIndexes.length ? Math.round((completedCount / listeningIndexes.length) * 100) : 0;
       return `
-        <article class="module-learning-overview">
-          <div class="module-learning-heading">
-            <h2>听力练习</h2>
-            <span>${listeningIndexes.length} 题</span>
+        <article class="secondary-card secondary-progress-card">
+          <div class="secondary-progress-head">
+            <div>
+              <h2>听力练习</h2>
+              <p>听问题，选择最贴近的中文含义</p>
+            </div>
+            <span class="secondary-card-icon" aria-hidden="true">${moduleMarkIcon("listening")}</span>
           </div>
-          <div class="module-learning-progress">
+          <div class="secondary-progress-meta">
             <span>${completedCount}/${listeningIndexes.length} 已完成</span>
             <span>${completedPercent}%</span>
           </div>
-          <div class="module-progress-track" aria-label="听力完成进度 ${completedPercent}%"><span style="width:${completedPercent}%"></span></div>
+          <div class="secondary-progress-track" aria-label="听力完成进度 ${completedPercent}%"><span style="width:${completedPercent}%"></span></div>
         </article>
         <div class="listening-list">
           ${listeningIndexes.map((index, orderIndex) => {
@@ -10681,12 +11846,12 @@
               <article class="listening-card">
                 <div class="learning-card-meta">
                   <span>第 ${orderIndex + 1} 题</span>
-                  ${completed ? `<span class="learning-status">${lineIcon(`<circle cx="12" cy="12" r="8"/><path d="m8.5 12 2.2 2.2 4.8-5"/>`)} 已完成</span>` : `<span>听音选答案</span>`}
+                  ${completed ? `<span class="learning-status">${uiIcon("check")} 已完成</span>` : `<span>听音选答案</span>`}
                 </div>
                 <h3>${item[1]}</h3>
                 <div class="module-audio-actions">
-                  <button class="module-audio-button" onclick="speak('${escapeQuote(item[0])}')" aria-label="播放题干" title="播放题干">${lineIcon(`<path d="M11 5 6.5 9H3v6h3.5l4.5 4V5Z"/><path d="M15 9a4 4 0 0 1 0 6"/>`)}</button>
-                  <button class="module-audio-button" onclick="speak('${escapeQuote(item[0])}', 0.55)" aria-label="慢速播放题干" title="慢速播放">${lineIcon(`<path d="M20 11a8 8 0 1 1-2.3-5.7"/><path d="M20 4v7h-7"/>`)}</button>
+                  <button class="module-audio-button" onclick="speak('${escapeQuote(item[0])}')" aria-label="播放题干" title="播放题干">${uiIcon("play")}</button>
+                  <button class="module-audio-button" onclick="speak('${escapeQuote(item[0])}', 0.55)" aria-label="慢速播放题干" title="慢速播放">${uiIcon("slow")}</button>
                 </div>
                 ${showResult ? `<div class="listening-transcript"><small>听力原文</small><div class="en">${item[0]}</div></div>` : ""}
                 <div class="listening-options">
@@ -10694,9 +11859,7 @@
                   const className = selected === undefined
                     ? completed && optionIndex === item[3] ? "correct" : ""
                     : optionIndex === item[3] ? "correct" : selected === optionIndex ? "wrong" : "";
-                  const stateIcon = className === "correct"
-                    ? lineIcon(`<circle cx="12" cy="12" r="8"/><path d="m8.5 12 2.2 2.2 4.8-5"/>`)
-                    : className === "wrong" ? lineIcon(`<circle cx="12" cy="12" r="8"/><path d="m9 9 6 6M15 9l-6 6"/>`) : "";
+                  const stateIcon = className === "correct" ? uiIcon("check") : className === "wrong" ? uiIcon("error") : "";
                   return `<button class="listening-choice ${className}" onclick="selectListening('${scene.id}', ${index}, ${optionIndex}, 'learn')"><span class="choice-letter">${String.fromCharCode(65 + optionIndex)}</span><span>${option}</span><span class="choice-state-icon">${stateIcon}</span></button>`;
                 }).join("")}
                 </div>
@@ -10747,12 +11910,8 @@
       const done = state.chatIndex >= chat.length;
       const currentZh = current ? chatPromptZh(current) : "";
       app.innerHTML = `
-        <div class="topbar">
-          <button class="back-btn" onclick="goBack()" aria-label="返回上一页">${lineIcon(`<path d="m15 18-6-6 6-6"/>`)}</button>
-          <span class="topbar-mark">${lineIcon(`<path d="M21 12a8 8 0 0 1-8 8H7l-4 2 1.6-4.4A8 8 0 1 1 21 12Z"/><path d="M8 12h.01M12 12h.01M16 12h.01"/>`)}</span>
-          <h2>模拟聊天</h2>
-        </div>
-        <section class="section">
+        ${secondaryHeader("模拟聊天", "全场景练习")}
+        <main class="secondary-content">
           <div class="chat-page-header">
             <div class="chat-page-title"><h2>全场景练习</h2><span>${done ? "已完成" : `${state.chatIndex + 1}/${chat.length}`}</span></div>
             <div class="chat-controls">
@@ -10761,7 +11920,7 @@
                 <button class="mode-btn ${state.chatMode === "choice" ? "active" : ""}" onclick="setChatMode('choice')">选项练习</button>
               </div>
               <button class="chat-text-toggle ${state.showZh ? "active" : ""}" onclick="toggleChatZh()" aria-pressed="${state.showZh}">${state.showZh ? "中文开" : "中文"}</button>
-              <button class="chat-icon-button" onclick="resetGlobalChat()" aria-label="重新练习">${lineIcon(`<path d="M20 6v5h-5"/><path d="M18 9a8 8 0 1 0 1 7"/>`)}</button>
+              <button class="chat-icon-button" onclick="resetGlobalChat()" aria-label="重新练习">${uiIcon("reset")}</button>
             </div>
           </div>
           <div class="chat">
@@ -10769,12 +11928,12 @@
               <div class="bubble ${turn.role}">
                 ${turn.en}
                 ${state.showZh && turn.zh ? `<small>${turn.zh}</small>` : ""}
-                <button class="bubble-play" onclick="speak('${escapeQuote(turn.en)}')" aria-label="播放这句话">${lineIcon(`<path d="M11 5 6.5 9H3v6h3.5l4.5 4V5Z"/><path d="M15 9a4 4 0 0 1 0 6"/>`)}</button>
+                <button class="bubble-play" onclick="speak('${escapeQuote(turn.en)}')" aria-label="播放这句话">${uiIcon("play")}</button>
               </div>
             `).join("")}
             ${done ? `
               <article class="chat-prompt-card">
-                <div class="learning-status">${lineIcon(`<circle cx="12" cy="12" r="8"/><path d="m8.5 12 2.2 2.2 4.8-5"/>`)} 本轮完成</div>
+                <div class="learning-status">${uiIcon("check")} 本轮完成</div>
                 <div class="en">你已完成全场景综合对话</div>
                 <div class="chat-free-actions">
                   <button class="chat-submit-button" onclick="resetGlobalChat()">再练一次</button>
@@ -10786,8 +11945,8 @@
                 <div class="en">${current[0]}</div>
                 ${state.showZh && currentZh ? `<div class="zh">${currentZh}</div>` : ""}
                 <div class="module-audio-actions">
-                  <button class="module-audio-button" onclick="speak('${escapeQuote(current[0])}')" aria-label="播放对话题目">${lineIcon(`<path d="M11 5 6.5 9H3v6h3.5l4.5 4V5Z"/><path d="M15 9a4 4 0 0 1 0 6"/>`)}</button>
-                  <button class="module-audio-button" onclick="speak('${escapeQuote(current[0])}', 0.55)" aria-label="慢速播放对话题目">${lineIcon(`<path d="M20 11a8 8 0 1 1-2.3-5.7"/><path d="M20 4v7h-7"/>`)}</button>
+                  <button class="module-audio-button" onclick="speak('${escapeQuote(current[0])}')" aria-label="播放对话题目">${uiIcon("play")}</button>
+                  <button class="module-audio-button" onclick="speak('${escapeQuote(current[0])}', 0.55)" aria-label="慢速播放对话题目">${uiIcon("slow")}</button>
                 </div>
               </article>
               ${state.chatMode === "choice" ? `
@@ -10795,7 +11954,7 @@
                   ${current[1].map((choice, index) => `
                     <div class="chat-choice-row">
                       <button class="chat-choice-button" onclick="chooseGlobalChat(${index})">${choice}</button>
-                      <button class="chat-icon-button" onclick="speak('${escapeQuote(choice)}')" aria-label="播放选项 ${index + 1}">${lineIcon(`<path d="M11 5 6.5 9H3v6h3.5l4.5 4V5Z"/><path d="M15 9a4 4 0 0 1 0 6"/>`)}</button>
+                      <button class="chat-icon-button" onclick="speak('${escapeQuote(choice)}')" aria-label="播放选项 ${index + 1}">${uiIcon("play")}</button>
                     </div>
                   `).join("")}
                   ${state.chatFeedback ? `<div class="learning-feedback ${state.chatFeedback.type}">${state.chatFeedback.text}</div>` : ""}
@@ -10804,7 +11963,7 @@
                 <div class="free-answer">
                   <textarea id="freeAnswer" placeholder="输入英文回答，例如：${escapeHtml(current[1][current[2]])}" oninput="state.freeAnswer = this.value">${escapeHtml(state.freeAnswer || "")}</textarea>
                   <div class="chat-free-actions">
-                    <button class="chat-submit-button" onclick="submitFreeGlobalChat()">${lineIcon(`<path d="m4 12 15-7-4 14-3-5-5-2 12-7"/>`)} 发送并检查</button>
+                    <button class="chat-submit-button" onclick="submitFreeGlobalChat()">${uiIcon("send")} 发送并检查</button>
                     <button class="chat-secondary-button" onclick="useGlobalStandardAnswer()">使用标准答案</button>
                     <button class="chat-secondary-button" onclick="startPronunciationCheck('${escapeQuote(current[1][current[2]])}', 'global_chat_${state.chatIndex}')">检测标准回答</button>
                   </div>
@@ -10814,7 +11973,7 @@
               `}
             `}
           </div>
-        </section>
+        </main>
       `;
     }
 
@@ -10840,7 +11999,7 @@
               <button class="mode-btn ${state.chatMode === "choice" ? "active" : ""}" onclick="setChatMode('choice')">选项练习</button>
             </div>
             <button class="chat-text-toggle ${state.showZh ? "active" : ""}" onclick="toggleChatZh()" aria-pressed="${state.showZh}">${state.showZh ? "中文开" : "中文"}</button>
-            <button class="chat-icon-button" onclick="resetChat('${scene.id}')" aria-label="重新练习" title="重新练习">${lineIcon(`<path d="M20 6v5h-5"/><path d="M18 9a8 8 0 1 0 1 7"/>`)}</button>
+            <button class="chat-icon-button" onclick="resetChat('${scene.id}')" aria-label="重新练习" title="重新练习">${uiIcon("reset")}</button>
           </div>
         </div>
         <div class="chat">
@@ -10848,12 +12007,12 @@
             <div class="bubble ${turn.role}">
               ${turn.en}
               ${state.showZh && turn.zh ? `<small>${turn.zh}</small>` : ""}
-              <button class="bubble-play" onclick="speak('${escapeQuote(turn.en)}')" aria-label="播放这句话">${lineIcon(`<path d="M11 5 6.5 9H3v6h3.5l4.5 4V5Z"/><path d="M15 9a4 4 0 0 1 0 6"/>`)}</button>
+              <button class="bubble-play" onclick="speak('${escapeQuote(turn.en)}')" aria-label="播放这句话">${uiIcon("play")}</button>
             </div>
           `).join("")}
           ${done ? `
             <article class="chat-prompt-card">
-              <div class="learning-status">${lineIcon(`<circle cx="12" cy="12" r="8"/><path d="m8.5 12 2.2 2.2 4.8-5"/>`)} 本轮完成</div>
+              <div class="learning-status">${uiIcon("check")} 本轮完成</div>
               <div class="en">你已完成 ${scene.title} 场景对话</div>
               <div class="chat-free-actions">
                 <button class="chat-submit-button" onclick="resetChat('${scene.id}')">再练一次</button>
@@ -10866,8 +12025,8 @@
               <div class="en">${current[0]}</div>
               ${state.showZh && currentZh ? `<div class="zh">${currentZh}</div>` : ""}
               <div class="module-audio-actions">
-                <button class="module-audio-button" onclick="speak('${escapeQuote(current[0])}')" aria-label="播放对话题目" title="播放">${lineIcon(`<path d="M11 5 6.5 9H3v6h3.5l4.5 4V5Z"/><path d="M15 9a4 4 0 0 1 0 6"/>`)}</button>
-                <button class="module-audio-button" onclick="speak('${escapeQuote(current[0])}', 0.55)" aria-label="慢速播放对话题目" title="慢速播放">${lineIcon(`<path d="M20 11a8 8 0 1 1-2.3-5.7"/><path d="M20 4v7h-7"/>`)}</button>
+                <button class="module-audio-button" onclick="speak('${escapeQuote(current[0])}')" aria-label="播放对话题目" title="播放">${uiIcon("play")}</button>
+                <button class="module-audio-button" onclick="speak('${escapeQuote(current[0])}', 0.55)" aria-label="慢速播放对话题目" title="慢速播放">${uiIcon("slow")}</button>
               </div>
             </article>
             ${state.chatMode === "choice" ? `
@@ -10875,7 +12034,7 @@
                 ${current[1].map((choice, index) => `
                   <div class="chat-choice-row">
                     <button class="chat-choice-button" onclick="chooseChat('${scene.id}', ${index})">${choice}</button>
-                    <button class="chat-icon-button" onclick="speak('${escapeQuote(choice)}')" aria-label="播放选项 ${index + 1}">${lineIcon(`<path d="M11 5 6.5 9H3v6h3.5l4.5 4V5Z"/><path d="M15 9a4 4 0 0 1 0 6"/>`)}</button>
+                    <button class="chat-icon-button" onclick="speak('${escapeQuote(choice)}')" aria-label="播放选项 ${index + 1}">${uiIcon("play")}</button>
                   </div>
                 `).join("")}
                 ${state.chatFeedback ? `<div class="learning-feedback ${state.chatFeedback.type}">${state.chatFeedback.text}</div>` : ""}
@@ -10884,7 +12043,7 @@
               <div class="free-answer">
                 <textarea id="freeAnswer" placeholder="输入英文回答，例如：${escapeHtml(current[1][current[2]])}" oninput="state.freeAnswer = this.value">${escapeHtml(state.freeAnswer || "")}</textarea>
                 <div class="chat-free-actions">
-                  <button class="chat-submit-button" onclick="submitFreeChat('${scene.id}')">${lineIcon(`<path d="m4 12 15-7-4 14-3-5-5-2 12-7"/>`)} 发送并检查</button>
+                  <button class="chat-submit-button" onclick="submitFreeChat('${scene.id}')">${uiIcon("send")} 发送并检查</button>
                   <button class="chat-secondary-button" onclick="useStandardAnswer('${scene.id}')">使用标准答案</button>
                   <button class="chat-secondary-button" onclick="startPronunciationCheck('${escapeQuote(current[1][current[2]])}', 'chat_${scene.id}_${state.chatIndex}')">检测标准回答</button>
                 </div>
@@ -11118,14 +12277,11 @@
     function renderWrongBook() {
       const wrongItems = state.progress.wrongQuestionIds.map(id => findWrongQuestion(id)).filter(Boolean);
       app.innerHTML = `
-        <div class="topbar">
-          <button class="back-btn" onclick="goBack()" aria-label="返回">‹</button>
-          <h2>错题本</h2>
-        </div>
-        <main class="wrong-book-content">
+        ${secondaryHeader("错题本", "复习")}
+        <main class="secondary-content wrong-book-content">
           <section class="wrong-book-summary">
             <div><span>听力错题</span><strong>${wrongItems.length}</strong></div>
-            <button class="module-audio-button" onclick="triggerFeedback('correct', '开始复习')" aria-label="复习反馈">${lineIcon(`<circle cx="12" cy="12" r="8"/><path d="m8.5 12 2.2 2.2 4.8-5"/>`)}</button>
+            <button class="module-audio-button" onclick="triggerFeedback('correct', '开始复习')" aria-label="复习反馈">${uiIcon("check")}</button>
           </section>
           ${wrongItems.length ? `
             <div class="review-list">
@@ -11134,13 +12290,13 @@
                   <div class="review-card-meta"><span>${item.sceneTitle}</span><span>错题练习</span></div>
                   <h3>${item.question}</h3>
                   <div class="module-audio-actions">
-                    <button class="module-audio-button" onclick="speak('${escapeQuote(item.en)}')" aria-label="播放错题">${lineIcon(`<path d="M11 5 6.5 9H3v6h3.5l4.5 4V5Z"/><path d="M15 9a4 4 0 0 1 0 6"/>`)}</button>
-                    <button class="module-audio-button" onclick="speak('${escapeQuote(item.en)}', 0.55)" aria-label="慢速播放错题">${lineIcon(`<path d="M20 11a8 8 0 1 1-2.3-5.7"/><path d="M20 4v7h-7"/>`)}</button>
+                    <button class="module-audio-button" onclick="speak('${escapeQuote(item.en)}')" aria-label="播放错题">${uiIcon("play")}</button>
+                    <button class="module-audio-button" onclick="speak('${escapeQuote(item.en)}', 0.55)" aria-label="慢速播放错题">${uiIcon("slow")}</button>
                   </div>
                   <div class="review-options">${item.options.map((option, optionIndex) => {
                     const selected = state.selectedListening[`review_${item.id}`];
                     const className = selected === undefined ? "" : optionIndex === item.answer ? "correct" : selected === optionIndex ? "wrong" : "";
-                    const icon = className === "correct" ? lineIcon(`<circle cx="12" cy="12" r="8"/><path d="m8.5 12 2.2 2.2 4.8-5"/>`) : className === "wrong" ? lineIcon(`<circle cx="12" cy="12" r="8"/><path d="m9 9 6 6M15 9l-6 6"/>`) : "";
+                    const icon = className === "correct" ? uiIcon("check") : className === "wrong" ? uiIcon("error") : "";
                     return `<button class="listening-choice ${className}" onclick="selectListening('${item.sceneId}', ${item.index}, ${optionIndex}, 'review')"><span class="choice-letter">${String.fromCharCode(65 + optionIndex)}</span><span>${option}</span><span class="choice-state-icon">${icon}</span></button>`;
                   }).join("")}</div>
                   ${state.selectedListening[`review_${item.id}`] !== undefined ? `<div class="learning-feedback ${state.selectedListening[`review_${item.id}`] === item.answer ? "good" : "warn"}">${state.selectedListening[`review_${item.id}`] === item.answer ? "回答正确，已从错题本移除。" : `正确答案：${item.options[item.answer]}。${item.explanation}`}</div>` : ""}
@@ -11219,7 +12375,15 @@
     render();
     initCloudProgress();
 
-    if ("serviceWorker" in navigator && location.protocol !== "file:") {
+    const isLocalPreview = ["localhost", "127.0.0.1", "[::1]"].includes(location.hostname);
+
+    if ("serviceWorker" in navigator && isLocalPreview) {
+      navigator.serviceWorker.getRegistrations?.().then(registrations => {
+        registrations.forEach(registration => registration.unregister());
+      }).catch(() => {});
+    }
+
+    if ("serviceWorker" in navigator && location.protocol !== "file:" && !isLocalPreview) {
       window.addEventListener("load", () => {
         navigator.serviceWorker.register("./service-worker.js").catch(error => {
           console.warn("离线服务注册失败：", error);
