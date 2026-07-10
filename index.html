@@ -7024,7 +7024,7 @@
     .app.vocabStudy .immersion-tool-button {
       width: clamp(28.026px, 7.474cqw, 56.052px);
       height: clamp(28.22px, 7.525cqw, 56.44px);
-      color: #16601f;
+      color: #467ffb;
       background: transparent;
     }
 
@@ -7087,7 +7087,7 @@
       width: clamp(40px, 10.667cqw, 80px);
       height: clamp(40px, 10.667cqw, 80px);
       border: 0;
-      color: #16601f;
+      color: #467ffb;
       background: transparent;
       box-shadow: none;
     }
@@ -7181,7 +7181,7 @@
     }
 
     .app.vocabStudy .immersion-control-button.next {
-      color: #16601f;
+      color: #467ffb;
       background: transparent;
       border-color: transparent;
     }
@@ -7809,7 +7809,7 @@
     .app.wrongBook {
       --secondary-ink: #192e41;
       --secondary-blue: #467ffb;
-      --secondary-green: #16601f;
+      --secondary-green: #467ffb;
       --secondary-bg: #f2f3f5;
       --secondary-panel: #ffffff;
       --secondary-soft: rgba(255, 255, 255, 0.72);
@@ -8207,8 +8207,8 @@
     .detail-scene-label {
       padding: clamp(6px, 1.6cqw, 12px) clamp(12px, 3.2cqw, 24px);
       border-radius: 999px;
-      color: var(--secondary-green);
-      background: #edf7e9;
+      color: #315fb8;
+      background: #eef3ff;
       font-size: clamp(13px, 3.467cqw, 26px);
       font-weight: 500;
     }
@@ -8257,8 +8257,8 @@
     .detail-memory-note {
       border-radius: var(--secondary-card-radius);
       padding: clamp(18px, 4.8cqw, 36px);
-      color: var(--secondary-green);
-      background: #edf7e9;
+      color: #315fb8;
+      background: #eef3ff;
       font-size: clamp(14px, 3.733cqw, 28px);
       line-height: clamp(22px, 5.867cqw, 44px);
     }
@@ -8305,9 +8305,9 @@
 
     .listening-choice.correct,
     .learning-feedback.good {
-      border-color: rgba(22, 96, 31, 0.16);
-      color: var(--secondary-green);
-      background: #edf7e9;
+      border-color: rgba(70, 127, 251, 0.18);
+      color: #315fb8;
+      background: #eef3ff;
     }
 
     .listening-choice.wrong,
@@ -8376,8 +8376,8 @@
     }
 
     .chat-page .bubble.user {
-      color: var(--secondary-green);
-      background: #edf7e9;
+      color: #315fb8;
+      background: #eef3ff;
       justify-self: end;
     }
 
@@ -8703,7 +8703,7 @@
       right: clamp(10px, 2.667cqw, 20px);
       top: clamp(8px, 2.133cqw, 16px);
       border-radius: 50%;
-      background: #16601f;
+      background: #467ffb;
     }
 
     .secondary-tab-icon {
@@ -8733,7 +8733,7 @@
       place-items: center;
       border-radius: clamp(16px, 4.267cqw, 32px);
       color: #192e41;
-      background: #edf7e9;
+      background: #eef3ff;
       font-size: clamp(20px, 5.333cqw, 40px);
       line-height: 1;
       font-weight: 850;
@@ -9457,6 +9457,52 @@
       border-color: rgba(155, 101, 31, 0.18);
       color: #8b5b22;
       background: #fff7ea;
+    }
+
+    .confirm-dialog .actions button,
+    .confirm-dialog .actions .primary-btn,
+    .confirm-dialog .actions .secondary-btn {
+      min-height: clamp(44px, 11.733cqw, 88px);
+      border-radius: clamp(12px, 3.2cqw, 24px);
+      padding: 0 clamp(18px, 4.8cqw, 36px);
+      font-family: var(--font-ui, "PingFang SC", system-ui, sans-serif);
+      font-size: clamp(15px, 4cqw, 30px) !important;
+      line-height: clamp(22px, 5.867cqw, 44px) !important;
+      font-weight: 500 !important;
+      letter-spacing: -0.31px !important;
+    }
+
+    .confirm-dialog .actions .primary-btn {
+      border: 0;
+      color: #ffffff;
+      background: #192e41;
+    }
+
+    .confirm-dialog .actions .secondary-btn {
+      border: 1px solid rgba(25, 46, 65, 0.08);
+      color: #192e41;
+      background: #ffffff;
+    }
+
+    .app.scene.vocabulary-page .vocab-collapse-btn {
+      width: clamp(34px, 9.067cqw, 68px);
+      min-width: clamp(34px, 9.067cqw, 68px);
+      height: clamp(34px, 9.067cqw, 68px);
+      min-height: clamp(34px, 9.067cqw, 68px);
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(25, 46, 65, 0.08);
+      border-radius: 50%;
+      padding: 0;
+      color: #192e41;
+      background: #ffffff;
+      font-size: 0;
+    }
+
+    .app.scene.vocabulary-page .vocab-collapse-btn .figma-icon-chevron-down,
+    .app.scene.vocabulary-page .vocab-collapse-btn .figma-icon-chevron-up {
+      width: clamp(20px, 5.333cqw, 40px);
+      height: clamp(20px, 5.333cqw, 40px);
     }
 
     .app.vocabStudy .immersion-titlebar {
@@ -11992,7 +12038,9 @@
         favorite: "immersion-favorite-figma.svg",
         "favorite-active": "immersion-favorite-active-figma.svg",
         reset: "immersion-example-slow-figma.svg",
-        mic: "immersion-word-audio-figma.svg"
+        mic: "icon-mic-figma.svg",
+        "chevron-down": "icon-chevron-down-figma.svg",
+        "chevron-up": "icon-chevron-up-figma.svg"
       };
       if (name === "reset") return `<span class="${className} figma-text-icon figma-icon-reset" aria-hidden="true">↻</span>`;
       if (figmaIconMap[name]) return assetIcon(figmaIconMap[name], `${className} figma-icon figma-icon-${name}`);
@@ -12642,7 +12690,7 @@
                       <span class="vocab-collapsed-status" aria-hidden="true">${uiIcon("check")}</span>
                       <div class="en">${item[0]}</div>
                     </div>
-                    <button class="vocab-collapse-btn" onclick="event.stopPropagation(); toggleVocabExpanded('${id}')" aria-label="展开 ${escapeHtml(item[0])}">展开</button>
+                    <button class="vocab-collapse-btn" onclick="event.stopPropagation(); toggleVocabExpanded('${id}')" aria-label="展开 ${escapeHtml(item[0])}">${uiIcon("chevron-down")}</button>
                   </div>
                 </article>
               `;
@@ -12651,7 +12699,7 @@
               <article class="content-card vocab-card" role="button" tabindex="0" onclick="openVocabDetail('${scene.id}', ${index})" onkeydown="openVocabDetailFromKey(event, '${scene.id}', ${index})">
                 <div class="vocab-head">
                   <div class="en">${item[0]}</div>
-                  ${learned ? `<button class="vocab-collapse-btn" onclick="event.stopPropagation(); toggleVocabExpanded('${id}')" aria-label="收起 ${escapeHtml(item[0])}">收起</button>` : ""}
+                  ${learned ? `<button class="vocab-collapse-btn" onclick="event.stopPropagation(); toggleVocabExpanded('${id}')" aria-label="收起 ${escapeHtml(item[0])}">${uiIcon("chevron-up")}</button>` : ""}
                 </div>
                 <div class="ipa">${item[1]}</div>
                 <div class="zh">${item[2]}</div>
