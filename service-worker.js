@@ -1,4 +1,4 @@
-const CACHE_VERSION = "travel-english-v46";
+const CACHE_VERSION = "travel-english-v47";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -10,6 +10,14 @@ const APP_SHELL = [
   "./assets/nav-home-figma.png",
   "./assets/nav-learn-figma.png",
   "./assets/nav-review-figma.png",
+  "./assets/learn-scene-airport.png",
+  "./assets/learn-scene-transport.png",
+  "./assets/learn-scene-hotel.png",
+  "./assets/learn-scene-restaurant.png",
+  "./assets/learn-scene-shopping.png",
+  "./assets/learn-practice-listening.png",
+  "./assets/learn-practice-speaking.png",
+  "./assets/learn-practice-chat.png",
   "./assets/review-play-figma.svg",
   "./assets/review-slow-figma.svg",
   "./assets/review-wrongbook-figma.png",
