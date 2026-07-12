@@ -5695,7 +5695,7 @@
       z-index: 2;
       top: 28.62%;
       left: 24.133%;
-      overflow: hidden;
+      overflow: visible;
       pointer-events: none;
     }
 
@@ -5722,6 +5722,12 @@
       display: block;
       max-width: none;
       object-fit: fill;
+      transform-origin: 50% 82%;
+      will-change: transform;
+    }
+
+    .home-route-star.is-hopping img {
+      animation: home-star-hop 440ms cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .home-route-node {
@@ -5793,6 +5799,10 @@
       transform: translate(-5px, -25%) scale(0.92);
     }
 
+    .home-route-node.is-launching .home-route-node-label {
+      color: var(--home-blue);
+    }
+
     .home-route-node.is-launching .home-route-node-dot::after {
       animation: home-route-ripple 420ms ease-out both;
     }
@@ -5800,6 +5810,14 @@
     @keyframes home-route-ripple {
       from { opacity: 0.72; transform: scale(0.6); }
       to { opacity: 0; transform: scale(2); }
+    }
+
+    @keyframes home-star-hop {
+      0% { transform: translateY(0) scale(1) rotate(0); }
+      18% { transform: translateY(1px) scale(1.08, 0.94) rotate(0); }
+      48% { transform: translateY(-9px) scale(0.96, 1.12) rotate(-5deg); }
+      76% { transform: translateY(0) scale(1.04, 0.98) rotate(3deg); }
+      100% { transform: translateY(0) scale(1) rotate(0); }
     }
 
     .home-figma-content {
@@ -5820,6 +5838,11 @@
       padding: clamp(16px, 4.267cqw, 32px) clamp(20px, 5.333cqw, 40px);
       border-radius: clamp(10px, 2.667cqw, 20px);
       background: #fff;
+    }
+
+    .home-figma-summary,
+    .home-figma-course {
+      transition: transform 160ms ease, box-shadow 160ms ease;
     }
 
     .home-figma-summary div {
@@ -5926,6 +5949,7 @@
       height: 100%;
       border-radius: inherit;
       background: #192e41;
+      transition: width 320ms cubic-bezier(0.2, 0.8, 0.2, 1);
     }
 
     .home-figma-action {
@@ -5944,6 +5968,23 @@
     .home-figma-action:active {
       background: #243e55;
       transform: scale(0.985);
+    }
+
+    .home-figma-action.is-launching {
+      background: #243e55;
+      animation: home-action-confirm 380ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .home-figma-course.is-launching {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 34px rgba(25, 46, 65, 0.08);
+    }
+
+    @keyframes home-action-confirm {
+      0% { transform: scale(1); }
+      35% { transform: scale(0.975); }
+      72% { transform: scale(1.018); }
+      100% { transform: scale(1); }
     }
 
     .app.has-tabbar .bottom-nav.figma-bottom-nav {
@@ -6079,6 +6120,7 @@
       font-size: 14px;
       font-weight: 400;
       letter-spacing: -0.923px;
+      transition: transform 150ms ease, background-color 150ms ease, color 150ms ease;
     }
 
     .figma-bottom-nav .nav-btn.active {
@@ -6092,7 +6134,8 @@
       display: block;
       flex: 0 0 auto;
       position: relative;
-      overflow: hidden;
+      overflow: visible;
+      transform-origin: 50% 82%;
     }
 
     .figma-bottom-nav .nav-btn b::after {
@@ -6108,6 +6151,35 @@
       display: block;
       max-width: none;
       object-fit: fill;
+      transform-origin: 50% 82%;
+      will-change: transform;
+      transition: transform 150ms ease;
+    }
+
+    .figma-bottom-nav .nav-btn:active,
+    .figma-bottom-nav .nav-btn.is-switching {
+      transform: scale(0.94);
+    }
+
+    .figma-bottom-nav .nav-btn.nav-pulse {
+      animation: tab-capsule-pop 360ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .figma-bottom-nav .nav-btn.nav-pulse img {
+      animation: tab-icon-pop 420ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes tab-capsule-pop {
+      0% { transform: scale(0.96); }
+      58% { transform: scale(1.035); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes tab-icon-pop {
+      0% { transform: translateY(0) scale(1); }
+      28% { transform: translateY(1px) scale(1.08, 0.94); }
+      64% { transform: translateY(-3px) scale(0.96, 1.12) rotate(-3deg); }
+      100% { transform: translateY(0) scale(1) rotate(0); }
     }
 
     /* Figma 93:71 / 94:225 learning tabs. */
@@ -6205,7 +6277,7 @@
       flex-direction: column;
       align-items: center;
       gap: clamp(24px, 6.4cqw, 48px);
-      padding: clamp(24px, 6.4cqw, 48px) var(--figma-side) var(--figma-tabbar-h);
+      padding: clamp(24px, 6.4cqw, 48px) var(--figma-x) var(--figma-tabbar-h);
       overflow: hidden;
       touch-action: pan-y;
     }
@@ -6219,7 +6291,7 @@
     }
 
     .learn-tab-list {
-      width: min(94.667cqw, 710px);
+      width: 100%;
       min-height: clamp(60px, 16cqw, 120px);
       display: flex;
       align-items: center;
@@ -6291,21 +6363,152 @@
       height: clamp(44px, 11.733cqw, 88px);
       position: relative;
       flex: 0 0 auto;
-      border: 1px dashed rgba(25, 46, 65, 0.35);
-      border-radius: 10px;
-      background: rgba(255, 255, 255, 0.28);
+      display: grid;
+      place-items: center;
+      overflow: visible;
+      border: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.26);
+      transform-origin: 50% 82%;
+      --icon-bg: rgba(255, 255, 255, 0.52);
+      --icon-fill: #ffffff;
+      --icon-accent: #467ffb;
+      --icon-ink: #192e41;
     }
 
     .learn-icon-placeholder::after {
+      display: none;
+    }
+
+    .learn-icon-placeholder::before {
       content: "";
-      width: 10px;
-      height: 10px;
+      width: 76%;
+      height: 76%;
       position: absolute;
-      top: 50%;
-      left: 50%;
-      border: 1px solid rgba(25, 46, 65, 0.32);
+      left: 12%;
+      top: 18%;
+      z-index: 0;
       border-radius: 50%;
-      transform: translate(-50%, -50%);
+      background: var(--icon-bg);
+      filter: blur(0.2px);
+      transform: scale(0.9);
+    }
+
+    .learn-icon-placeholder.scene-airport {
+      --icon-bg: rgba(219, 241, 255, 0.72);
+      --icon-accent: #467ffb;
+    }
+
+    .learn-icon-placeholder.scene-transport,
+    .learn-icon-placeholder.practice-listening {
+      --icon-bg: rgba(255, 220, 220, 0.58);
+      --icon-accent: #ff6f7d;
+    }
+
+    .learn-icon-placeholder.scene-transport::before,
+    .learn-icon-placeholder.practice-listening::before {
+      background: var(--icon-bg);
+    }
+
+    .learn-icon-placeholder.scene-hotel,
+    .learn-icon-placeholder.practice-speaking {
+      --icon-bg: rgba(230, 235, 220, 0.72);
+      --icon-accent: #6f8f63;
+    }
+
+    .learn-icon-placeholder.scene-hotel::before,
+    .learn-icon-placeholder.practice-speaking::before {
+      background: var(--icon-bg);
+    }
+
+    .learn-icon-placeholder.scene-restaurant {
+      --icon-bg: rgba(255, 225, 140, 0.5);
+      --icon-accent: #f0a83a;
+    }
+
+    .learn-icon-placeholder.scene-restaurant::before {
+      background: var(--icon-bg);
+    }
+
+    .learn-icon-placeholder.scene-shopping,
+    .learn-icon-placeholder.practice-chat {
+      --icon-bg: rgba(255, 225, 80, 0.32);
+      --icon-accent: #ffbf1f;
+    }
+
+    .learn-icon-placeholder.scene-shopping::before,
+    .learn-icon-placeholder.practice-chat::before {
+      background: var(--icon-bg);
+    }
+
+    .learn-illustration-svg {
+      width: 86%;
+      height: 86%;
+      position: relative;
+      z-index: 1;
+      display: block;
+      max-width: none;
+      transform-origin: 50% 82%;
+      will-change: transform;
+      filter: drop-shadow(0 8px 10px rgba(25, 46, 65, 0.1));
+      transition: transform 180ms cubic-bezier(0.16, 1, 0.3, 1), filter 180ms ease;
+    }
+
+    .learn-illustration-svg .icon-fill {
+      fill: var(--icon-fill);
+    }
+
+    .learn-illustration-svg .icon-accent {
+      fill: var(--icon-accent);
+      stroke: var(--icon-accent);
+    }
+
+    .learn-illustration-svg .icon-line {
+      fill: none;
+      stroke: var(--icon-ink);
+      stroke-width: 3.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      vector-effect: non-scaling-stroke;
+    }
+
+    .learn-icon-placeholder.scene-airport .learn-illustration-svg,
+    .learn-icon-placeholder.scene-shopping .learn-illustration-svg {
+      width: 92%;
+      height: 92%;
+    }
+
+    .learn-scene-pill:active .learn-illustration-svg,
+    .learn-practice-card:active .learn-illustration-svg {
+      transform: translateY(-2px) scale(1.06) rotate(-2deg);
+    }
+
+    .learn-scene-pill.is-launching,
+    .learn-practice-card.is-launching {
+      transform: translateY(-1px) scale(0.99);
+    }
+
+    .learn-scene-pill.is-launching .learn-illustration-svg,
+    .learn-practice-card.is-launching .learn-illustration-svg {
+      animation: learn-sticker-bounce 420ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .learn-scene-pill.is-launching .learn-entry-arrow,
+    .learn-practice-card.is-launching .learn-entry-arrow {
+      animation: learn-arrow-nudge 360ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes learn-sticker-bounce {
+      0% { transform: translateY(0) scale(1); }
+      28% { transform: translateY(1px) scale(1.08, 0.94); }
+      68% { transform: translateY(-5px) scale(0.97, 1.1) rotate(-4deg); }
+      100% { transform: translateY(0) scale(1) rotate(0); }
+    }
+
+    @keyframes learn-arrow-nudge {
+      0% { transform: translateX(0); opacity: 1; }
+      48% { transform: translateX(7px); opacity: 0.7; }
+      100% { transform: translateX(0); opacity: 1; }
     }
 
     .learn-scene-name {
@@ -6337,7 +6540,7 @@
     }
 
     .learn-practice-grid {
-      width: min(94.667cqw, 710px);
+      width: 100%;
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: clamp(20px, 5.333cqw, 40px) clamp(10px, 2.667cqw, 20px);
@@ -7401,6 +7604,53 @@
       object-fit: contain;
     }
 
+    .app.vocabStudy .immersion-progress-track span {
+      position: relative;
+      overflow: hidden;
+      transition: width 360ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .app.vocabStudy .immersion-progress-track span::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+      transform: translateX(-120%);
+      animation: immersionProgressSheen 1500ms ease-out;
+    }
+
+    .app.vocabStudy .immersion-learning-card {
+      position: relative;
+      overflow: hidden;
+      transform-origin: center 62%;
+      transition: none;
+    }
+
+    .app.vocabStudy .immersion-learning-card::before {
+      display: none;
+    }
+
+    .app.vocabStudy .immersion-learning-card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .app.vocabStudy .immersion-learning-card.from-next {
+      animation: none;
+    }
+
+    .app.vocabStudy .immersion-learning-card.from-prev {
+      animation: none;
+    }
+
+    .app.vocabStudy .immersion-learning-card.is-speaking {
+      background: var(--immersion-panel);
+    }
+
+    .app.vocabStudy .immersion-learning-card.is-speaking .immersion-word-block .en {
+      color: var(--immersion-ink);
+    }
+
     .app.vocabStudy .immersion-tool-button {
       width: clamp(28px, 7.507cqw, 56.3px);
       min-width: clamp(28px, 7.507cqw, 56.3px);
@@ -7427,6 +7677,194 @@
       width: 100%;
       height: 100%;
       object-fit: contain;
+    }
+
+    .app.vocabStudy .immersion-tool-button.is-playing,
+    .app.vocabStudy .immersion-example-button.is-playing {
+      animation: immersionIconPulse 820ms ease-in-out infinite;
+    }
+
+    .app.vocabStudy .immersion-example-button.is-playing::after,
+    .app.vocabStudy .immersion-tool-button.is-playing::after {
+      content: "";
+      position: absolute;
+      inset: 16%;
+      border-radius: 999px;
+      border: 1.5px solid rgba(70, 127, 251, 0.35);
+      opacity: 0;
+      animation: immersionSoundRing 820ms ease-out infinite;
+      pointer-events: none;
+    }
+
+    .app.vocabStudy .immersion-tool-button,
+    .app.vocabStudy .immersion-example-button,
+    .app.vocabStudy .immersion-control-button,
+    .app.vocabStudy .immersion-favorite,
+    .app.vocabStudy .immersion-master-button {
+      position: relative;
+      transition: transform 150ms ease, opacity 150ms ease, color 150ms ease, background-color 150ms ease;
+    }
+
+    .app.vocabStudy .immersion-tool-button:active,
+    .app.vocabStudy .immersion-example-button:active,
+    .app.vocabStudy .immersion-control-button:not(:disabled):active,
+    .app.vocabStudy .immersion-favorite:active,
+    .app.vocabStudy .immersion-master-button:active {
+      transform: scale(0.94);
+    }
+
+    .app.vocabStudy .immersion-master-button.pulse {
+      animation: immersionButtonConfirm 460ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .app.vocabStudy .immersion-favorite.pulse img {
+      animation: immersionFavoritePop 520ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .app.vocabStudy .immersion-control-button.next:not(:disabled) img {
+      transform: none;
+    }
+
+    .app.vocabStudy .immersion-control-button.next:not(:disabled):active img {
+      transform: translateX(2px);
+    }
+
+    .app.vocabStudy .immersion-control-button.previous:not(:disabled):active img {
+      transform: translateX(-2px);
+    }
+
+    .app.vocabStudy .immersion-complete-card {
+      animation: immersionCompleteRise 420ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .app.vocabStudy .immersion-complete-badge img {
+      animation: immersionFavoritePop 620ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes immersionCardNext {
+      from {
+        opacity: 0;
+        transform: translateX(18px) scale(0.985);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+      }
+    }
+
+    @keyframes immersionCardPrev {
+      from {
+        opacity: 0;
+        transform: translateX(-18px) scale(0.985);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+      }
+    }
+
+    @keyframes immersionOrbFloat {
+      from {
+        transform: translate3d(0, 0, 0) scale(1);
+      }
+      to {
+        transform: translate3d(-10px, 12px, 0) scale(1.04);
+      }
+    }
+
+    @keyframes immersionIconPulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.14);
+      }
+    }
+
+    @keyframes immersionSoundRing {
+      0% {
+        opacity: 0.55;
+        transform: scale(0.76);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(1.72);
+      }
+    }
+
+    @keyframes immersionFavoritePop {
+      0% {
+        transform: scale(0.72) rotate(-8deg);
+      }
+      62% {
+        transform: scale(1.2) rotate(5deg);
+      }
+      100% {
+        transform: scale(1) rotate(0);
+      }
+    }
+
+    @keyframes immersionButtonConfirm {
+      0% {
+        transform: scale(1);
+      }
+      38% {
+        transform: scale(0.96);
+      }
+      72% {
+        transform: scale(1.035);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    @keyframes immersionCompleteRise {
+      from {
+        opacity: 0;
+        transform: translateY(18px) scale(0.98);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes immersionProgressSheen {
+      0% {
+        transform: translateX(-120%);
+      }
+      100% {
+        transform: translateX(130%);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .app.vocabStudy .immersion-learning-card,
+      .app.vocabStudy .immersion-learning-card::before,
+      .app.vocabStudy .immersion-tool-button,
+      .app.vocabStudy .immersion-example-button,
+      .app.vocabStudy .immersion-master-button,
+      .app.vocabStudy .immersion-favorite img,
+      .app.vocabStudy .immersion-complete-card,
+      .app.vocabStudy .immersion-complete-badge img,
+      .app.vocabStudy .immersion-progress-track span::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+
+    .app.vocabStudy.motion-off .immersion-learning-card,
+    .app.vocabStudy.motion-off .immersion-learning-card::before,
+    .app.vocabStudy.motion-off .immersion-tool-button,
+    .app.vocabStudy.motion-off .immersion-example-button,
+    .app.vocabStudy.motion-off .immersion-master-button,
+    .app.vocabStudy.motion-off .immersion-favorite img,
+    .app.vocabStudy.motion-off .immersion-complete-card,
+    .app.vocabStudy.motion-off .immersion-complete-badge img,
+    .app.vocabStudy.motion-off .immersion-progress-track span::after {
+      animation: none !important;
+      transition: none !important;
     }
 
     /* Typography sync from latest Figma file (750px design base). */
@@ -7791,15 +8229,58 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .learn-tab-panel { animation: none; }
+      .learn-tab-panel,
+      .learn-scene-pill.is-launching .learn-illustration-svg,
+      .learn-practice-card.is-launching .learn-illustration-svg,
+      .learn-scene-pill.is-launching .learn-entry-arrow,
+      .learn-practice-card.is-launching .learn-entry-arrow {
+        animation: none;
+      }
+      .learn-illustration-svg {
+        transition: none;
+      }
       .review-tab-button,
       .review-wrong-pill { transition: none; }
     }
 
     @media (prefers-reduced-motion: reduce) {
       .home-route-node,
-      .home-figma-action { transition: none; }
+      .home-route-star img,
+      .home-figma-summary,
+      .home-figma-course,
+      .home-figma-action,
+      .home-figma-progress-track span,
+      .figma-bottom-nav .nav-btn,
+      .figma-bottom-nav .nav-btn img { transition: none; }
       .home-route-node.is-launching .home-route-node-dot::after { animation: none; }
+      .home-route-star.is-hopping img,
+      .home-figma-action.is-launching,
+      .figma-bottom-nav .nav-btn.nav-pulse,
+      .figma-bottom-nav .nav-btn.nav-pulse img { animation: none; }
+    }
+
+    .app.home.motion-off .home-route-node,
+    .app.home.motion-off .home-route-star img,
+    .app.home.motion-off .home-figma-summary,
+    .app.home.motion-off .home-figma-course,
+    .app.home.motion-off .home-figma-action,
+    .app.home.motion-off .home-figma-progress-track span,
+    .app.learn.motion-off .learn-illustration-svg,
+    .app.motion-off .figma-bottom-nav .nav-btn,
+    .app.motion-off .figma-bottom-nav .nav-btn img {
+      transition: none;
+    }
+
+    .app.home.motion-off .home-route-node.is-launching .home-route-node-dot::after,
+    .app.home.motion-off .home-route-star.is-hopping img,
+    .app.home.motion-off .home-figma-action.is-launching,
+    .app.learn.motion-off .learn-scene-pill.is-launching .learn-illustration-svg,
+    .app.learn.motion-off .learn-practice-card.is-launching .learn-illustration-svg,
+    .app.learn.motion-off .learn-scene-pill.is-launching .learn-entry-arrow,
+    .app.learn.motion-off .learn-practice-card.is-launching .learn-entry-arrow,
+    .app.motion-off .figma-bottom-nav .nav-btn.nav-pulse,
+    .app.motion-off .figma-bottom-nav .nav-btn.nav-pulse img {
+      animation: none;
     }
 
     /* Secondary pages 2.0: applies the complete UI guidelines to pages outside home/learn/review/immersion. */
@@ -9334,6 +9815,290 @@
       color: #467ffb;
     }
 
+    /* Unified trigger-only feedback for secondary pages. No idle animation. */
+    .learn-tab-button,
+    .learn-scene-pill,
+    .learn-practice-card,
+    .review-tab-button,
+    .review-wrong-pill,
+    .review-card,
+    .secondary-tab,
+    .secondary-primary-action,
+    .secondary-action,
+    .vocab-card,
+    .phrase-study-card,
+    .listening-card,
+    .speaking-card,
+    .chat-prompt-card,
+    .wrong-book-summary,
+    .review-question-card,
+    .detail-word-card,
+    .detail-example-card,
+    .detail-related-item,
+    .global-chat-entry,
+    .module-audio-button,
+    .ui-round-button,
+    .vocab-audio-button,
+    .phrase-audio-button,
+    .vocab-pronunciation-button,
+    .vocab-favorite-button,
+    .phrase-favorite-button,
+    .speaking-favorite-button,
+    .chat-icon-button,
+    .bubble-play {
+      transition:
+        transform 160ms cubic-bezier(0.2, 0.8, 0.2, 1),
+        box-shadow 160ms ease,
+        border-color 160ms ease,
+        background-color 160ms ease,
+        color 160ms ease,
+        opacity 160ms ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .learn-scene-pill:active,
+    .learn-practice-card:active,
+    .review-card:active,
+    .review-wrong-pill:active,
+    .secondary-tab:active,
+    .secondary-primary-action:active,
+    .secondary-action:active,
+    .vocab-card:active,
+    .phrase-study-card:active,
+    .listening-card:active,
+    .speaking-card:active,
+    .chat-prompt-card:active,
+    .wrong-book-summary:active,
+    .review-question-card:active,
+    .detail-related-item:active,
+    .global-chat-entry:active {
+      transform: translateY(1px) scale(0.985);
+    }
+
+    .module-audio-button:active,
+    .ui-round-button:active,
+    .vocab-audio-button:active,
+    .phrase-audio-button:active,
+    .vocab-pronunciation-button:active,
+    .vocab-favorite-button:active,
+    .phrase-favorite-button:active,
+    .speaking-favorite-button:active,
+    .chat-icon-button:active,
+    .bubble-play:active {
+      transform: scale(0.88);
+    }
+
+    .learn-tab-button.active,
+    .review-tab-button.active,
+    .secondary-tab.active {
+      animation: rest-tab-settle 280ms cubic-bezier(0.2, 0.9, 0.2, 1);
+    }
+
+    .learn-tab-button.active img,
+    .secondary-tab.active .figma-icon,
+    .secondary-tab.active .figma-text-icon,
+    .review-tab-button.active {
+      animation: rest-icon-pop 280ms cubic-bezier(0.2, 0.9, 0.2, 1);
+    }
+
+    .learn-entry-arrow,
+    .learn-practice-card .learn-entry-arrow,
+    .global-chat-entry .learn-entry-arrow {
+      transition: transform 180ms ease;
+    }
+
+    .learn-scene-pill:active .learn-entry-arrow,
+    .learn-practice-card:active .learn-entry-arrow,
+    .global-chat-entry:active .learn-entry-arrow {
+      transform: translateX(4px);
+    }
+
+    .listening-option.correct,
+    .listening-option.wrong,
+    .chat-choice-button:active,
+    .chat-submit-button:active,
+    .chat-secondary-button:active {
+      animation: rest-choice-settle 260ms cubic-bezier(0.2, 0.9, 0.2, 1);
+    }
+
+    .learning-feedback,
+    .speech-result,
+    .wrong-book-empty,
+    .empty-review-card,
+    .chat-empty-card {
+      animation: rest-feedback-in 260ms ease both;
+    }
+
+    .chat-page .bubble:last-of-type,
+    .globalChat .bubble:last-of-type {
+      animation: rest-chat-in 260ms cubic-bezier(0.2, 0.9, 0.2, 1) both;
+    }
+
+    .scene-course-progressbar span,
+    .secondary-progress-card .progress-track span,
+    .review-progress-track span,
+    .wrong-book-summary .progress-track span {
+      transition: width 360ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .vocab-card.is-mastered,
+    .phrase-study-card.is-mastered,
+    .speaking-card.is-complete {
+      background: #ffffff;
+    }
+
+    @keyframes rest-tab-settle {
+      0% { transform: scale(0.98); }
+      58% { transform: scale(1.025); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes rest-icon-pop {
+      0% { transform: scale(0.9); }
+      62% { transform: scale(1.12); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes rest-choice-settle {
+      0% { transform: scale(0.98); }
+      60% { transform: scale(1.015); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes rest-feedback-in {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes rest-chat-in {
+      from {
+        opacity: 0;
+        transform: translateY(8px) scale(0.985);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .learn-tab-button,
+      .learn-scene-pill,
+      .learn-practice-card,
+      .review-tab-button,
+      .review-wrong-pill,
+      .review-card,
+      .secondary-tab,
+      .secondary-primary-action,
+      .secondary-action,
+      .vocab-card,
+      .phrase-study-card,
+      .listening-card,
+      .speaking-card,
+      .chat-prompt-card,
+      .wrong-book-summary,
+      .review-question-card,
+      .detail-word-card,
+      .detail-example-card,
+      .detail-related-item,
+      .global-chat-entry,
+      .module-audio-button,
+      .ui-round-button,
+      .vocab-audio-button,
+      .phrase-audio-button,
+      .vocab-pronunciation-button,
+      .vocab-favorite-button,
+      .phrase-favorite-button,
+      .speaking-favorite-button,
+      .chat-icon-button,
+      .bubble-play {
+        transition: none;
+      }
+
+      .learn-tab-button.active,
+      .review-tab-button.active,
+      .secondary-tab.active,
+      .learn-tab-button.active img,
+      .secondary-tab.active .figma-icon,
+      .secondary-tab.active .figma-text-icon,
+      .review-tab-button.active,
+      .listening-option.correct,
+      .listening-option.wrong,
+      .chat-choice-button:active,
+      .chat-submit-button:active,
+      .chat-secondary-button:active,
+      .learning-feedback,
+      .speech-result,
+      .wrong-book-empty,
+      .empty-review-card,
+      .chat-empty-card,
+      .chat-page .bubble:last-of-type,
+      .globalChat .bubble:last-of-type {
+        animation: none;
+      }
+    }
+
+    .app.motion-off .learn-tab-button,
+    .app.motion-off .learn-scene-pill,
+    .app.motion-off .learn-practice-card,
+    .app.motion-off .review-tab-button,
+    .app.motion-off .review-wrong-pill,
+    .app.motion-off .review-card,
+    .app.motion-off .secondary-tab,
+    .app.motion-off .secondary-primary-action,
+    .app.motion-off .secondary-action,
+    .app.motion-off .vocab-card,
+    .app.motion-off .phrase-study-card,
+    .app.motion-off .listening-card,
+    .app.motion-off .speaking-card,
+    .app.motion-off .chat-prompt-card,
+    .app.motion-off .wrong-book-summary,
+    .app.motion-off .review-question-card,
+    .app.motion-off .detail-word-card,
+    .app.motion-off .detail-example-card,
+    .app.motion-off .detail-related-item,
+    .app.motion-off .global-chat-entry,
+    .app.motion-off .module-audio-button,
+    .app.motion-off .ui-round-button,
+    .app.motion-off .vocab-audio-button,
+    .app.motion-off .phrase-audio-button,
+    .app.motion-off .vocab-pronunciation-button,
+    .app.motion-off .vocab-favorite-button,
+    .app.motion-off .phrase-favorite-button,
+    .app.motion-off .speaking-favorite-button,
+    .app.motion-off .chat-icon-button,
+    .app.motion-off .bubble-play {
+      transition: none;
+    }
+
+    .app.motion-off .learn-tab-button.active,
+    .app.motion-off .review-tab-button.active,
+    .app.motion-off .secondary-tab.active,
+    .app.motion-off .learn-tab-button.active img,
+    .app.motion-off .secondary-tab.active .figma-icon,
+    .app.motion-off .secondary-tab.active .figma-text-icon,
+    .app.motion-off .review-tab-button.active,
+    .app.motion-off .listening-option.correct,
+    .app.motion-off .listening-option.wrong,
+    .app.motion-off .chat-choice-button:active,
+    .app.motion-off .chat-submit-button:active,
+    .app.motion-off .chat-secondary-button:active,
+    .app.motion-off .learning-feedback,
+    .app.motion-off .speech-result,
+    .app.motion-off .wrong-book-empty,
+    .app.motion-off .empty-review-card,
+    .app.motion-off .chat-empty-card,
+    .app.motion-off .chat-page .bubble:last-of-type,
+    .app.motion-off .globalChat .bubble:last-of-type {
+      animation: none;
+    }
+
     .app.scene.vocabulary-page .secondary-progress-card .secondary-primary-action {
       margin-top: clamp(10px, 2.667cqw, 20px);
     }
@@ -9503,6 +10268,101 @@
     .app.scene.vocabulary-page .vocab-collapse-btn .figma-icon-chevron-up {
       width: clamp(20px, 5.333cqw, 40px);
       height: clamp(20px, 5.333cqw, 40px);
+    }
+
+    .app.scene.vocabulary-page .vocab-card-actions,
+    .app.vocabDetail .detail-main-actions {
+      grid-template-columns: minmax(0, 1fr) clamp(48px, 12.8cqw, 96px);
+      align-items: center;
+      gap: clamp(12px, 3.2cqw, 24px);
+      margin-top: clamp(14px, 3.733cqw, 28px);
+    }
+
+    .app.scene.vocabulary-page .vocab-favorite-button,
+    .app.vocabDetail .vocab-favorite-button {
+      width: clamp(48px, 12.8cqw, 96px);
+      min-width: clamp(48px, 12.8cqw, 96px);
+      height: clamp(44px, 11.733cqw, 88px);
+      min-height: clamp(44px, 11.733cqw, 88px);
+      display: grid;
+      place-items: center;
+      align-self: center;
+      justify-self: center;
+      border: 0;
+      border-radius: 0;
+      padding: 0;
+      color: rgba(25, 46, 65, 0.68);
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .app.scene.vocabulary-page .vocab-favorite-button.active,
+    .app.vocabDetail .vocab-favorite-button.active {
+      color: #ffc012;
+      background: transparent;
+    }
+
+    .app.scene.vocabulary-page .vocab-favorite-button .figma-icon-favorite,
+    .app.scene.vocabulary-page .vocab-favorite-button .figma-icon-favorite-active,
+    .app.vocabDetail .vocab-favorite-button .figma-icon-favorite,
+    .app.vocabDetail .vocab-favorite-button .figma-icon-favorite-active {
+      width: clamp(26px, 6.933cqw, 52px);
+      height: clamp(26px, 6.933cqw, 52px);
+    }
+
+    .app.scene .module-audio-button,
+    .app.scene .vocab-audio-button,
+    .app.scene .phrase-audio-button,
+    .app.scene .vocab-pronunciation-button,
+    .app.scene .chat-icon-button,
+    .app.scene .bubble-play,
+    .app.vocabDetail .module-audio-button,
+    .app.globalChat .module-audio-button,
+    .app.globalChat .chat-icon-button,
+    .app.globalChat .bubble-play,
+    .app.wrongBook .module-audio-button {
+      width: clamp(40px, 10.667cqw, 80px);
+      min-width: clamp(40px, 10.667cqw, 80px);
+      height: clamp(40px, 10.667cqw, 80px);
+      min-height: clamp(40px, 10.667cqw, 80px);
+      display: grid;
+      place-items: center;
+      border: 0;
+      border-radius: 0;
+      padding: 0;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .app.scene .module-audio-button .figma-icon-play,
+    .app.scene .module-audio-button .figma-icon-slow,
+    .app.scene .module-audio-button .figma-icon-mic,
+    .app.scene .vocab-audio-button .figma-icon-play,
+    .app.scene .vocab-audio-button .figma-icon-slow,
+    .app.scene .vocab-pronunciation-button .figma-icon-mic,
+    .app.scene .phrase-audio-button .figma-icon-play,
+    .app.scene .phrase-audio-button .figma-icon-slow,
+    .app.scene .chat-icon-button .figma-icon-play,
+    .app.scene .bubble-play .figma-icon-play,
+    .app.vocabDetail .module-audio-button .figma-icon-play,
+    .app.vocabDetail .module-audio-button .figma-icon-slow,
+    .app.vocabDetail .module-audio-button .figma-icon-mic,
+    .app.globalChat .module-audio-button .figma-icon-play,
+    .app.globalChat .module-audio-button .figma-icon-slow,
+    .app.globalChat .chat-icon-button .figma-icon-play,
+    .app.globalChat .bubble-play .figma-icon-play,
+    .app.wrongBook .module-audio-button .figma-icon-play,
+    .app.wrongBook .module-audio-button .figma-icon-slow {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .app.scene .module-audio-button .figma-icon-mic,
+    .app.scene .vocab-pronunciation-button .figma-icon-mic,
+    .app.vocabDetail .module-audio-button .figma-icon-mic {
+      width: clamp(30px, 8cqw, 60px);
+      height: clamp(30px, 8cqw, 60px);
     }
 
     .app.vocabStudy .immersion-titlebar {
@@ -10710,6 +11570,10 @@
       speechFeedback: {},
       activeRecognitionId: "",
       vocabStudyAutoPlayKey: "",
+      vocabStudyDirection: 1,
+      activeSpeechKey: "",
+      immersionPulseKey: "",
+      navPulseView: "",
       homeScrollTop: 0,
       homeSceneId: "",
       learnTab: "scenes",
@@ -10725,6 +11589,14 @@
     };
 
     const app = document.getElementById("app");
+
+    const immersionRuntime = {
+      pulseTimer: 0
+    };
+
+    const navRuntime = {
+      pulseTimer: 0
+    };
 
     function loadFeedbackSettings() {
       const fallback = {
@@ -11563,6 +12435,16 @@
       return /[.!?]$/.test(normalized) ? normalized : `${normalized}.`;
     }
 
+    function stopSpeechPlayback() {
+      window.clearTimeout(speechRuntime.startTimer);
+      speechRuntime.token += 1;
+      speechRuntime.utterance = null;
+      state.activeSpeechKey = "";
+      if ("speechSynthesis" in window) {
+        window.speechSynthesis.cancel();
+      }
+    }
+
     function speak(text, rate = SPEECH_RATE_NORMAL, options = {}) {
       if (!("speechSynthesis" in window)) {
         if (!options.silent) {
@@ -11575,6 +12457,7 @@
 
       const synthesis = window.speechSynthesis;
       const wasActive = synthesis.speaking || synthesis.pending;
+      const visualKey = options.visualKey || "";
       window.clearTimeout(speechRuntime.startTimer);
       speechRuntime.token += 1;
       const token = speechRuntime.token;
@@ -11592,7 +12475,15 @@
         if (voice) utterance.voice = voice;
         utterance.onend = utterance.onerror = () => {
           if (speechRuntime.utterance === utterance) speechRuntime.utterance = null;
+          if (visualKey && state.activeSpeechKey === visualKey) {
+            state.activeSpeechKey = "";
+            if (state.view === "vocabStudy") render();
+          }
         };
+        if (visualKey) {
+          state.activeSpeechKey = visualKey;
+          if (state.view === "vocabStudy") render();
+        }
         speechRuntime.utterance = utterance;
         synthesis.speak(utterance);
       };
@@ -11891,6 +12782,17 @@
       return coreScenes().filter(scene => moduleProgress(scene) === 100).length;
     }
 
+    function setImmersionPulse(key) {
+      state.immersionPulseKey = key;
+      window.clearTimeout(immersionRuntime.pulseTimer);
+      immersionRuntime.pulseTimer = window.setTimeout(() => {
+        if (state.immersionPulseKey === key) {
+          state.immersionPulseKey = "";
+          if (state.view === "vocabStudy") render();
+        }
+      }, state.feedbackSettings.motion ? 620 : 120);
+    }
+
     function markVocabLearned(sceneId, index) {
       const scene = sceneById(sceneId);
       const id = vocabId(scene, index);
@@ -11933,6 +12835,9 @@
       state.vocabStudyEntry = entry;
       state.showVocabExitConfirm = false;
       state.vocabStudyAutoPlayKey = "";
+      state.vocabStudyDirection = 1;
+      state.activeSpeechKey = "";
+      state.immersionPulseKey = "";
       setView("vocabStudy", {
         sceneId,
         module: "vocabulary",
@@ -11942,6 +12847,16 @@
 
     function startDailyTask(sceneId) {
       startVocabStudy(sceneId, "daily");
+    }
+
+    function beginHomeDailyTask(sceneId, button) {
+      if (button?.classList.contains("is-launching")) return;
+      button?.classList.add("is-launching");
+      button?.closest(".home-figma-course")?.classList.add("is-launching");
+      if (typeof navigator.vibrate === "function" && state.feedbackSettings.haptics) navigator.vibrate(12);
+      window.setTimeout(() => {
+        startDailyTask(sceneId);
+      }, state.feedbackSettings.motion ? 170 : 0);
     }
 
     function cancelVocabStudyExit() {
@@ -11954,12 +12869,16 @@
       state.vocabStudyEntry = "scene";
       state.vocabStudyDone = false;
       state.vocabStudyAutoPlayKey = "";
+      stopSpeechPlayback();
       setView("home");
     }
 
     function skipStudyVocab() {
       const scene = sceneById(state.sceneId);
       const nextIndex = nextVocabIndex(scene, state.vocabIndex);
+      feedbackHaptic("sent");
+      stopSpeechPlayback();
+      state.vocabStudyDirection = 1;
       if (nextIndex < 0) {
         state.vocabStudyDone = true;
       } else {
@@ -11974,6 +12893,9 @@
       const order = orderedVocabIndexes(scene);
       const currentPosition = order.indexOf(state.vocabIndex);
       if (currentPosition > 0) {
+        feedbackHaptic("sent");
+        stopSpeechPlayback();
+        state.vocabStudyDirection = -1;
         state.vocabIndex = order[currentPosition - 1];
         state.vocabStudyDone = false;
       }
@@ -11986,13 +12908,29 @@
       if (state.progress.learnedVocabIds.includes(id)) {
         removeItem("learnedVocabIds", id);
         state.vocabStudyDone = false;
+        setImmersionPulse(`master:${id}`);
         render();
         return;
       }
 
       addUnique("learnedVocabIds", id);
+      setImmersionPulse(`master:${id}`);
       render();
       triggerFeedback(moduleCompleted(scene, "vocabulary") ? "complete" : "mastered", moduleProgress(scene) === 100 ? `${scene.title}已准备` : moduleCompleted(scene, "vocabulary") ? "词汇模块完成" : "已掌握");
+    }
+
+    function toggleImmersionFavorite(id) {
+      setImmersionPulse(`favorite:${id}`);
+      const list = state.progress.favoriteIds;
+      if (list.includes(id)) {
+        state.progress.favoriteIds = list.filter(item => item !== id);
+      } else {
+        state.progress.favoriteIds = [...list, id];
+      }
+      touchProgressItem(id);
+      saveProgress();
+      feedbackHaptic("sent");
+      render();
     }
 
     function toggleVocabExpanded(id) {
@@ -12028,6 +12966,102 @@
 
     function assetIcon(name, className = "ui-icon", alt = "") {
       return `<img class="${className}" src="assets/${name}" alt="${alt}" aria-hidden="${alt ? "false" : "true"}">`;
+    }
+
+    function learnIllustrationSvg(kind) {
+      const icons = {
+        airport: `
+          <svg class="learn-illustration-svg" viewBox="0 0 64 64" aria-hidden="true">
+            <path class="icon-fill" d="M8 35.5 55.8 16.7c2.5-1 4.6 1.8 3 4L45.5 38.2l10.1 8.5-5.1 4.3-16.2-7.1-13.2 9.6-4.6-3.3 7.2-12.6-16.5-5.3z"/>
+            <path class="icon-accent" d="M42.5 26.2c3.1 1.1 6 2.7 8.5 4.6l-5.5 7.4-7.1-2.7z"/>
+            <path class="icon-line" d="M8 35.5 55.8 16.7c2.5-1 4.6 1.8 3 4L45.5 38.2l10.1 8.5-5.1 4.3-16.2-7.1-13.2 9.6-4.6-3.3 7.2-12.6-16.5-5.3z"/>
+            <path class="icon-line" d="M24 37.3 38.3 35.5M29.4 27.2l9.1 8.2"/>
+          </svg>
+        `,
+        transport: `
+          <svg class="learn-illustration-svg" viewBox="0 0 64 64" aria-hidden="true">
+            <rect class="icon-fill" x="13" y="10" width="38" height="36" rx="10"/>
+            <rect class="icon-accent" x="19" y="16" width="26" height="12" rx="4"/>
+            <path class="icon-line" d="M19 52h26M23 46l-5 8M41 46l5 8"/>
+            <rect class="icon-line" x="13" y="10" width="38" height="36" rx="10"/>
+            <path class="icon-line" d="M21 34h22M24 40h.1M40 40h.1"/>
+          </svg>
+        `,
+        hotel: `
+          <svg class="learn-illustration-svg" viewBox="0 0 64 64" aria-hidden="true">
+            <path class="icon-fill" d="M15 54V14c0-3.3 2.7-6 6-6h22c3.3 0 6 2.7 6 6v40z"/>
+            <path class="icon-accent" d="M25 54V42c0-2.2 1.8-4 4-4h6c2.2 0 4 1.8 4 4v12z"/>
+            <path class="icon-line" d="M15 54V14c0-3.3 2.7-6 6-6h22c3.3 0 6 2.7 6 6v40M10 54h44"/>
+            <path class="icon-line" d="M24 18h.1M32 18h.1M40 18h.1M24 28h.1M32 28h.1M40 28h.1M25 54V42c0-2.2 1.8-4 4-4h6c2.2 0 4 1.8 4 4v12"/>
+          </svg>
+        `,
+        restaurant: `
+          <svg class="learn-illustration-svg" viewBox="0 0 64 64" aria-hidden="true">
+            <path class="icon-line" d="M22 9v46M15 9v14c0 4 3 7 7 7s7-3 7-7V9M39 10c6 3 9 8 9 15 0 5-2 9-6 11v19"/>
+            <path class="icon-accent" d="M36 38c4.9 0 9-3.8 9-9.8 0-4.3-1.7-7.8-5.1-10.5 1.2 5.9.2 10.3-3 13.2-2.4 2.1-3.8 4.1-4.1 6 .9.7 1.9 1.1 3.2 1.1z"/>
+            <path class="icon-line" d="M36 38c4.9 0 9-3.8 9-9.8"/>
+          </svg>
+        `,
+        shopping: `
+          <svg class="learn-illustration-svg" viewBox="0 0 64 64" aria-hidden="true">
+            <path class="icon-fill" d="M16 23h32l-2.3 29.3c-.2 2.7-2.5 4.7-5.2 4.7h-17c-2.7 0-5-2-5.2-4.7z"/>
+            <path class="icon-accent" d="M22 23c.3-6.6 4.3-11 10-11s9.7 4.4 10 11"/>
+            <path class="icon-line" d="M16 23h32l-2.3 29.3c-.2 2.7-2.5 4.7-5.2 4.7h-17c-2.7 0-5-2-5.2-4.7zM22 23c.3-6.6 4.3-11 10-11s9.7 4.4 10 11"/>
+            <path class="icon-line" d="M24 33h.1M40 33h.1"/>
+          </svg>
+        `,
+        listening: `
+          <svg class="learn-illustration-svg" viewBox="0 0 64 64" aria-hidden="true">
+            <path class="icon-fill" d="M14 35c0-11.6 7.4-21 18-21s18 9.4 18 21v9c0 4-3.2 7-7.2 7H40V36h10M14 36h10v15h-2.8C17.2 51 14 48 14 44z"/>
+            <path class="icon-accent" d="M26 33h12v22H26z"/>
+            <path class="icon-line" d="M14 35c0-11.6 7.4-21 18-21s18 9.4 18 21M14 36h10v15h-2.8C17.2 51 14 48 14 44zm36 0H40v15h2.8c4 0 7.2-3 7.2-7z"/>
+            <path class="icon-line" d="M29 24h6"/>
+          </svg>
+        `,
+        speaking: `
+          <svg class="learn-illustration-svg" viewBox="0 0 64 64" aria-hidden="true">
+            <rect class="icon-fill" x="23" y="8" width="18" height="32" rx="9"/>
+            <path class="icon-accent" d="M25 18h14v8H25z"/>
+            <rect class="icon-line" x="23" y="8" width="18" height="32" rx="9"/>
+            <path class="icon-line" d="M16 30c0 9 6.8 16 16 16s16-7 16-16M32 46v10M24 56h16"/>
+          </svg>
+        `,
+        chat: `
+          <svg class="learn-illustration-svg" viewBox="0 0 64 64" aria-hidden="true">
+            <path class="icon-fill" d="M11 18c0-5 4-9 9-9h18c5 0 9 4 9 9v9c0 5-4 9-9 9H25l-11 8 3-9.1C13.5 33.6 11 30.2 11 26z"/>
+            <path class="icon-accent" d="M34 31h10c4.4 0 8 3.6 8 8v3c0 3.6-2.4 6.6-5.7 7.6L49 57l-9-6H29c-4.4 0-8-3.6-8-8v-2"/>
+            <path class="icon-line" d="M11 18c0-5 4-9 9-9h18c5 0 9 4 9 9v9c0 5-4 9-9 9H25l-11 8 3-9.1C13.5 33.6 11 30.2 11 26z"/>
+            <path class="icon-line" d="M22 23h.1M30 23h.1M38 23h.1M34 36h10c4.4 0 8 3.6 8 8"/>
+          </svg>
+        `
+      };
+      return icons[kind] || icons.airport;
+    }
+
+    function learnStickerIcon(kind, variant) {
+      return `<span class="learn-icon-placeholder learn-illustration ${variant}" aria-hidden="true">${learnIllustrationSvg(kind)}</span>`;
+    }
+
+    function learnSceneSticker(sceneId) {
+      const icons = {
+        airport: ["airport", "scene-airport"],
+        transport: ["transport", "scene-transport"],
+        hotel: ["hotel", "scene-hotel"],
+        restaurant: ["restaurant", "scene-restaurant"],
+        shopping: ["shopping", "scene-shopping"]
+      };
+      const [kind, variant] = icons[sceneId] || icons.airport;
+      return learnStickerIcon(kind, variant);
+    }
+
+    function learnPracticeSticker(type) {
+      const icons = {
+        listening: ["listening", "practice-listening"],
+        speaking: ["speaking", "practice-speaking"],
+        chat: ["chat", "practice-chat"]
+      };
+      const [kind, variant] = icons[type] || icons.listening;
+      return learnStickerIcon(kind, variant);
     }
 
     function uiIcon(name, className = "ui-icon") {
@@ -12234,6 +13268,9 @@
       const themeMeta = document.querySelector('meta[name="theme-color"]');
       if (themeMeta) themeMeta.content = isHome ? "#cde5e8" : (isLearn ? "#72b7db" : "#f6f7f4");
       app.className = ["home", "learn", "favorites"].includes(state.view) ? `app ${state.view} has-tabbar` : `app ${state.view}`;
+      if (!state.feedbackSettings.motion) {
+        app.classList.add("motion-off");
+      }
       if (state.view === "scene") {
         app.classList.add("learning-module-page", `${state.module || "vocabulary"}-page`);
       }
@@ -12356,7 +13393,7 @@
       state.vocabStudyAutoPlayKey = key;
       window.setTimeout(() => {
         if (state.view !== "vocabStudy" || state.vocabStudyDone || state.vocabStudyAutoPlayKey !== key) return;
-        speak(scene.vocab[index][0], SPEECH_RATE_NORMAL, { silent: true });
+        speak(scene.vocab[index][0], SPEECH_RATE_NORMAL, { silent: true, visualKey: `vocab:${key}:word` });
       }, 180);
     }
 
@@ -12369,6 +13406,33 @@
       return icons[name] || "";
     }
 
+    function switchPrimaryTab(view, button) {
+      const topViews = ["home", "learn", "favorites"];
+      if (!topViews.includes(view)) return;
+      if (typeof navigator.vibrate === "function" && state.feedbackSettings.haptics) navigator.vibrate(8);
+      button?.classList.add("is-switching");
+
+      if (state.view === view) {
+        button?.classList.add("nav-pulse");
+        window.setTimeout(() => {
+          button?.classList.remove("is-switching", "nav-pulse");
+        }, state.feedbackSettings.motion ? 420 : 0);
+        return;
+      }
+
+      state.navPulseView = view;
+      window.setTimeout(() => {
+        setView(view);
+        window.clearTimeout(navRuntime.pulseTimer);
+        navRuntime.pulseTimer = window.setTimeout(() => {
+          if (state.navPulseView === view) {
+            state.navPulseView = "";
+            if (["home", "learn", "favorites"].includes(state.view)) render();
+          }
+        }, state.feedbackSettings.motion ? 460 : 0);
+      }, state.feedbackSettings.motion ? 110 : 0);
+    }
+
     function bottomNav(active) {
       const navItems = [
         ["home", "首页", "assets/nav-home-figma.png"],
@@ -12378,7 +13442,7 @@
       return `
         <nav class="bottom-nav figma-bottom-nav" aria-label="主导航">
           ${navItems.map(([view, label, image]) => `
-            <button class="nav-btn nav-${view} ${active === view ? "active" : ""}" onclick="setView('${view}')" aria-current="${active === view ? "page" : "false"}">
+            <button class="nav-btn nav-${view} ${active === view ? "active" : ""} ${state.navPulseView === view ? "nav-pulse" : ""}" onclick="switchPrimaryTab('${view}', this)" aria-current="${active === view ? "page" : "false"}">
               <b><img src="${image}" alt="" aria-hidden="true"></b><span>${label}</span>
             </button>
           `).join("")}
@@ -12432,6 +13496,26 @@
       renderLearn();
     }
 
+    function launchLearnEntry(button, callback) {
+      if (button?.classList.contains("is-launching")) return;
+      button?.classList.add("is-launching");
+      button?.setAttribute("aria-busy", "true");
+      feedbackHaptic("sent");
+      window.setTimeout(callback, state.feedbackSettings.motion ? 150 : 0);
+    }
+
+    function openLearnScene(sceneId, moduleId, button) {
+      launchLearnEntry(button, () => setView("scene", { sceneId, module: moduleId }));
+    }
+
+    function openLearnPractice(sceneId, moduleId, button) {
+      launchLearnEntry(button, () => setView("scene", { sceneId, module: moduleId }));
+    }
+
+    function openLearnGlobalChat(button) {
+      launchLearnEntry(button, startGlobalChat);
+    }
+
     function beginLearnTabSwipe(event) {
       if (state.view !== "learn" || event.touches.length !== 1) return;
       const touch = event.touches[0];
@@ -12469,6 +13553,9 @@
       if (!scene || button?.classList.contains("is-launching")) return;
       button?.classList.add("is-launching");
       button?.setAttribute("aria-busy", "true");
+      const page = button?.closest(".home-page");
+      const star = page?.querySelector(".home-route-star");
+      star?.classList.add("is-hopping");
       if (typeof navigator.vibrate === "function" && state.feedbackSettings.haptics) navigator.vibrate(10);
       window.setTimeout(() => {
         const nextModule = nextCourseModule(scene).id;
@@ -12519,7 +13606,7 @@
                 </div>
                 <div class="home-figma-progress-track" aria-label="学习进度 ${lastProgress}%"><span style="width:${lastProgress}%"></span></div>
               </div>
-              <button class="home-figma-action" onclick="startDailyTask('${lastScene.id}')">继续学习</button>
+              <button class="home-figma-action" onclick="beginHomeDailyTask('${lastScene.id}', this)">继续学习</button>
             </section>
           </div>
         </div>
@@ -12551,8 +13638,8 @@
                 const progress = moduleProgress(scene);
                 const nextModule = nextCourseModule(scene);
                 return `
-                  <button class="learn-scene-pill ${scene.id === lastScene.id ? "current" : ""}" onclick="setView('scene', { sceneId: '${scene.id}', module: '${nextModule.id}' })" aria-label="${scene.title}，进度 ${progress}%">
-                    <span class="learn-icon-placeholder" aria-hidden="true"></span>
+                  <button class="learn-scene-pill ${scene.id === lastScene.id ? "current" : ""}" onclick="openLearnScene('${scene.id}', '${nextModule.id}', this)" aria-label="${scene.title}，进度 ${progress}%">
+                    ${learnSceneSticker(scene.id)}
                     <span class="learn-scene-name">${sceneEnglishTitle(scene.id)}</span>
                     <span class="learn-scene-percent">(${progress}%)</span>
                     <span class="learn-entry-arrow" aria-hidden="true">→</span>
@@ -12563,18 +13650,18 @@
           ` : `
             <section class="learn-tab-panel" role="tabpanel" aria-label="练习模式" style="--learn-tab-enter-x:${state.learnTabDirection < 0 ? "-10px" : "10px"}">
               <div class="learn-practice-grid">
-                <button class="learn-practice-card" onclick="setView('scene', { sceneId: '${lastScene.id}', module: 'listening' })">
-                  <span class="learn-practice-card-top"><span class="learn-icon-placeholder" aria-hidden="true"></span><span class="learn-entry-arrow" aria-hidden="true">→</span></span>
+                <button class="learn-practice-card" onclick="openLearnPractice('${lastScene.id}', 'listening', this)">
+                  <span class="learn-practice-card-top">${learnPracticeSticker("listening")}<span class="learn-entry-arrow" aria-hidden="true">→</span></span>
                   <h2>听说练习</h2>
                   <p>听问题<br>快速选出含义</p>
                 </button>
-                <button class="learn-practice-card" onclick="setView('scene', { sceneId: '${lastScene.id}', module: 'speaking' })">
-                  <span class="learn-practice-card-top"><span class="learn-icon-placeholder" aria-hidden="true"></span><span class="learn-entry-arrow" aria-hidden="true">→</span></span>
+                <button class="learn-practice-card" onclick="openLearnPractice('${lastScene.id}', 'speaking', this)">
+                  <span class="learn-practice-card-top">${learnPracticeSticker("speaking")}<span class="learn-entry-arrow" aria-hidden="true">→</span></span>
                   <h2>跟读练习</h2>
                   <p>听标准发音<br>练习开口</p>
                 </button>
-                <button class="learn-practice-card wide" onclick="startGlobalChat()">
-                  <span class="learn-practice-card-top"><span class="learn-icon-placeholder" aria-hidden="true"></span><span class="learn-entry-arrow" aria-hidden="true">→</span></span>
+                <button class="learn-practice-card wide" onclick="openLearnGlobalChat(this)">
+                  <span class="learn-practice-card-top">${learnPracticeSticker("chat")}<span class="learn-entry-arrow" aria-hidden="true">→</span></span>
                   <h2>全场景模拟聊天</h2>
                   <p>机场、交通、酒店、餐厅与购物混合问题</p>
                 </button>
@@ -12741,6 +13828,13 @@
       const learned = state.progress.learnedVocabIds.includes(id);
       const favorite = state.progress.favoriteIds.includes(id);
       const progress = order.length ? Math.round((learnedCount / order.length) * 100) : 0;
+      const wordSpeechKey = `vocab:${id}:word`;
+      const exampleSpeechKey = `vocab:${id}:example`;
+      const isWordPlaying = state.activeSpeechKey === wordSpeechKey;
+      const isExamplePlaying = state.activeSpeechKey === exampleSpeechKey;
+      const cardMotionClass = state.vocabStudyDirection < 0 ? "from-prev" : "from-next";
+      const masterPulse = state.immersionPulseKey === `master:${id}`;
+      const favoritePulse = state.immersionPulseKey === `favorite:${id}`;
 
       app.innerHTML = `
         <header class="immersion-titlebar">
@@ -12776,12 +13870,12 @@
               </div>
             </article>
           ` : `
-            <article class="immersion-learning-card tone-green" role="button" tabindex="0" onclick="openVocabDetail('${scene.id}', ${index})" onkeydown="openVocabDetailFromKey(event, '${scene.id}', ${index})">
+            <article class="immersion-learning-card tone-green ${cardMotionClass} ${isWordPlaying || isExamplePlaying ? "is-speaking" : ""}" role="button" tabindex="0" onclick="openVocabDetail('${scene.id}', ${index})" onkeydown="openVocabDetailFromKey(event, '${scene.id}', ${index})">
               <div class="immersion-word-block">
                 <div class="en">${item[0]}</div>
                 <div class="ipa">${item[1]}</div>
                 <div class="immersion-word-tools">
-                  <button class="immersion-tool-button" onclick="event.stopPropagation(); speak('${escapeQuote(item[0])}')" aria-label="播放词汇" title="播放词汇">
+                  <button class="immersion-tool-button ${isWordPlaying ? "is-playing" : ""}" onclick="event.stopPropagation(); speak('${escapeQuote(item[0])}', SPEECH_RATE_NORMAL, { visualKey: '${wordSpeechKey}' })" aria-label="播放词汇" title="播放词汇">
                     <img src="assets/immersion-word-audio-figma.svg" alt="" aria-hidden="true">
                   </button>
                 </div>
@@ -12792,10 +13886,10 @@
                 <div class="immersion-example-head">
                   <span class="immersion-example-tag">例句</span>
                   <div class="immersion-example-tools">
-                    <button class="immersion-example-button" onclick="event.stopPropagation(); speak('${escapeQuote(item[4])}')" aria-label="播放例句" title="播放例句">
+                    <button class="immersion-example-button ${isExamplePlaying ? "is-playing" : ""}" onclick="event.stopPropagation(); speak('${escapeQuote(item[4])}', SPEECH_RATE_NORMAL, { visualKey: '${exampleSpeechKey}' })" aria-label="播放例句" title="播放例句">
                       <img src="assets/immersion-example-play-figma.svg" alt="" aria-hidden="true">
                     </button>
-                    <button class="immersion-example-button" onclick="event.stopPropagation(); speak('${escapeQuote(item[4])}', 0.8)" aria-label="慢速播放例句" title="慢速播放例句">
+                    <button class="immersion-example-button ${isExamplePlaying ? "is-playing" : ""}" onclick="event.stopPropagation(); speak('${escapeQuote(item[4])}', 0.8, { visualKey: '${exampleSpeechKey}' })" aria-label="慢速播放例句" title="慢速播放例句">
                       <img src="assets/immersion-example-slow-figma.svg" alt="" aria-hidden="true">
                     </button>
                   </div>
@@ -12804,7 +13898,7 @@
                 ${item[5] ? `<div class="zh">${item[5]}</div>` : ""}
               </div>
             </article>
-            <button class="immersion-favorite ${favorite ? "active" : ""}" onclick="toggleFavorite('${id}')" aria-label="${favorite ? "取消收藏" : "收藏"}">
+            <button class="immersion-favorite ${favorite ? "active" : ""} ${favoritePulse ? "pulse" : ""}" onclick="toggleImmersionFavorite('${id}')" aria-label="${favorite ? "取消收藏" : "收藏"}">
               <img src="assets/${favorite ? "immersion-favorite-active-figma.svg" : "immersion-favorite-figma.svg"}" alt="" aria-hidden="true">
               <span>${favorite ? "已收藏" : "收藏"}</span>
             </button>
@@ -12816,7 +13910,7 @@
               <button class="immersion-control-button previous" onclick="previousStudyVocab()" aria-label="上一条" title="上一条" ${position <= 1 ? "disabled" : ""}>
                 <img src="assets/${position <= 1 ? "immersion-prev-figma.svg" : "immersion-prev-active-figma.svg"}" alt="" aria-hidden="true">
               </button>
-              <button class="immersion-master-button ${learned ? "is-mastered" : ""}" onclick="masterStudyVocab()" aria-pressed="${learned}" aria-label="${learned ? "取消掌握" : "标记掌握"}">
+              <button class="immersion-master-button ${learned ? "is-mastered" : ""} ${masterPulse ? "pulse" : ""}" onclick="masterStudyVocab()" aria-pressed="${learned}" aria-label="${learned ? "取消掌握" : "标记掌握"}">
                 <span>${learned ? "已掌握" : "标记掌握"}</span>
               </button>
               <button class="immersion-control-button next" onclick="skipStudyVocab()" aria-label="下一条" title="下一条">
@@ -13227,9 +14321,11 @@
     }
 
     function setChatMode(mode) {
+      if (state.chatMode === mode) return;
       state.chatMode = mode;
       state.chatFeedback = "";
       state.freeAnswer = "";
+      feedbackHaptic("sent");
       render();
     }
 
@@ -13291,6 +14387,7 @@
       if (!current) return;
       state.freeAnswer = current[1][current[2]];
       state.chatFeedback = { type: "good", text: "已填入标准回答。你可以先读一遍，再发送进入下一轮。" };
+      feedbackHaptic("sent");
       render();
     }
 
@@ -13357,11 +14454,13 @@
       const current = coreChatTurns(scene)[state.chatIndex];
       state.freeAnswer = current[1][current[2]];
       state.chatFeedback = { type: "good", text: "已填入标准回答。你可以先读一遍，再发送进入下一轮。" };
+      feedbackHaptic("sent");
       render();
     }
 
     function toggleChatZh() {
       state.showZh = !state.showZh;
+      feedbackHaptic("sent");
       render();
     }
 
@@ -13371,6 +14470,7 @@
       state.chatHistory = [];
       state.chatFeedback = "";
       state.freeAnswer = "";
+      feedbackHaptic("sent");
       render();
     }
 
@@ -13380,12 +14480,14 @@
       state.chatHistory = [];
       state.chatFeedback = "";
       state.freeAnswer = "";
+      feedbackHaptic("sent");
       render();
     }
 
     function setReviewTab(tab) {
       if (!["vocabulary", "phrase"].includes(tab) || state.reviewTab === tab) return;
       state.reviewTab = tab;
+      feedbackHaptic("sent");
       render();
     }
 
