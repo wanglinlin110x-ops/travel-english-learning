@@ -10397,6 +10397,49 @@
       width: min(100vw, var(--app-shell-width));
       transform: translateX(-50%);
     }
+
+    /* Stable full-screen shells for iOS PWA: avoid visualViewport height drift after route changes. */
+    html.home-active,
+    body.home-active,
+    html.learn-active,
+    body.learn-active {
+      width: 100%;
+      height: 100%;
+      min-height: 100%;
+      overflow: hidden;
+    }
+
+    body.home-active {
+      position: static;
+      inset: auto;
+    }
+
+    .app.home.has-tabbar,
+    .app.learn.has-tabbar,
+    .app.favorites.has-tabbar,
+    .app.vocabStudy {
+      position: fixed;
+      inset: 0;
+      width: min(100vw, var(--app-shell-width));
+      height: auto;
+      min-height: 0;
+      max-height: none;
+      margin: 0 auto;
+    }
+
+    .app.has-tabbar .bottom-nav.figma-bottom-nav,
+    .app.home.has-tabbar .bottom-nav.figma-bottom-nav,
+    .app.learn.has-tabbar .bottom-nav.figma-bottom-nav,
+    .app.favorites.has-tabbar .bottom-nav.figma-bottom-nav,
+    .app.vocabStudy .immersion-footer {
+      bottom: 0 !important;
+    }
+
+    .home-page.home-figma,
+    .learn-tab-page,
+    .review-shell {
+      height: 100%;
+    }
   </style>
 </head>
 <body>
@@ -13212,14 +13255,9 @@
     }
 
     function syncViewportMetrics() {
-      const viewport = window.visualViewport;
-      const height = Math.round(viewport?.height || window.innerHeight || document.documentElement.clientHeight || 0);
-      const layoutHeight = Math.round(window.innerHeight || height);
-      const offsetTop = Math.round(viewport?.offsetTop || 0);
-      const bottomOffset = Math.max(0, layoutHeight - height - offsetTop);
       const rootStyle = document.documentElement.style;
-      if (height > 0) rootStyle.setProperty("--runtime-viewport-height", `${height}px`);
-      rootStyle.setProperty("--runtime-visual-bottom-offset", `${bottomOffset}px`);
+      rootStyle.setProperty("--runtime-viewport-height", "100dvh");
+      rootStyle.setProperty("--runtime-visual-bottom-offset", "0px");
     }
 
     syncViewportMetrics();
