@@ -10285,14 +10285,25 @@
     }
 
     .app {
+      --app-viewport-height: var(--runtime-viewport-height, 100dvh);
+      --visual-bottom-offset: var(--runtime-visual-bottom-offset, 0px);
       --safe-top-capped: min(env(safe-area-inset-top), clamp(48px, 12.8cqw, 96px));
       --safe-bottom-capped: env(safe-area-inset-bottom);
+      --primary-tabbar-height: calc(clamp(68px, 18.133cqw, 136px) + env(safe-area-inset-bottom));
+    }
+
+    html.home-active,
+    body.home-active,
+    html.learn-active,
+    body.learn-active {
+      min-height: var(--app-viewport-height);
+      height: var(--app-viewport-height);
     }
 
     .app.home.has-tabbar,
     .home-page.home-figma {
-      min-height: 100dvh;
-      height: 100dvh;
+      min-height: var(--app-viewport-height);
+      height: var(--app-viewport-height);
     }
 
     .home-page.home-figma::before {
@@ -10307,7 +10318,7 @@
     }
 
     .home-figma-content {
-      bottom: calc(var(--home-nav-h) + var(--home-stack-gap) + max(0px, env(safe-area-inset-bottom)));
+      bottom: calc(var(--primary-tabbar-height) + var(--home-stack-gap) + var(--visual-bottom-offset));
     }
 
     .app.has-tabbar .bottom-nav.figma-bottom-nav,
@@ -10317,19 +10328,36 @@
       position: fixed;
       left: 50%;
       right: auto;
-      bottom: 0;
+      bottom: var(--visual-bottom-offset);
       transform: translateX(-50%);
       width: min(100vw, var(--app-shell-width));
-      height: calc(clamp(68px, 18.133cqw, 136px) + env(safe-area-inset-bottom));
-      min-height: calc(clamp(68px, 18.133cqw, 136px) + env(safe-area-inset-bottom));
+      height: var(--primary-tabbar-height);
+      min-height: var(--primary-tabbar-height);
       padding: clamp(10px, 2.667cqw, 20px) var(--figma-x) calc(clamp(10px, 2.667cqw, 20px) + env(safe-area-inset-bottom));
       background: #f2f3f5;
     }
 
     .app.learn::after,
     .app.favorites::after {
-      height: calc(clamp(68px, 18.133cqw, 136px) + env(safe-area-inset-bottom));
+      bottom: var(--visual-bottom-offset);
+      height: var(--primary-tabbar-height);
       background: #f2f3f5;
+    }
+
+    .app.learn,
+    .app.favorites,
+    .review-shell,
+    .app.vocabStudy {
+      height: var(--app-viewport-height);
+    }
+
+    .learn-tab-page {
+      height: calc(var(--app-viewport-height) - var(--safe-top-capped) - var(--figma-header-h));
+      padding-bottom: calc(var(--primary-tabbar-height) + var(--visual-bottom-offset));
+    }
+
+    .review-shell {
+      padding-bottom: calc(var(--primary-tabbar-height) + var(--visual-bottom-offset));
     }
 
     .app.scene .secondary-titlebar,
@@ -10356,6 +10384,18 @@
       height: calc(var(--safe-top-capped) + var(--immersion-header-h));
       min-height: calc(var(--safe-top-capped) + var(--immersion-header-h));
       padding: var(--safe-top-capped) var(--immersion-page-x) 0;
+    }
+
+    .app.vocabStudy .immersion-main {
+      padding-bottom: calc(var(--immersion-footer-button) + clamp(20px, 5.333cqw, 40px) + env(safe-area-inset-bottom) + var(--visual-bottom-offset));
+    }
+
+    .app.vocabStudy .immersion-footer {
+      position: fixed;
+      left: 50%;
+      bottom: var(--visual-bottom-offset);
+      width: min(100vw, var(--app-shell-width));
+      transform: translateX(-50%);
     }
   </style>
 </head>
@@ -13171,7 +13211,28 @@
       return turn?.[5]?.[choiceIndex] || chatTranslation(turn?.[1]?.[choiceIndex] || "");
     }
 
+    function syncViewportMetrics() {
+      const viewport = window.visualViewport;
+      const height = Math.round(viewport?.height || window.innerHeight || document.documentElement.clientHeight || 0);
+      const layoutHeight = Math.round(window.innerHeight || height);
+      const offsetTop = Math.round(viewport?.offsetTop || 0);
+      const bottomOffset = Math.max(0, layoutHeight - height - offsetTop);
+      const rootStyle = document.documentElement.style;
+      if (height > 0) rootStyle.setProperty("--runtime-viewport-height", `${height}px`);
+      rootStyle.setProperty("--runtime-visual-bottom-offset", `${bottomOffset}px`);
+    }
+
+    syncViewportMetrics();
+    window.addEventListener("resize", syncViewportMetrics, { passive: true });
+    window.addEventListener("orientationchange", () => window.setTimeout(syncViewportMetrics, 80), { passive: true });
+    document.addEventListener("visibilitychange", syncViewportMetrics);
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener("resize", syncViewportMetrics, { passive: true });
+      window.visualViewport.addEventListener("scroll", syncViewportMetrics, { passive: true });
+    }
+
     function render() {
+      syncViewportMetrics();
       const isHome = state.view === "home";
       const isLearn = state.view === "learn";
       document.documentElement.classList.toggle("home-active", isHome);
