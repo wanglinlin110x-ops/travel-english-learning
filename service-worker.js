@@ -1,4 +1,4 @@
-const CACHE_VERSION = "travel-english-v47";
+const CACHE_VERSION = "travel-english-v48";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -10,14 +10,14 @@ const APP_SHELL = [
   "./assets/nav-home-figma.png",
   "./assets/nav-learn-figma.png",
   "./assets/nav-review-figma.png",
-  "./assets/learn-scene-airport.png",
-  "./assets/learn-scene-transport.png",
-  "./assets/learn-scene-hotel.png",
-  "./assets/learn-scene-restaurant.png",
-  "./assets/learn-scene-shopping.png",
-  "./assets/learn-practice-listening.png",
-  "./assets/learn-practice-speaking.png",
-  "./assets/learn-practice-chat.png",
+  "./assets/learn-scene-airport.png?v48",
+  "./assets/learn-scene-transport.png?v48",
+  "./assets/learn-scene-hotel.png?v48",
+  "./assets/learn-scene-restaurant.png?v48",
+  "./assets/learn-scene-shopping.png?v48",
+  "./assets/learn-practice-listening.png?v48",
+  "./assets/learn-practice-speaking.png?v48",
+  "./assets/learn-practice-chat.png?v48",
   "./assets/review-play-figma.svg",
   "./assets/review-slow-figma.svg",
   "./assets/review-wrongbook-figma.png",
@@ -92,12 +92,16 @@ self.addEventListener("fetch", event => {
   }
 
   event.respondWith(
-    caches.match(request).then(cached => cached || fetch(request).then(response => {
-      if (response.ok) {
-        const copy = response.clone();
-        caches.open(CACHE_VERSION).then(cache => cache.put(request, copy));
-      }
-      return response;
-    }))
+    caches.match(request).then(cached => (
+      cached || caches.match(request, { ignoreSearch: true }).then(searchlessCached => (
+        searchlessCached || fetch(request).then(response => {
+          if (response.ok) {
+            const copy = response.clone();
+            caches.open(CACHE_VERSION).then(cache => cache.put(request, copy));
+          }
+          return response;
+        })
+      ))
+    ))
   );
 });

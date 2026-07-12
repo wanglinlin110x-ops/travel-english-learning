@@ -12866,10 +12866,12 @@
       return `<img class="${className}" src="assets/${name}" alt="${alt}" aria-hidden="${alt ? "false" : "true"}">`;
     }
 
+    const LEARN_ICON_VERSION = "v48";
+
     function learnImageSticker(fileName, variant) {
       return `
         <span class="learn-icon-placeholder ${variant}" aria-hidden="true">
-          <img class="learn-figma-icon" src="assets/${fileName}" alt="" loading="eager" decoding="async">
+          <img class="learn-figma-icon" src="assets/${fileName}?${LEARN_ICON_VERSION}" alt="" loading="eager" decoding="async">
         </span>
       `;
     }
@@ -14487,10 +14489,18 @@
     }
 
     if ("serviceWorker" in navigator && location.protocol !== "file:" && !isLocalPreview) {
+      let swReloaded = false;
+      navigator.serviceWorker.addEventListener("controllerchange", () => {
+        if (swReloaded) return;
+        swReloaded = true;
+        window.location.reload();
+      });
       window.addEventListener("load", () => {
-        navigator.serviceWorker.register("./service-worker.js").catch(error => {
-          console.warn("离线服务注册失败：", error);
-        });
+        navigator.serviceWorker.register("./service-worker.js")
+          .then(registration => registration.update?.())
+          .catch(error => {
+            console.warn("离线服务注册失败：", error);
+          });
       });
     }
   </script>
