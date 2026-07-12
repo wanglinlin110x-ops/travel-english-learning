@@ -1,4 +1,4 @@
-const CACHE_VERSION = "travel-english-v49";
+const CACHE_VERSION = "travel-english-v50";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -34,10 +34,10 @@ const APP_SHELL = [
   "./assets/immersion-prev-active-figma.svg",
   "./assets/immersion-next-figma.svg",
   "./assets/immersion-next-muted-figma.svg",
-  "./assets/icons/icon-192.png?v49",
-  "./assets/icons/icon-512.png?v49",
-  "./assets/icons/icon-maskable-512.png?v49",
-  "./assets/icons/apple-touch-icon.png?v49"
+  "./assets/icons/icon-v50-192.png",
+  "./assets/icons/icon-v50-512.png",
+  "./assets/icons/icon-maskable-v50-512.png",
+  "./assets/icons/apple-touch-icon-v50.png"
 ];
 
 self.addEventListener("install", event => {
