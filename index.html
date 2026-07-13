@@ -10279,6 +10279,144 @@
       object-fit: contain;
     }
 
+    /*
+      iPhone standalone PWA viewport contract:
+      - The app shell owns the full visual viewport.
+      - Safe areas are handled inside headers / bottom controls only.
+      - Bottom controls sit at the shell bottom; Home Indicator space is internal padding.
+    */
+    :root {
+      --pwa-viewport-h: 100dvh;
+      --pwa-safe-bottom: env(safe-area-inset-bottom, 0px);
+      --pwa-safe-top: env(safe-area-inset-top, 0px);
+      --pwa-tabbar-core-h: clamp(68px, 18.133cqw, 136px);
+      --pwa-tabbar-h: calc(var(--pwa-tabbar-core-h) + var(--pwa-safe-bottom));
+      --pwa-tabbar-pad-y: clamp(10px, 2.667cqw, 20px);
+    }
+
+    html,
+    body {
+      width: 100%;
+      min-height: 100%;
+    }
+
+    body:not(.home-active) .app {
+      padding-top: 0 !important;
+    }
+
+    html.home-active,
+    body.home-active,
+    html.learn-active,
+    body.learn-active {
+      height: var(--pwa-viewport-h) !important;
+      min-height: var(--pwa-viewport-h) !important;
+      overflow: hidden !important;
+    }
+
+    body.home-active,
+    body.learn-active {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+    }
+
+    .app.home.has-tabbar,
+    .app.learn.has-tabbar,
+    .app.favorites.has-tabbar,
+    .app.vocabStudy {
+      position: fixed !important;
+      inset: 0 !important;
+      width: min(100vw, var(--app-shell-width)) !important;
+      height: var(--pwa-viewport-h) !important;
+      min-height: var(--pwa-viewport-h) !important;
+      max-height: var(--pwa-viewport-h) !important;
+      margin: 0 auto !important;
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+      overflow: hidden !important;
+    }
+
+    .home-page.home-figma,
+    .learn-tab-page,
+    .review-shell {
+      height: 100% !important;
+      min-height: 0 !important;
+    }
+
+    .home-page.home-figma::before {
+      top: 0 !important;
+      height: 100% !important;
+      background-position: center top !important;
+      background-size: cover !important;
+    }
+
+    .home-figma-content {
+      bottom: calc(var(--pwa-tabbar-h) + var(--home-stack-gap)) !important;
+    }
+
+    .app.has-tabbar .bottom-nav.figma-bottom-nav,
+    .app.home.has-tabbar .bottom-nav.figma-bottom-nav,
+    .app.learn.has-tabbar .bottom-nav.figma-bottom-nav,
+    .app.favorites.has-tabbar .bottom-nav.figma-bottom-nav {
+      position: absolute !important;
+      left: 0 !important;
+      right: 0 !important;
+      bottom: 0 !important;
+      transform: none !important;
+      width: 100% !important;
+      height: var(--pwa-tabbar-h) !important;
+      min-height: var(--pwa-tabbar-h) !important;
+      padding: var(--pwa-tabbar-pad-y) var(--figma-x) calc(var(--pwa-tabbar-pad-y) + var(--pwa-safe-bottom)) !important;
+      background: #f2f3f5 !important;
+    }
+
+    .app.learn::after,
+    .app.favorites::after {
+      position: absolute !important;
+      left: 0 !important;
+      right: 0 !important;
+      bottom: 0 !important;
+      width: 100% !important;
+      height: var(--pwa-tabbar-h) !important;
+      transform: none !important;
+      background: #f2f3f5 !important;
+    }
+
+    .learn-tab-page,
+    .review-shell {
+      padding-bottom: var(--pwa-tabbar-h) !important;
+    }
+
+    .app.scene,
+    .app.vocabDetail,
+    .app.globalChat,
+    .app.wrongBook {
+      min-height: var(--pwa-viewport-h) !important;
+      padding-top: 0 !important;
+    }
+
+    .app.scene .secondary-titlebar,
+    .app.vocabDetail .secondary-titlebar,
+    .app.globalChat .secondary-titlebar,
+    .app.wrongBook .secondary-titlebar {
+      top: 0 !important;
+    }
+
+    .app.vocabStudy .immersion-footer {
+      position: absolute !important;
+      left: 0 !important;
+      right: 0 !important;
+      bottom: 0 !important;
+      width: 100% !important;
+      height: calc(var(--immersion-footer-button) + clamp(20px, 5.333cqw, 40px) + var(--pwa-safe-bottom)) !important;
+      padding: clamp(10px, 2.667cqw, 20px) var(--immersion-page-x) calc(clamp(10px, 2.667cqw, 20px) + var(--pwa-safe-bottom)) !important;
+      transform: none !important;
+    }
+
+    .app.vocabStudy .immersion-main {
+      padding-bottom: calc(var(--immersion-footer-button) + clamp(20px, 5.333cqw, 40px) + var(--pwa-safe-bottom)) !important;
+    }
+
   </style>
 </head>
 <body>
