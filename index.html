@@ -10288,7 +10288,7 @@
     :root {
       --pwa-safe-bottom: env(safe-area-inset-bottom, 0px);
       --pwa-safe-top: env(safe-area-inset-top, 0px);
-      --pwa-viewport-h: calc(100dvh + var(--pwa-safe-bottom));
+      --pwa-viewport-h: 100dvh;
       --pwa-tabbar-core-h: clamp(68px, 18.133cqw, 136px);
       --pwa-tabbar-h: calc(var(--pwa-tabbar-core-h) + var(--pwa-safe-bottom));
       --pwa-tabbar-pad-y: clamp(10px, 2.667cqw, 20px);
@@ -10325,10 +10325,7 @@
     .app.favorites.has-tabbar,
     .app.vocabStudy {
       position: fixed !important;
-      top: 0 !important;
-      right: 0 !important;
-      bottom: auto !important;
-      left: 0 !important;
+      inset: 0 !important;
       width: min(100vw, var(--app-shell-width)) !important;
       height: var(--pwa-viewport-h) !important;
       min-height: var(--pwa-viewport-h) !important;
@@ -10361,12 +10358,12 @@
     .app.home.has-tabbar .bottom-nav.figma-bottom-nav,
     .app.learn.has-tabbar .bottom-nav.figma-bottom-nav,
     .app.favorites.has-tabbar .bottom-nav.figma-bottom-nav {
-      position: absolute !important;
-      left: 0 !important;
-      right: 0 !important;
+      position: fixed !important;
+      left: 50% !important;
+      right: auto !important;
       bottom: 0 !important;
-      transform: none !important;
-      width: 100% !important;
+      transform: translateX(-50%) !important;
+      width: min(100vw, var(--app-shell-width)) !important;
       height: var(--pwa-tabbar-h) !important;
       min-height: var(--pwa-tabbar-h) !important;
       padding: var(--pwa-tabbar-pad-y) var(--figma-x) calc(var(--pwa-tabbar-pad-y) + var(--pwa-safe-bottom)) !important;
@@ -10375,13 +10372,13 @@
 
     .app.learn::after,
     .app.favorites::after {
-      position: absolute !important;
-      left: 0 !important;
-      right: 0 !important;
+      position: fixed !important;
+      left: 50% !important;
+      right: auto !important;
       bottom: 0 !important;
-      width: 100% !important;
+      width: min(100vw, var(--app-shell-width)) !important;
       height: var(--pwa-tabbar-h) !important;
-      transform: none !important;
+      transform: translateX(-50%) !important;
       background: #f2f3f5 !important;
     }
 
@@ -10406,14 +10403,14 @@
     }
 
     .app.vocabStudy .immersion-footer {
-      position: absolute !important;
-      left: 0 !important;
-      right: 0 !important;
+      position: fixed !important;
+      left: 50% !important;
+      right: auto !important;
       bottom: 0 !important;
-      width: 100% !important;
+      width: min(100vw, var(--app-shell-width)) !important;
       height: calc(var(--immersion-footer-button) + clamp(20px, 5.333cqw, 40px) + var(--pwa-safe-bottom)) !important;
       padding: clamp(10px, 2.667cqw, 20px) var(--immersion-page-x) calc(clamp(10px, 2.667cqw, 20px) + var(--pwa-safe-bottom)) !important;
-      transform: none !important;
+      transform: translateX(-50%) !important;
     }
 
     .app.vocabStudy .immersion-main {
@@ -12676,7 +12673,7 @@
       recognition.interimResults = false;
       recognition.maxAlternatives = 3;
       state.speechFeedback[feedbackId] = { type: "", text: "正在听你说，请读出上面的英文。" };
-      render();
+      renderPreservingScroll();
 
       recognition.onresult = event => {
         state.activeRecognitionId = "";
@@ -12697,7 +12694,7 @@
           type: good ? "good" : "warn",
           text: `可识别度 ${assessment.score} 分：${levelText}。识别结果：${transcript}。${missingHint}本结果不代表口音或音素专业评分。`
         };
-        render();
+        renderPreservingScroll();
         triggerFeedback(good ? "correct" : "wrong", good ? "发音清晰" : "再慢一点");
       };
 
@@ -12714,7 +12711,7 @@
           type: "warn",
           text: errorText
         };
-        render();
+        renderPreservingScroll();
       };
 
       try {
@@ -12725,7 +12722,7 @@
           type: "warn",
           text: "发音检测没有启动成功。可以刷新页面后再试，或先用手动按钮记录练习。"
         };
-        render();
+        renderPreservingScroll();
       }
     }
 
@@ -12733,6 +12730,45 @@
       const feedback = state.speechFeedback[id];
       if (!feedback) return "";
       return `<div class="speech-result ${feedback.type}" role="status" aria-live="polite">${escapeHtml(feedback.text)}</div>`;
+    }
+
+    function captureScrollState() {
+      const selectors = [
+        "#app",
+        ".secondary-content",
+        ".review-favorites-panel",
+        ".learn-tab-page",
+        ".immersion-main"
+      ];
+      return {
+        windowX: window.scrollX || 0,
+        windowY: window.scrollY || 0,
+        nodes: selectors.map(selector => {
+          const element = document.querySelector(selector);
+          return element
+            ? { selector, top: element.scrollTop || 0, left: element.scrollLeft || 0 }
+            : null;
+        }).filter(Boolean)
+      };
+    }
+
+    function restoreScrollState(snapshot) {
+      if (!snapshot) return;
+      requestAnimationFrame(() => {
+        snapshot.nodes.forEach(({ selector, top, left }) => {
+          const element = document.querySelector(selector);
+          if (!element) return;
+          element.scrollTop = top;
+          element.scrollLeft = left;
+        });
+        window.scrollTo(snapshot.windowX, snapshot.windowY);
+      });
+    }
+
+    function renderPreservingScroll() {
+      const snapshot = captureScrollState();
+      render();
+      restoreScrollState(snapshot);
     }
 
     function toggleFavorite(id) {
@@ -12744,7 +12780,7 @@
       }
       touchProgressItem(id);
       saveProgress();
-      render();
+      renderPreservingScroll();
     }
 
     function addUnique(key, id) {
@@ -12838,7 +12874,7 @@
       const id = vocabId(scene, index);
       const wasLearned = state.progress.learnedVocabIds.includes(id);
       toggleProgressItem("learnedVocabIds", id);
-      render();
+      renderPreservingScroll();
       if (!wasLearned) {
         triggerFeedback(moduleCompleted(scene, "vocabulary") ? "complete" : "mastered", moduleProgress(scene) === 100 ? `${scene.title}已准备` : moduleCompleted(scene, "vocabulary") ? "词汇模块完成" : "已掌握");
       }
@@ -12979,7 +13015,7 @@
       } else {
         state.expandedVocabIds = [...state.expandedVocabIds, id];
       }
-      render();
+      renderPreservingScroll();
     }
 
     function markPhraseLearned(sceneId, index) {
@@ -12987,7 +13023,7 @@
       const id = phraseId(scene, index);
       const wasLearned = state.progress.learnedPhraseIds.includes(id);
       toggleProgressItem("learnedPhraseIds", id);
-      render();
+      renderPreservingScroll();
       if (!wasLearned) {
         triggerFeedback(moduleCompleted(scene, "phrases") ? "complete" : "mastered", moduleProgress(scene) === 100 ? `${scene.title}已准备` : moduleCompleted(scene, "phrases") ? "短句模块完成" : "已掌握");
       }
@@ -12998,7 +13034,7 @@
       const id = phraseId(scene, index);
       const wasSpoken = state.progress.spokenPhraseIds.includes(id);
       toggleProgressItem("spokenPhraseIds", id);
-      render();
+      renderPreservingScroll();
       if (!wasSpoken) {
         triggerFeedback(moduleCompleted(scene, "speaking") ? "complete" : "correct", moduleProgress(scene) === 100 ? `${scene.title}已准备` : moduleCompleted(scene, "speaking") ? "跟读模块完成" : "跟读完成");
       }
